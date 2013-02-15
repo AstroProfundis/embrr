@@ -256,7 +256,7 @@ class TwitterOAuth {
 	}
 
 	function unblockUser($id){
-		$url = "/blocks/blocks/destroy.json";
+		$url = "/blocks/destroy.json";
 		$args = array();
 		$args['user_id'] = $id;
 		return $this->delete($url, $args);
