@@ -29,8 +29,9 @@
 				if (trim($_POST['list_name']) == '') {
 						echo "<div id=\"otherTip\">修改推群失败，推群名不能为空</div>";
 				} else {
+					$listId = $_POST['member_list_name'];
 					$isProtect = isset($_POST['list_protect']) ? true : false;
-					$result = $t->editList($_POST['pre_list_name'], $_POST['list_name'], $_POST['list_description'], $isProtect);
+					$result = $t->editList($listId, $_POST['list_name'], $_POST['list_description'], $isProtect);
 					if ($result) {
 						echo "<div id=\"otherTip\">修改推群成功</div>";
 					} else {
