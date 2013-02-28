@@ -264,19 +264,19 @@ class TwitterOAuth {
 
 	/* ---------- Messages ---------- */
 	function deleteDirectMessage($id){
-		$url = "/direct_messages/destroy";
+		$url = "/direct_messages/destroy.json";
 		$args = array();
 		$args['id'] = $id;
 		return $this->delete($url, $args);
 	}
 
-	function directMessages($page = false, $since_id = false, $count = null, $include_entities = true){ // this func is not 100% compatible with v1.1
+	function directMessages($page = false, $since_id = false, $count = 20, $include_entities = true){ // this func is not 100% compatible with v1.1
 		$url = '/direct_messages.json';
 		$args = array();
 		if( $since_id )
 			$args['since_id'] = $since_id;
-		if( $page )
-			$args['page'] = $page;
+		if( $count )
+			$args['count'] = $count;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
@@ -294,8 +294,6 @@ class TwitterOAuth {
 	function sentDirectMessage($page = false, $since = false, $since_id = false){
 		$url = '/direct_messages/sent.json';
 		$args = array();
-		if($since)
-			$args['since'] = $since;
 		if($since_id)
 			$args['since_id'] = $since_id;
 		if($page)
