@@ -11,7 +11,8 @@
 <div id="statuses">
 	<?php 
 		$t = getTwitter();
-		$t->type = 'xml';
+		$t->type = 'json';
+		$id = isset($_GET['id'])? $_GET['id'] : false;
 		if ( isset($_POST['list_name']) ) {
 			if ($_POST['is_edit'] == 0) {
 				if (trim($_POST['list_name']) == '') {
@@ -51,7 +52,7 @@
 				$failList = '';
 				
 				foreach ($memberList as $member) {
-					$result = $t->addListMember($listId, $member);
+					$result = $t->addListMember($listId, $id, $member);
 					if (!isset($result->error) && isset($result->user)) $count ++;
 					else $failList .= $member . " ";
 				}
@@ -76,7 +77,7 @@
 			$id = $t->username;
 		}
 		$type = isset($_GET['t'])? $_GET['t'] : 1;
-		$c = isset($_GET['c'])? $_GET['c'] : -1;
+		$c = isset($_GET['c'])? $_GET['c'] : -1;   // cursor
 		switch ($type) {
 			case 0:
 				$lists = $t->followedLists($id, $c);

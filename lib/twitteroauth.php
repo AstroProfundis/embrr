@@ -294,23 +294,24 @@ class TwitterOAuth {
 	}
 
 	/* ---------- List ---------- */
-	function addListMember($listid, $memberid){
+	function addListMember($listid, $id, $memberid){
 		$url = "/lists/members/create";
 		$args = array();
 		if($listid)
-			$args['list_id'] = $listid;
+			$args['slug'] = $listid;
+		if($id)
+			$args['owner_screen_name'] = $id;
 		if($memberid){
-			$args['user_id'] = $memberid;
-			//$args['screen_name'] = $memberid;
+			$args['screen_name'] = $memberid;
 		}
 		return $this->post($url, $args);
 	}
 
 	function beAddedLists($username = '', $cursor = false){
-		$url = "/lists/memberships.json";
+		$url = "/lists/memberships";
 		$args = array();
 		if($username)
-			$args['user_id'] = $username;
+			$args['screen_name'] = $username;
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -318,7 +319,7 @@ class TwitterOAuth {
 	}
 
 	function createList($name, $description, $isPortect){
-		$url = "/lists/create.json";
+		$url = "/lists/create";
 		$args = array();
 		if($name){
 			$args['name'] = $name;
@@ -332,11 +333,11 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function createdLists($username = '', $cursor = false){
-		$url = "/lists/list.json";
+	function createdLists($username = '', $cursor = false){ // this api had been removed from v1.1
+		$url = "/lists/memberships";
 		$args = array();
 		if($username)
-			$args['user_id'] = $username;
+			$args['screen_name'] = $username;
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -360,11 +361,13 @@ class TwitterOAuth {
 		return $this->delete($url, $args);
 	}
 
-	function editList($id, $name, $description, $isProtect){
-		//$url = "/$this->username/lists/$prename";
-		$url = "/lists/update.json";
+	function editList($prename, $name, $description, $isProtect){
+		$url = "/lists/update";
 		$args = array();
-		$args['list_id'] = $id;
+		if($prename){
+			$args['slug'] = $prename;
+			$args['owner_screen_name'] = $this->username;
+		}
 		if($name){
 			$args['name'] = $name;
 		}
@@ -378,10 +381,10 @@ class TwitterOAuth {
 	}
 
 	function followedLists($username = '', $cursor = false){
-		$url = "/lists/subscriptions.json";
+		$url = "/lists/subscriptions";
 		$args = array();
 		if($username)
-			$args['user_id'] = $username;
+			$args['screen_name'] = $username;
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
