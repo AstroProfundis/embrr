@@ -13,13 +13,11 @@
 
 <?php 
 	$t = getTwitter();
-	$p = 1;
-	if (isset($_GET['p'])) {
-		$p = (int) $_GET['p'];
-		if ($p <= 0) $p = 1;
-	}
+	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : false;
+	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 
-	$statuses = $t->getFavorites($p);
+	$statuses = $t->getFavorites($user_id, $since_id);
 	if ($statuses === false) {
 		header('location: error.php');exit();
 	} 

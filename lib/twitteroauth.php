@@ -693,25 +693,24 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function getFavorites($page = false,$userid=false,$include_entities = true){
-		if($userid == false){
-			$url = '/favorites';
-		}
-		else{
-			$url = '/favorites/'.$userid;
-		}
-		
+	function getFavorites($userid = false,$sinceid = false,$include_entities = true){
+		$url = '/favorites/list';
 		$args = array();
-		if($page)
-			$args['page'] = $page;
+		if($userid)
+			$args['user_id'] = $userid;
+		if($sinceid)
+			$args['since_id'] = $sinceid;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 
 	function makeFavorite($id){
-		$url = "/favorites/create/$id";
-		return $this->post($url);
+		$url = "/favorites/create";
+		$args = array();
+		if($id)
+			$args['id'] = $id;
+		return $this->post($url, $args);
 	}
 
 	function publicTimeline($sinceid = false,$include_entities = true){
@@ -726,8 +725,11 @@ class TwitterOAuth {
 	}
 
 	function removeFavorite($id){
-		$url = "/favorites/destroy/$id";
-		return $this->post($url);
+		$url = "/favorites/destroy";
+		$args = array();
+		if($id)
+			$args['id'] = $id;
+		return $this->post($url, $args);
 	}
 
 	function replies($page = false, $since_id = false,$include_entities = true){
