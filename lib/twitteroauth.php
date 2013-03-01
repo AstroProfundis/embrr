@@ -230,35 +230,30 @@ class TwitterOAuth {
 	/*                                   */
 	/* ---------- Block ---------- */
 	function blockingIDs(){
-		$url = '/blocks/ids.json';
-		return $this->get($url);
+		$url = '/blocks/ids';
+		$args = array();
+		$args['cursor'] = $page ? $page : -1;
+		return $this->get($url, $args);
 	}
 
 	function blockingList($page){
-		$url = '/blocks/list.json';
+		$url = '/blocks/list';
 		$args = array();
-		if($page){
-			$args['cursor'] = $page;
-		}
+		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
 
 	function blockUser($id){
-		$url = "/blocks/create.json";
+		$url = "/blocks/create";
 		$args = array();
-		$args['user_id'] = $id;
+		$args['screen_name'] = $id;
 		return $this->post($url, $args);
 	}
 
-	function isBlocked($id){
-		$url = "/blocks/exists/$id"; // this api not available in v1.1
-		return $this->get($url);
-	}
-
 	function unblockUser($id){
-		$url = "/blocks/destroy.json";
+		$url = "/blocks/destroy";
 		$args = array();
-		$args['user_id'] = $id;
+		$args['screen_name'] = $id;
 		return $this->delete($url, $args);
 	}
 
