@@ -230,35 +230,30 @@ class TwitterOAuth {
 	/*                                   */
 	/* ---------- Block ---------- */
 	function blockingIDs(){
-		$url = '/blocks/ids.json';
-		return $this->get($url);
+		$url = '/blocks/ids';
+		$args = array();
+		$args['cursor'] = $page ? $page : -1;
+		return $this->get($url, $args);
 	}
 
 	function blockingList($page){
-		$url = '/blocks/list.json';
+		$url = '/blocks/list';
 		$args = array();
-		if($page){
-			$args['cursor'] = $page;
-		}
+		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
 
 	function blockUser($id){
-		$url = "/blocks/create.json";
+		$url = "/blocks/create";
 		$args = array();
-		$args['user_id'] = $id;
+		$args['screen_name'] = $id;
 		return $this->post($url, $args);
 	}
 
-	function isBlocked($id){
-		$url = "/blocks/exists/$id"; // this api not available in v1.1
-		return $this->get($url);
-	}
-
 	function unblockUser($id){
-		$url = "/blocks/destroy.json";
+		$url = "/blocks/destroy";
 		$args = array();
-		$args['user_id'] = $id;
+		$args['screen_name'] = $id;
 		return $this->delete($url, $args);
 	}
 
@@ -267,14 +262,16 @@ class TwitterOAuth {
 		$url = "/direct_messages/destroy.json";
 		$args = array();
 		$args['id'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
-	function directMessages($page = false, $since_id = false, $count = 20, $include_entities = true){ // this func is not 100% compatible with v1.1
-		$url = '/direct_messages.json';
+	function directMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
+		$url = '/direct_messages';
 		$args = array();
 		if( $since_id )
 			$args['since_id'] = $since_id;
+		if( $max_id )
+			$args['max_id'] = $max_id;
 		if( $count )
 			$args['count'] = $count;
 		if($include_entities)
@@ -282,22 +279,17 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function sendDirectMessage($user, $text){
-		$url = '/direct_messages/new.json';
-		$args = array();
-		$args['user_id'] = $user;
-		if($text)
-			$args['text'] = $text;
-		return $this->post($url, $args);
-	}
-
-	function sentDirectMessage($page = false, $since = false, $since_id = false){
-		$url = '/direct_messages/sent.json';
+	function sentDirectMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
+		$url = '/direct_messages/sent';
 		$args = array();
 		if($since_id)
 			$args['since_id'] = $since_id;
-		if($page)
-			$args['page'] = $page;
+		if( $max_id )
+			$args['max_id'] = $max_id;
+		if( $count )
+			$args['count'] = $count;
+		if($include_entities)
+			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 

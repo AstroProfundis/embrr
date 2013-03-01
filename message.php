@@ -31,16 +31,13 @@
 
 	<?php 
 		$t = getTwitter();
-		$p = 1;
-		if (isset($_GET['p'])) {
-			$p = (int) $_GET['p'];
-			if ($p <= 0) $p = 1;
-		}
+                $since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+                $max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 	
 		if ($isSentPage) {
-			$messages = $t->sentDirectMessage($p);
+			$messages = $t->sentDirectMessages($since_id, $max_id);
 		} else {
-			$messages = $t->directMessages($p);
+			$messages = $t->directMessages($since_id, $max_id);
 		}
 		if ($messages === false) {
 			header('location: error.php');exit();
@@ -58,13 +55,14 @@
 			
 			$output .= "</ol><div id=\"pagination\">";
 			
-			
+			$firstmsg = $messages[0]->id + 1;
+			$lastmsg = $messages[count($messages)-1]->id - 1;
 			if ($isSentPage) {
-				if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"message.php?t=sent&p=" . ($p-1) . "\">Back</a>";
-				if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?t=sent&p=" . ($p+1) . "\">Next</a>";
+				$output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"message.php?t=sent&since_id=" . $firstmsg . "\">Back</a>";
+				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?t=sent&max_id=" . $lastmsg . "\">Next</a>";
 			} else {
-				if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"message.php?p=" . ($p-1) . "\">Back</a>";
-				if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?p=" . ($p+1) . "\">Next</a>";
+				$output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"message.php?since_id=" . $firstmsg ."\">Back</a>";
+				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?max_id=" . $lastmsg ."\">Next</a>";
 			}
 			
 			$output .= "</div>";	
