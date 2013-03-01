@@ -295,7 +295,7 @@ class TwitterOAuth {
 
 	/* ---------- List ---------- */
 	function addListMember($listid, $memberid){
-		$url = "/lists/members/create.json";
+		$url = "/lists/members/create";
 		$args = array();
 		if($listid)
 			$args['list_id'] = $listid;
@@ -419,8 +419,11 @@ class TwitterOAuth {
 
 	function listInfo($id){
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]";
-		return $this->get($url);
+		$url = "/lists/show";
+		$args = array();
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
+		return $this->get($url, $args);
 	}
 
 	function listMembers($id, $cursor = false){
@@ -434,13 +437,12 @@ class TwitterOAuth {
 
 	}
 
-	function listStatus($id, $page = false, $since_id = false,$include_rts = true, $include_entities = true){
+	function listStatus($id, $since_id = false, $include_rts = true, $include_entities = true){
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]/statuses";
+		$url = "/lists/statuses";
 		$args = array();
-		if($page){
-			$args['page'] = $page;
-		}
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($since_id){
 			$args['since_id'] = $since_id;
 		}
