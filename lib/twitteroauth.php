@@ -262,39 +262,34 @@ class TwitterOAuth {
 		$url = "/direct_messages/destroy";
 		$args = array();
 		$args['id'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
-	function directMessages($page = false, $since_id = false, $count = null, $include_entities = true){ // this func is not 100% compatible with v1.1
-		$url = '/direct_messages.json';
+	function directMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
+		$url = '/direct_messages';
 		$args = array();
 		if( $since_id )
 			$args['since_id'] = $since_id;
-		if( $page )
-			$args['page'] = $page;
+		if( $max_id )
+			$args['max_id'] = $max_id;
+		if( $count )
+			$args['count'] = $count;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 
-	function sendDirectMessage($user, $text){
-		$url = '/direct_messages/new.json';
+	function sentDirectMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
+		$url = '/direct_messages/sent';
 		$args = array();
-		$args['user_id'] = $user;
-		if($text)
-			$args['text'] = $text;
-		return $this->post($url, $args);
-	}
-
-	function sentDirectMessage($page = false, $since = false, $since_id = false){
-		$url = '/direct_messages/sent.json';
-		$args = array();
-		if($since)
-			$args['since'] = $since;
 		if($since_id)
 			$args['since_id'] = $since_id;
-		if($page)
-			$args['page'] = $page;
+		if( $max_id )
+			$args['max_id'] = $max_id;
+		if( $count )
+			$args['count'] = $count;
+		if($include_entities)
+			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 
