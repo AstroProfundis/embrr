@@ -87,7 +87,6 @@
 				break;
 			case 1:
 				$lists = $t->allLists($id);
-				$lists = $lists->lists; 
 				break;
 			case 2:
 				$lists = $t->beAddedLists($id, $c);
