@@ -405,7 +405,7 @@ class TwitterOAuth {
 		$arr = explode('/', $id);
 		$args = array();
 		$args['owner_screen_name'] = $arr[0];
-		$args['slug'] = $$arr[1];
+		$args['slug'] = $arr[1];
 		$args['screen_name'] = $this->username;
 		return $this->get($url, $args);
 	}
