@@ -7,7 +7,7 @@
 	$t = getTwitter();
 	if ( isset($_GET['since_id']) ) {
 
-		$messages = $t->directMessages(false, $_GET['since_id']);
+		$messages = $t->directMessages($_GET['since_id']);
 		$count = count($messages);
 		if ($count == 0) {
 			echo "empty";
