@@ -506,15 +506,13 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function showUser($id = false, $email = false, $user_id = false, $screen_name = false,$include_entities = true){
+	function showUser($screen_name = false, $user_id = false, $include_entities = true){
 		$url = '/users/show';
 		$args = array();
-		if($id)
-			$args['user_id'] = $id;
-		elseif($screen_name)
+		if($screen_name)
 			$args['screen_name'] = $screen_name;
 		else
-			$args['user_id'] = $this->user_id;
+			$args['user_id'] = $user_id ? $user_id : $this->user_id;
 
 		return $this->get($url, $args);
 	}
