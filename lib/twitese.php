@@ -226,12 +226,8 @@
 	   return false;
    }
 
-	function GetListed($t, $cursor = false){
-		$lists = $t->beAddedLists($t->username, $cursor);
-		$listed = count($lists->lists);
-		if($lists->next_cursor > 1){
-			$listed += GetListed($t, $lists->next_cursor);
-		}
+	function GetListed($t){
+		$listed = $t->veverify(true)->listed_count;
 		return	$listed;
 	}
 
