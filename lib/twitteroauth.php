@@ -477,12 +477,12 @@ class TwitterOAuth {
 		return $this->delete($url, $args);
 	}
 
-	function followers($id = false, $page = false, $count = 30){
+	function followers($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET followers/list instead
 		$url = '/followers/list';
+		$args = array();
 		if( $id )
 			$args['screen_name'] = $id;
-		if( $count )
-			$args['count'] = (int) $count;
+		$args['skip_status'] = $skip_status;
 		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
@@ -496,7 +496,7 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function friends($id = false, $page = false, $skip_status = fase){ // GET statuses/friends is removed, try GET friends/list instead
+	function friends($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET friends/list instead
 		$url = '/friends/list';
 		$args = array();
 		if( $id )

@@ -106,14 +106,14 @@
 			$userlist = $t->friends($id, $p);
 			$next_page = $userlist->next_cursor;
 			$previous_page = $userlist->previous_cursor;
-			$userlist = $userlist->users->user;
+			$userlist = $userlist->users;
 			break;
 		case 'followers':
 			$t->type = 'json';
 			$userlist = $t->followers($id, $p);
 			$next_page = $userlist->next_cursor;
 			$previous_page = $userlist->previous_cursor;
-			$userlist = $userlist->users->user;
+			$userlist = $userlist->users;
 			break;
 		case 'list_members':
 			$t->type = 'json';
