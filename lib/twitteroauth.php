@@ -307,14 +307,11 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function createdLists($username = '', $cursor = false){ // this api had been removed from v1.1
-		$url = "/lists/memberships";
+	function allLists($username = ''){ // api for created lists had been removed from v1.1
+		$url = "/lists/list";
 		$args = array();
 		if($username)
 			$args['screen_name'] = $username;
-		if($cursor){
-			$args['cursor'] = $cursor;
-		}
 		return $this->get($url, $args);
 	}
 
