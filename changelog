@@ -1,8 +1,11 @@
+Sat Mar  2 23:13:54 CST 2013  <moeallenz@gmail.com>
+* Updated embr version to 0.6.1(f-91)
+
+Sat Mar  2 23:00:30 CST 2013  <moeallenz@gmail.com>
+* Fixed user profile page
+
 Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 * Initial log.
-
-Set Mar  2 23:00:30 CST 2013  <moeallenz@gmail.com>
-* Fixed user profile page
 
 TODO:
 
@@ -21,8 +24,5 @@ TODO:
 
 * Mentions page: siderbar position bug after checking API quota
   * Related files: inc/siderbar.php, ajax/apiQuota.php
-
-* Update embr version
-  * Related file: inc/sidepost.php
 
 * Clean up messed code
