@@ -10,6 +10,6 @@
 	$remaining = $limit->remaining < 0 ? 0 : $limit->remaining;
 	$qlimit = $limit->limit;
 	header('Content-Type: text/html');
-	echo "<li><span style=\"color: #2276BB\">API: $remaining/$qlimit</span></li>
+	echo "<li><span style=\"color: #2276BB\">Timeline API remains: $remaining/$qlimit</span></li>
 	<li><span style=\"color: #2276BB\">Reset in $reset sec(s)</span></li>";
 ?>
