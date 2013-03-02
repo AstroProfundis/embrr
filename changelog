@@ -1,2 +1,29 @@
+TODO:
+
+* User profile page: relationship and profile stats incorrect
+  * Related files: user.php, lib/twitteroauth.php, lib/twitese.php
+  * Possible reason: error occured when detecting relationship between users
+
+* Lists page: buttons not fully compatible on "All you lists" tab
+  * Related files: lists.php, list.php, lib/twitteroauth.php
+  * Possible reason: GET :user/lists is removed and replaced by GET lists/list,
+    and the code need to be updated
+
+* Message page: unable to load more
+  * Related files: message.php, lib/twitteroauth.php, ajax/updateMessage.php
+  * Possible reason: API changed and 'page' no longer supported
+
+* Favorite page: unable to load more
+  * Related files: favor.php, lib/twitteroauth.php
+  * Possible reason: API changed and 'page' no longer supported
+
+* Mentions page: siderbar position bug after checking API quota
+  * Related files: inc/siderbar.php, ajax/apiQuota.php
+
+* Update embr version
+  * Related file: inc/sidepost.php
+
+* Clean up messed code
+
 Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 * Initial log.
