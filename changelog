@@ -1,3 +1,6 @@
+Sun Mar  3 02:39:50 CST 2013	<shadowglen@me.com>
+* Changed update_with_media function into API 1.1 format
+
 Sat Mar  2 23:13:54 CST 2013  <moeallenz@gmail.com>
 * Updated embr version to 0.6.1(f-91)
 
@@ -5,9 +8,12 @@ Sat Mar  2 23:00:30 CST 2013  <moeallenz@gmail.com>
 * Fixed user profile page
 
 Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
-* Initial log.
+* Initial log
 
 TODO:
+
+* Search page: search api is still in 1.0 format
+  * Related files: search.php, lib/twitteroauth.php
 
 * Lists page: buttons not fully compatible on "All you lists" tab
   * Related files: lists.php, list.php, lib/twitteroauth.php
@@ -26,3 +32,5 @@ TODO:
   * Related files: inc/siderbar.php, ajax/apiQuota.php
 
 * Clean up messed code
+
+* Modify media upload method to official
