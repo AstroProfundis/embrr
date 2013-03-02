@@ -259,7 +259,7 @@ class TwitterOAuth {
 
 	/* ---------- Messages ---------- */
 	function deleteDirectMessage($id){
-		$url = "/direct_messages/destroy.json";
+		$url = "/direct_messages/destroy";
 		$args = array();
 		$args['id'] = $id;
 		return $this->post($url, $args);
