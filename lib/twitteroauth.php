@@ -156,22 +156,6 @@ class TwitterOAuth {
 	}
 
 	/**
-	 * DELTE wrapper for oAuthReqeust.
-	 */
-	function delete($url, $parameters = array()) {
-		$response = $this->oAuthRequest($url, 'DELETE', $parameters);
-		if($response === false){
-			return false;
-		}
-		if ($this->type === 'json' && $this->decode_json) {
-			return json_decode($response);
-		}elseif($this->type == 'xml' && function_exists('simplexml_load_string')){
-			return simplexml_load_string($response);
-		}
-		return $response;
-	}
-
-	/**
 	 * Format and sign an OAuth / API request, then make an HTTP request
 	 */
 	function oAuthRequest($url, $method, $parameters, $multipart=NULL) {
@@ -201,16 +185,6 @@ class TwitterOAuth {
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if (!empty($postfields)) {
 				curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
-			}
-			break;
-		case 'DELETE':
-			$postfields = $request->to_postdata($multipart);
-			$url = $request->get_normalized_http_url();
-			curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
-			curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
-			if (!empty($postfields)) {
-				$url = "{$url}?{$postfields}";
-				curl_setopt($ci, CURLOPT_URL, $url);
 			}
 		}
 
@@ -254,7 +228,7 @@ class TwitterOAuth {
 		$url = "/blocks/destroy";
 		$args = array();
 		$args['screen_name'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
 	/* ---------- Messages ---------- */
@@ -348,7 +322,7 @@ class TwitterOAuth {
 		$url = "/lists/destroy.json";
 		$args = array();
 		$args['list_id'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
 	function deleteListMember($id, $memberid){
@@ -358,7 +332,7 @@ class TwitterOAuth {
 		if($memberid){
 			$args['user_id'] = $memberid;
 		}
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
 	function editList($prename, $name, $description, $isProtect){
@@ -474,7 +448,7 @@ class TwitterOAuth {
 		$url = "/friendships/destroy";
 		$args = array();
 		$args['screen_name'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
 	function followers($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET followers/list instead
@@ -675,7 +649,7 @@ class TwitterOAuth {
 	/* ---------- Timeline ---------- */
 	function deleteStatus($id){
 		$url = "/statuses/destroy/$id";
-		return $this->delete($url);
+		return $this->post($url);
 	}
 
 	function homeTimeline($page = false, $since_id = false, $count = false, $include_entities = true) {
