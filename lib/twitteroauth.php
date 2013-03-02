@@ -471,17 +471,16 @@ class TwitterOAuth {
 
 	/* ---------- Friendship ---------- */
 	function destroyUser($id){
-		$url = "/friendships/destroy.json";
+		$url = "/friendships/destroy";
 		$args = array();
-		$args['user_id'] = $id;
+		$args['screen_name'] = $id;
 		return $this->delete($url, $args);
 	}
 
 	function followers($id = false, $page = false, $count = 30){
-		$url = '/followers/list.json';
-		$url .= $id ? "/$id" : "";
+		$url = '/followers/list';
 		if( $id )
-			$args['user_id'] = $id;
+			$args['screen_name'] = $id;
 		if( $count )
 			$args['count'] = (int) $count;
 		$args['cursor'] = $page ? $page : -1;
@@ -489,31 +488,31 @@ class TwitterOAuth {
 	}
 
 	function followUser($id, $notifications = false){
-		$url = "/friendships/create/$id";
+		$url = "/friendships/create";
 		$args = array();
+		$args['screen_name'] = $id;
 		if($notifications)
 			$args['follow'] = true;
 		return $this->post($url, $args);
 	}
 
-	function friends($id = false, $page = false, $count = 30){
-		$url = '/statuses/friends';
-		$url .= $id ? "/$id" : "";
+	function friends($id = false, $page = false, $skip_status = fase){ // GET statuses/friends is removed, try GET friends/list instead
+		$url = '/friends/list';
 		$args = array();
 		if( $id )
-			$args['id'] = $id;
-		if( $count )
-			$args['count'] = (int) $count;
+			$args['screen_name'] = $id;
+		$args['skip_status'] = $skip_status;
 		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
 
-	function isFriend($user_a, $user_b){
-		$url = '/friendships/exists';
-		$args = array();
-		$args['user_a'] = $user_a;
-		$args['user_b'] = $user_b;
-		return $this->get($url, $args);
+	function isFriend($user_a, $user_b){ // I'm confused about this method and the next one
+		//$url = '/friendships/exists';
+		//$args = array();
+		//$args['user_a'] = $user_a;
+		//$args['user_b'] = $user_b;
+		//return $this->get($url, $args);
+		return $this->friendship($user_a, $user_b);
 	}
 
 	function friendship($source_screen_name,$target_screen_name){
@@ -538,11 +537,11 @@ class TwitterOAuth {
 		$url = '/users/show';
 		$args = array();
 		if($id)
-			$args['id'] = $id;
+			$args['user_id'] = $id;
 		elseif($screen_name)
-			$args['id'] = $screen_name;
+			$args['screen_name'] = $screen_name;
 		else
-			$args['id'] = $this->user_id;
+			$args['user_id'] = $this->user_id;
 
 		return $this->get($url, $args);
 	}
