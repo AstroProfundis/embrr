@@ -16,7 +16,8 @@
 	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : false;
 	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
 
-	$statuses = $t->getFavorites($user_id, $since_id);
+	$FAV_COUNT = 50;
+	$statuses = $t->getFavorites($user_id, $since_id, $FAV_COUNT); // due to the API change and its limits, only get 50 neweast favs and no pages supported
 	if ($statuses === false) {
 		header('location: error.php');exit();
 	} 
