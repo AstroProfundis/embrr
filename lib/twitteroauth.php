@@ -392,28 +392,30 @@ class TwitterOAuth {
 	}
 
 	function followList($id){
-		$url = "/lists/subscribers/create.json";
+		$url = "/lists/subscribers/create";
+		$arr = explode("/", $id);
 		$args = array();
-		$args['list_id'] = $id;
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		return $this->post($url, $args);
 	}
 
-	function isFollowedList($id){ // this func is still not compatible with v1.1
-		//$arr = explode('/', $id);
-		//$url = "/$arr[0]/$arr[1]/subscribers/$this->username";
-		$url = "/lists/subscribers/show.json";
+	function isFollowedList($id){
+		$url = "/lists/subscribers/show";
+		$arr = explode('/', $id);
 		$args = array();
-		$args['list_id'] = $id;
-		$args['user_id'] = $this->username;
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $$arr[1];
+		$args['screen_name'] = $this->username;
 		return $this->get($url, $args);
 	}
 
 	function listFollowers($id, $cursor = false){
-		//$arr = explode('/', $id);
-		//$url = "/$arr[0]/$arr[1]/subscribers";
-		$url = "/lists/subscribers.json";
+		$url = "/lists/subscribers";
+		$arr = explode('/', $id);
 		$args = array();
-		$args['list_id'] = $id;
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[1];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -430,9 +432,11 @@ class TwitterOAuth {
 	}
 
 	function listMembers($id, $cursor = false){
+		$url = "/lists/members";
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/members";
 		$args = array();
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -457,9 +461,12 @@ class TwitterOAuth {
 	}
 
 	function unfollowList($id){
+		$url = "/lists/subscribers/destroy";
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/subscribers";
-		return $this->delete($url);
+		$args = array();
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
+		return $this->post($url, $args);
 	}
 
 	/* ---------- Friendship ---------- */
