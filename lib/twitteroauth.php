@@ -638,7 +638,7 @@ class TwitterOAuth {
 		$url = '/favorites/list';
 		$args = array();
 		if($userid)
-			$args['user_id'] = $userid;
+			$args['screen_name'] = $userid;
 		if($sinceid)
 			$args['since_id'] = $sinceid;
 		if($count)
