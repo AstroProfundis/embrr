@@ -386,7 +386,7 @@ class TwitterOAuth {
 		$arr = explode('/', $id);
 		$args = array();
 		$args['slug'] = $arr[1];
-		$args['owner_screen_name'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
