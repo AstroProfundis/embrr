@@ -5,7 +5,7 @@
 	}
 	$t = getTwitter();
 	$limit = get_object_vars($t->ratelimit()->resources->statuses);
-	$limit = $limit["/statuses/mentions_timeline"];
+	$limit = $limit["/statuses/home_timeline"];
 	$reset = intval($limit->reset - $_SERVER['REQUEST_TIME']);
 	$remaining = $limit->remaining < 0 ? 0 : $limit->remaining;
 	$qlimit = $limit->limit;
