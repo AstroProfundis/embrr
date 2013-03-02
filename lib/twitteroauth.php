@@ -786,7 +786,7 @@ class TwitterOAuth {
 	}
 	
 	function updateMedia($status,$image,$replying_to = false) {
-		$url = 'https://upload.twitter.com/1/statuses/update_with_media'.$this->type;
+		$url = 'statuses/update_with_media';
 		$args = array();
 		if($status) $args['status'] = $status;
 		if($replying_to) $args['in_reply_to_status_id'] = $replying_to;
