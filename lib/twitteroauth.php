@@ -513,7 +513,6 @@ class TwitterOAuth {
 			$args['screen_name'] = $screen_name;
 		else
 			$args['user_id'] = $user_id ? $user_id : $this->user_id;
-
 		return $this->get($url, $args);
 	}
 

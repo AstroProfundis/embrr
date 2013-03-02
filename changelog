@@ -1,11 +1,10 @@
 Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 * Initial log.
 
-TODO:
+Set Mar  2 23:00:30 CST 2013  <moeallenz@gmail.com>
+* Fixed user profile page
 
-* User profile page: relationship and profile stats incorrect
-  * Related files: user.php, lib/twitteroauth.php, lib/twitese.php
-  * Possible reason: error occured when detecting relationship between users
+TODO:
 
 * Lists page: buttons not fully compatible on "All you lists" tab
   * Related files: lists.php, list.php, lib/twitteroauth.php
