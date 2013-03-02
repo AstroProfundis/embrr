@@ -547,9 +547,11 @@ class TwitterOAuth {
 	}
 
 	/* ---------- Ratelimit ---------- */
-	function ratelimit(){
-		$url = '/account/rate_limit_status';
-		return $this->get($url,array(),false);
+	function ratelimit(){ // this API changed a lot due to the update of twitter's limit policy, get only tweet limits here
+		$url = '/application/rate_limit_status';
+		$args = array();
+		$args['resources'] = "statuses";
+		return $this->get($url, $args);
 	}
 
 	/* ---------- Retweet ---------- */
