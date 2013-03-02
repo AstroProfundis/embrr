@@ -553,49 +553,7 @@ class TwitterOAuth {
 		return $this->get($url,$args);
 	}
 
-	// Returns the 20 most recent retweets posted by the authenticating user.
-	function retweeted_by_me($page = false, $count = 20, $since_id = false, $max_id = false,$include_entities = true){
-		$url = '/statuses/retweeted_by_me';
-		$args = array();
-		if($since_id){
-			$args['since_id'] = $since_id;
-		}
-		if($max_id){
-			$args['max_id'] = $max_id;
-		}
-		if($count){
-			$args['count'] = $count;
-		}
-		if($page){
-			$args['page'] = $page;
-		}
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
-	}
-
-	// Returns the 20 most recent retweets posted by the authenticating user's friends.
-	function retweeted_to_me($page = false, $count = false, $since_id = false, $max_id = false,$include_entities = true){
-		$url = '/statuses/retweeted_to_me';
-		$args = array();
-		if($since_id){
-			$args['since_id'] = $since_id;
-		}
-		if($max_id){
-			$args['max_id'] = $max_id;
-		}
-		if($count){
-			$args['count'] = $count;
-		}
-		if($page){
-			$args['page'] = $page;
-		}
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
-	}
-
-	function retweets_of_me($page = false, $count = false, $since_id = false, $max_id = false,$include_entities = true){
+	function retweets_of_me($count = false, $since_id = false, $max_id = false,$include_entities = true){
 		$url = '/statuses/retweets_of_me';
 		$args = array();
 		if($since_id){
@@ -606,9 +564,6 @@ class TwitterOAuth {
 		}
 		if($count){
 			$args['count'] = $count;
-		}
-		if($page){
-			$args['page'] = $page;
 		}
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
@@ -639,7 +594,7 @@ class TwitterOAuth {
 
 	/* ---------- Spam ---------- */
 	function reportSpam($screen_name){
-		$url = '/report_spam';
+		$url = '/users/report_spam';
 		$args = array();
 		$args['screen_name'] = $screen_name;
 		return $this->post($url, $args);
@@ -699,17 +654,6 @@ class TwitterOAuth {
 		if($id)
 			$args['id'] = $id;
 		return $this->post($url, $args);
-	}
-
-	function publicTimeline($sinceid = false,$include_entities = true){
-		$url = '/statuses/public_timeline';
-		$args = array();
-		if($sinceid){
-			$args['since_id'] = $sinceid;
-		}
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
 	}
 
 	function removeFavorite($id){
@@ -775,8 +719,10 @@ class TwitterOAuth {
 	}
 
 	function trends($woeid = 1){
-		$url = "/trends/$woeid";
-		return $this->get($url);
+		$url = "/trends/place";
+		$args = array();
+		$args['id'] = $woeid;
+		return $this->get($url, $args);
 	}
 
 	/* ---------- Misc. ---------- */

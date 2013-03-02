@@ -68,7 +68,6 @@ header {margin:1em auto;text-align:right;width:600px}
 			<ul>
 				<li><a href="index.php">Home</a></li>
 				<li><a href="profile.php">Profile</a></li>
-				<li><a href="browse.php">Public</a></li>
 				<li><a href="setting.php">Settings</a></li>
 				<li><a href="logout.php">Logout</a></li>			
 			</ul>
