@@ -253,16 +253,16 @@
 		$relationship = getTwitter()->relationship($target, $source)->relationship;
 		$target = $relationship->target;
 		$source = $relationship->source;
-		if($source->blocking == 1){
+		if($source->blocking != null){
 			return 4;
 		}
-		if($source->following == 1 && $target->following == 1){
+		if($source->following == true && $target->following == true){
 			return 1;
 		}
-		if($source->following == 1 && $target->following != 1){
+		if($source->following == true && $target->following == false){
 			return 2;
 		}
-		if($source->following != 1 && $target->following == 1){
+		if($source->following == false && $target->following == true){
 			return 3;
 		}
 		return 9;

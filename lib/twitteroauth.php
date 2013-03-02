@@ -503,6 +503,8 @@ class TwitterOAuth {
 		$args['target_screen_name'] = $target;
 		if($source){
 			$args['source_screen_name'] = $source;
+		} else {
+			$args['source_screen_name'] = $this->username;
 		}
 		return $this->get($url, $args);
 	}
