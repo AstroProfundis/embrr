@@ -1,5 +1,5 @@
 <?php
-	define('API_URL', 'http://api.twitter.com/1');
+	define('API_URL', 'http://api.twitter.com/1.1');
 	
 	// Config
 	define('SECURE_KEY', 'YOU SHOULD CHANGE IT'); //You should NOT leave it blank

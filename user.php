@@ -23,7 +23,8 @@
 	$t = getTwitter();
 	$userid = $_GET['id'];
 	if (isset($_GET['fav'])) {
-		$statuses = $t->getFavorites($p, $userid);
+		$FAV_COUNT = 30;
+		$statuses = $t->getFavorites($userid, $FAV_COUNT); // display 30 latest favs of given user
 	} else {
 		$statuses = $t->userTimeline($p, $userid);
 	}
@@ -100,8 +101,9 @@
 			}
 			$output .= "</ol><div id=\"pagination\">";
 			if ($_GET['fav'] == true) {
-				if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&p=" . ($p-1) . "\">Back</a>";
-				if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&p=" . ($p+1) . "\">Next</a>";
+				echo "<div id=\"empty\">Shows only 30 latest favs.(Due to API v1.1 limits)</div>";
+				//if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&p=" . ($p-1) . "\">Back</a>";
+				//if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&p=" . ($p+1) . "\">Next</a>";
 			} else {
 				if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&p=" . ($p-1) . "\">Back</a>";
 				if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&p=" . ($p+1) . "\">Next</a>";

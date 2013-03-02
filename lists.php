@@ -11,7 +11,8 @@
 <div id="statuses">
 	<?php 
 		$t = getTwitter();
-		$t->type = 'xml';
+		$t->type = 'json';
+		$id = isset($_GET['id'])? $_GET['id'] : false;
 		if ( isset($_POST['list_name']) ) {
 			if ($_POST['is_edit'] == 0) {
 				if (trim($_POST['list_name']) == '') {
@@ -51,7 +52,7 @@
 				$failList = '';
 				
 				foreach ($memberList as $member) {
-					$result = $t->addListMember($listId, $member);
+					$result = $t->addListMember($listId, $id, $member);
 					if (!isset($result->error) && isset($result->user)) $count ++;
 					else $failList .= $member . " ";
 				}
@@ -76,7 +77,7 @@
 			$id = $t->username;
 		}
 		$type = isset($_GET['t'])? $_GET['t'] : 1;
-		$c = isset($_GET['c'])? $_GET['c'] : -1;
+		$c = isset($_GET['c'])? $_GET['c'] : -1;   // cursor
 		switch ($type) {
 			case 0:
 				$lists = $t->followedLists($id, $c);
@@ -85,8 +86,7 @@
 				$lists = $lists->lists; 
 				break;
 			case 1:
-				$lists = $t->createdLists($id);
-				$lists = $lists->lists; 
+				$lists = $t->allLists($id);
 				break;
 			case 2:
 				$lists = $t->beAddedLists($id, $c);
@@ -107,31 +107,31 @@
 	<div id="subnav">
 	<?php if ($isSelf) { ?>
 		<?php if ($type == 0) {?>
-	       	<span class="subnavNormal">Lists you follow</span><span class="subnavLink"><a href="lists.php?t=1">Lists you created</a></span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
+	       	<span class="subnavNormal">Lists you follow</span><span class="subnavLink"><a href="lists.php?t=1">All your lists</a></span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
 		<?php } else if ($type == 1) {?>
-	       	<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavNormal">Lists you created</span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
+	       	<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavNormal">All your lists</span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
 		<?php } else {?>
-			<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavLink"><a href="lists.php?t=1">Lists you created</a></span><span class="subnavNormal">Lists following you</span>
+			<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavLink"><a href="lists.php?t=1">All your lists</a></span><span class="subnavNormal">Lists following you</span>
 		<?php } ?>
 	<?php } else {?>
 		<?php if ($type == 0) {?>
-	       	<span class="subnavNormal">Following Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">Created Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
+	       	<span class="subnavNormal">Following Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
 		<?php } else if ($type == 1) {?>
-	       	<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavNormal">Created Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
+	       	<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavNormal">All Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
 		<?php } else {?>
-			<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">Created Lists</a></span><span class="subnavNormal">Lists Following</span>
+			<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavNormal">Lists Following</span>
 		<?php } ?>
 	<?php } ?>
     </div>
     
 	<?php 
 		
-		$empty = count($lists->list) == 0? true: false;
+		$empty = count($lists) == 0? true: false;
 		if ($empty) {
 			echo "<div id=\"empty\">No Tweet To Display</div>";
 		} else {
 			$output = '<ol class="rank_list">';			
-			foreach ($lists->list as $list) {
+			foreach ($lists as $list) {
 		
 				$listurl = substr($list->uri,1);
 				$user = $list->user;

@@ -4,11 +4,12 @@
 		session_start();
 	}
 	$t = getTwitter();
-	$limit = $t->ratelimit();
-	$reset = intval((format_time($limit->reset_time) - time())/60);
-	$remaining = $limit->remaining_hits < 0 ? 0 : $limit->remaining_hits;
-	$hourly = $limit->hourly_limit;
+	$limit = get_object_vars($t->ratelimit()->resources->statuses);
+	$limit = $limit["/statuses/home_timeline"];
+	$reset = intval($limit->reset - $_SERVER['REQUEST_TIME']);
+	$remaining = $limit->remaining < 0 ? 0 : $limit->remaining;
+	$qlimit = $limit->limit;
 	header('Content-Type: text/html');
-	echo "<li><span style=\"color: #2276BB\">API: $remaining/$hourly</span></li>
-	<li><span style=\"color: #2276BB\">Reset in $reset min(s)</span></li>";
+	echo "<li><span style=\"color: #2276BB\">Timeline API remains: $remaining/$qlimit</span></li>
+	<li><span style=\"color: #2276BB\">Reset in $reset sec(s)</span></li>";
 ?>

@@ -156,22 +156,6 @@ class TwitterOAuth {
 	}
 
 	/**
-	 * DELTE wrapper for oAuthReqeust.
-	 */
-	function delete($url, $parameters = array()) {
-		$response = $this->oAuthRequest($url, 'DELETE', $parameters);
-		if($response === false){
-			return false;
-		}
-		if ($this->type === 'json' && $this->decode_json) {
-			return json_decode($response);
-		}elseif($this->type == 'xml' && function_exists('simplexml_load_string')){
-			return simplexml_load_string($response);
-		}
-		return $response;
-	}
-
-	/**
 	 * Format and sign an OAuth / API request, then make an HTTP request
 	 */
 	function oAuthRequest($url, $method, $parameters, $multipart=NULL) {
@@ -202,16 +186,6 @@ class TwitterOAuth {
 			if (!empty($postfields)) {
 				curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 			}
-			break;
-		case 'DELETE':
-			$postfields = $request->to_postdata($multipart);
-			$url = $request->get_normalized_http_url();
-			curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
-			curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
-			if (!empty($postfields)) {
-				$url = "{$url}?{$postfields}";
-				curl_setopt($ci, CURLOPT_URL, $url);
-			}
 		}
 
 		$response = curl_exec($ci);
@@ -230,36 +204,31 @@ class TwitterOAuth {
 	/*                                   */
 	/* ---------- Block ---------- */
 	function blockingIDs(){
-		$url = '/blocks/ids.json';
-		return $this->get($url);
+		$url = '/blocks/ids';
+		$args = array();
+		$args['cursor'] = $page ? $page : -1;
+		return $this->get($url, $args);
 	}
 
 	function blockingList($page){
-		$url = '/blocks/list.json';
+		$url = '/blocks/list';
 		$args = array();
-		if($page){
-			$args['cursor'] = $page;
-		}
+		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
 
 	function blockUser($id){
-		$url = "/blocks/create.json";
+		$url = "/blocks/create";
 		$args = array();
-		$args['user_id'] = $id;
+		$args['screen_name'] = $id;
 		return $this->post($url, $args);
 	}
 
-	function isBlocked($id){
-		$url = "/blocks/exists/$id"; // this api not available in v1.1
-		return $this->get($url);
-	}
-
 	function unblockUser($id){
-		$url = "/blocks/destroy.json";
+		$url = "/blocks/destroy";
 		$args = array();
-		$args['user_id'] = $id;
-		return $this->delete($url, $args);
+		$args['screen_name'] = $id;
+		return $this->post($url, $args);
 	}
 
 	/* ---------- Messages ---------- */
@@ -267,60 +236,56 @@ class TwitterOAuth {
 		$url = "/direct_messages/destroy";
 		$args = array();
 		$args['id'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
-	function directMessages($page = false, $since_id = false, $count = null, $include_entities = true){ // this func is not 100% compatible with v1.1
-		$url = '/direct_messages.json';
+	function directMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
+		$url = '/direct_messages';
 		$args = array();
 		if( $since_id )
 			$args['since_id'] = $since_id;
-		if( $page )
-			$args['page'] = $page;
+		if( $max_id )
+			$args['max_id'] = $max_id;
+		if( $count )
+			$args['count'] = $count;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 
-	function sendDirectMessage($user, $text){
-		$url = '/direct_messages/new.json';
+	function sentDirectMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
+		$url = '/direct_messages/sent';
 		$args = array();
-		$args['user_id'] = $user;
-		if($text)
-			$args['text'] = $text;
-		return $this->post($url, $args);
-	}
-
-	function sentDirectMessage($page = false, $since = false, $since_id = false){
-		$url = '/direct_messages/sent.json';
-		$args = array();
-		if($since)
-			$args['since'] = $since;
 		if($since_id)
 			$args['since_id'] = $since_id;
-		if($page)
-			$args['page'] = $page;
+		if( $max_id )
+			$args['max_id'] = $max_id;
+		if( $count )
+			$args['count'] = $count;
+		if($include_entities)
+			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 
 	/* ---------- List ---------- */
-	function addListMember($listid, $memberid){
-		$url = "/lists/members/create.json";
+	function addListMember($listid, $id, $memberid){
+		$url = "/lists/members/create";
 		$args = array();
 		if($listid)
-			$args['list_id'] = $listid;
+			$args['slug'] = $listid;
+		if($id)
+			$args['owner_screen_name'] = $id;
 		if($memberid){
-			$args['user_id'] = $memberid;
-			//$args['screen_name'] = $memberid;
+			$args['screen_name'] = $memberid;
 		}
 		return $this->post($url, $args);
 	}
 
 	function beAddedLists($username = '', $cursor = false){
-		$url = "/lists/memberships.json";
+		$url = "/lists/memberships";
 		$args = array();
 		if($username)
-			$args['user_id'] = $username;
+			$args['screen_name'] = $username;
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -328,7 +293,7 @@ class TwitterOAuth {
 	}
 
 	function createList($name, $description, $isPortect){
-		$url = "/lists/create.json";
+		$url = "/lists/create";
 		$args = array();
 		if($name){
 			$args['name'] = $name;
@@ -342,14 +307,11 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function createdLists($username = '', $cursor = false){
-		$url = "/lists/list.json";
+	function allLists($username = ''){ // api for created lists had been removed from v1.1
+		$url = "/lists/list";
 		$args = array();
 		if($username)
-			$args['user_id'] = $username;
-		if($cursor){
-			$args['cursor'] = $cursor;
-		}
+			$args['screen_name'] = $username;
 		return $this->get($url, $args);
 	}
 
@@ -357,7 +319,7 @@ class TwitterOAuth {
 		$url = "/lists/destroy.json";
 		$args = array();
 		$args['list_id'] = $id;
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
 	function deleteListMember($id, $memberid){
@@ -367,14 +329,16 @@ class TwitterOAuth {
 		if($memberid){
 			$args['user_id'] = $memberid;
 		}
-		return $this->delete($url, $args);
+		return $this->post($url, $args);
 	}
 
-	function editList($id, $name, $description, $isProtect){
-		//$url = "/$this->username/lists/$prename";
-		$url = "/lists/update.json";
+	function editList($prename, $name, $description, $isProtect){
+		$url = "/lists/update";
 		$args = array();
-		$args['list_id'] = $id;
+		if($prename){
+			$args['slug'] = $prename;
+			$args['owner_screen_name'] = $this->username;
+		}
 		if($name){
 			$args['name'] = $name;
 		}
@@ -388,10 +352,10 @@ class TwitterOAuth {
 	}
 
 	function followedLists($username = '', $cursor = false){
-		$url = "/lists/subscriptions.json";
+		$url = "/lists/subscriptions";
 		$args = array();
 		if($username)
-			$args['user_id'] = $username;
+			$args['screen_name'] = $username;
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -399,28 +363,30 @@ class TwitterOAuth {
 	}
 
 	function followList($id){
-		$url = "/lists/subscribers/create.json";
+		$url = "/lists/subscribers/create";
+		$arr = explode("/", $id);
 		$args = array();
-		$args['list_id'] = $id;
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		return $this->post($url, $args);
 	}
 
-	function isFollowedList($id){ // this func is still not compatible with v1.1
-		//$arr = explode('/', $id);
-		//$url = "/$arr[0]/$arr[1]/subscribers/$this->username";
-		$url = "/lists/subscribers/show.json";
+	function isFollowedList($id){
+		$url = "/lists/subscribers/show";
+		$arr = explode('/', $id);
 		$args = array();
-		$args['list_id'] = $id;
-		$args['user_id'] = $this->username;
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
+		$args['screen_name'] = $this->username;
 		return $this->get($url, $args);
 	}
 
 	function listFollowers($id, $cursor = false){
-		//$arr = explode('/', $id);
-		//$url = "/$arr[0]/$arr[1]/subscribers";
-		$url = "/lists/subscribers.json";
+		$url = "/lists/subscribers";
+		$arr = explode('/', $id);
 		$args = array();
-		$args['list_id'] = $id;
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -429,14 +395,19 @@ class TwitterOAuth {
 
 	function listInfo($id){
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]";
-		return $this->get($url);
+		$url = "/lists/show";
+		$args = array();
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
+		return $this->get($url, $args);
 	}
 
 	function listMembers($id, $cursor = false){
+		$url = "/lists/members";
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/members";
 		$args = array();
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -444,13 +415,12 @@ class TwitterOAuth {
 
 	}
 
-	function listStatus($id, $page = false, $since_id = false,$include_rts = true, $include_entities = true){
+	function listStatus($id, $since_id = false, $include_rts = true, $include_entities = true){
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]/statuses";
+		$url = "/lists/statuses";
 		$args = array();
-		if($page){
-			$args['page'] = $page;
-		}
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($since_id){
 			$args['since_id'] = $since_id;
 		}
@@ -462,56 +432,58 @@ class TwitterOAuth {
 	}
 
 	function unfollowList($id){
+		$url = "/lists/subscribers/destroy";
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/subscribers";
-		return $this->delete($url);
+		$args = array();
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
+		return $this->post($url, $args);
 	}
 
 	/* ---------- Friendship ---------- */
 	function destroyUser($id){
-		$url = "/friendships/destroy.json";
+		$url = "/friendships/destroy";
 		$args = array();
-		$args['user_id'] = $id;
-		return $this->delete($url, $args);
+		$args['screen_name'] = $id;
+		return $this->post($url, $args);
 	}
 
-	function followers($id = false, $page = false, $count = 30){
-		$url = '/followers/list.json';
-		$url .= $id ? "/$id" : "";
+	function followers($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET followers/list instead
+		$url = '/followers/list';
+		$args = array();
 		if( $id )
-			$args['user_id'] = $id;
-		if( $count )
-			$args['count'] = (int) $count;
+			$args['screen_name'] = $id;
+		$args['skip_status'] = $skip_status;
 		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
 
 	function followUser($id, $notifications = false){
-		$url = "/friendships/create/$id";
+		$url = "/friendships/create";
 		$args = array();
+		$args['screen_name'] = $id;
 		if($notifications)
 			$args['follow'] = true;
 		return $this->post($url, $args);
 	}
 
-	function friends($id = false, $page = false, $count = 30){
-		$url = '/statuses/friends';
-		$url .= $id ? "/$id" : "";
+	function friends($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET friends/list instead
+		$url = '/friends/list';
 		$args = array();
 		if( $id )
-			$args['id'] = $id;
-		if( $count )
-			$args['count'] = (int) $count;
+			$args['screen_name'] = $id;
+		$args['skip_status'] = $skip_status;
 		$args['cursor'] = $page ? $page : -1;
 		return $this->get($url, $args);
 	}
 
-	function isFriend($user_a, $user_b){
-		$url = '/friendships/exists';
-		$args = array();
-		$args['user_a'] = $user_a;
-		$args['user_b'] = $user_b;
-		return $this->get($url, $args);
+	function isFriend($user_a, $user_b){ // I'm confused about this method and the next one
+		//$url = '/friendships/exists';
+		//$args = array();
+		//$args['user_a'] = $user_a;
+		//$args['user_b'] = $user_b;
+		//return $this->get($url, $args);
+		return $this->friendship($user_a, $user_b);
 	}
 
 	function friendship($source_screen_name,$target_screen_name){
@@ -528,6 +500,8 @@ class TwitterOAuth {
 		$args['target_screen_name'] = $target;
 		if($source){
 			$args['source_screen_name'] = $source;
+		} else {
+			$args['source_screen_name'] = $this->username;
 		}
 		return $this->get($url, $args);
 	}
@@ -536,19 +510,21 @@ class TwitterOAuth {
 		$url = '/users/show';
 		$args = array();
 		if($id)
-			$args['id'] = $id;
+			$args['user_id'] = $id;
 		elseif($screen_name)
-			$args['id'] = $screen_name;
+			$args['screen_name'] = $screen_name;
 		else
-			$args['id'] = $this->user_id;
+			$args['user_id'] = $this->user_id;
 
 		return $this->get($url, $args);
 	}
 
 	/* ---------- Ratelimit ---------- */
-	function ratelimit(){
-		$url = '/account/rate_limit_status';
-		return $this->get($url,array(),false);
+	function ratelimit(){ // this API changed a lot due to the update of twitter's limit policy, get only tweet limits here
+		$url = '/application/rate_limit_status';
+		$args = array();
+		$args['resources'] = "statuses";
+		return $this->get($url, $args);
 	}
 
 	/* ---------- Retweet ---------- */
@@ -672,7 +648,7 @@ class TwitterOAuth {
 	/* ---------- Timeline ---------- */
 	function deleteStatus($id){
 		$url = "/statuses/destroy/$id";
-		return $this->delete($url);
+		return $this->post($url);
 	}
 
 	function homeTimeline($page = false, $since_id = false, $count = false, $include_entities = true) {
@@ -703,25 +679,26 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function getFavorites($page = false,$userid=false,$include_entities = true){
-		if($userid == false){
-			$url = '/favorites';
-		}
-		else{
-			$url = '/favorites/'.$userid;
-		}
-		
+	function getFavorites($userid = false, $sinceid = false, $count = false, $include_entities = true){
+		$url = '/favorites/list';
 		$args = array();
-		if($page)
-			$args['page'] = $page;
+		if($userid)
+			$args['user_id'] = $userid;
+		if($sinceid)
+			$args['since_id'] = $sinceid;
+		if($count)
+			$args['count'] = $count;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
 	}
 
 	function makeFavorite($id){
-		$url = "/favorites/create/$id";
-		return $this->post($url);
+		$url = "/favorites/create";
+		$args = array();
+		if($id)
+			$args['id'] = $id;
+		return $this->post($url, $args);
 	}
 
 	function publicTimeline($sinceid = false,$include_entities = true){
@@ -736,8 +713,11 @@ class TwitterOAuth {
 	}
 
 	function removeFavorite($id){
-		$url = "/favorites/destroy/$id";
-		return $this->post($url);
+		$url = "/favorites/destroy";
+		$args = array();
+		if($id)
+			$args['id'] = $id;
+		return $this->post($url, $args);
 	}
 
 	function replies($page = false, $since_id = false,$include_entities = true){

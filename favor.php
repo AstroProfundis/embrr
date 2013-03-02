@@ -13,13 +13,11 @@
 
 <?php 
 	$t = getTwitter();
-	$p = 1;
-	if (isset($_GET['p'])) {
-		$p = (int) $_GET['p'];
-		if ($p <= 0) $p = 1;
-	}
+	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : false;
+	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
 
-	$statuses = $t->getFavorites($p);
+	$FAV_COUNT = 50;
+	$statuses = $t->getFavorites($user_id, $since_id, $FAV_COUNT); // due to the API change and its limits, only get 50 neweast favs and no pages supported
 	if ($statuses === false) {
 		header('location: error.php');exit();
 	} 
@@ -37,14 +35,15 @@
 			}
 		}
 
-		$output .= "</ol><div id=\"pagination\">";
+		$output .= "</ol>";//<div id=\"pagination\">";
 
-		if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"favor.php?p=" . ($p-1) . "\">Back</a>";
-		if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"favor.php?p=" . ($p+1) . "\">Next</a>";
+		//if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"favor.php?p=" . ($p-1) . "\">Back</a>";
+		//if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"favor.php?p=" . ($p+1) . "\">Next</a>";
 
-		$output .= "</div>";
+		//$output .= "</div>";
 
 		echo $output;
+		echo "<div id=\"empty\">Shows only 50 latest favs.(Due to API v1.1 limits)</div>";
 	}
 ?>
 </div>

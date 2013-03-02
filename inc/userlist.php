@@ -95,39 +95,39 @@
 	echo '<div class="clear"></div>';
 	switch ($type) {
 		case 'blocks':
-			$p = $p < 1 ? 1 : $p;
-			$t->type = 'xml';
-			$userlist = $t->blockingList($p)->user;
-			$nextlist = count($userlist) == 20 ? $p + 1 : 0;
-			$prelist = $p <= 1 ? 0 : $p - 1;
+			$t->type = 'json';
+			$userlist = $t->blockingList($p);
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
 			break;
 		case 'friends':
-			$t->type = 'xml';
+			$t->type = 'json';
 			$userlist = $t->friends($id, $p);
-			$next_page = $userlist->next_cursor;
-			$previous_page = $userlist->previous_cursor;
-			$userlist = $userlist->users->user;
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
 			break;
 		case 'followers':
-			$t->type = 'xml';
+			$t->type = 'json';
 			$userlist = $t->followers($id, $p);
-			$next_page = $userlist->next_cursor;
-			$previous_page = $userlist->previous_cursor;
-			$userlist = $userlist->users->user;
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
 			break;
 		case 'list_members':
-			$t->type = 'xml';
+			$t->type = 'json';
 			$userlist = $t->listMembers($id, $c);
-			$nextlist = (string) $userlist->next_cursor;
-			$prelist = (string) $userlist->previous_cursor;
-			$userlist = $userlist->users->user;
+			$nextlist = (string) $userlist->next_cursor_str;
+			$prelist = (string) $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
 			break;
 		case 'list_followers':
-			$t->type = 'xml';
+			$t->type = 'json';
 			$userlist = $t->listFollowers($id, $c);
-			$nextlist = (string) $userlist->next_cursor;
-			$prelist = (string) $userlist->previous_cursor;
-			$userlist = $userlist->users->user;
+			$nextlist = (string) $userlist->next_cursor_str;
+			$prelist = (string) $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
 			break;
 		case 'browse':
 			$userlist = $t->followers($id, $p);
@@ -168,14 +168,14 @@
 			if ($nextlist != 0) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"list_members.php?id=$id&c=$nextlist\">Next</a>";
 		} else {
 			if ($id) {
-				if ($p >0)
+				if ($previous_page !== "0")
 					$output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"$type.php?id=$id&p=" . $previous_page . "\">Back</a>";
-				if ($next_page != 0)
+				if ($next_page !== "0")
 					$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"$type.php?id=$id&p=" . $next_page . "\">Next</a>";
 			} else {
-				if ($p >0)
+				if ($previous_page !== "0")
 					$output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"$type.php?p=" . $previous_page . "\">Back</a>";
-				if ($next_page != 0)
+				if ($next_page !== "0")
 					$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"$type.php?p=" . $next_page . "\">Next</a>";
 			}
 		}

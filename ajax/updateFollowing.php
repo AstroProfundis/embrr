@@ -5,8 +5,8 @@
 	include('../lib/twitese.php');
 
 	$t = getTwitter();
-	$MAX_COUNT = 36;
-	$friends = $t->friends(false, false, $MAX_COUNT)->users;
+	$skip_status = false;
+	$friends = $t->friends(false, false, $skip_status)->users;
 	$html = '';
 	foreach($friends as $friend){
 		$html .= '<span class="vcard">
