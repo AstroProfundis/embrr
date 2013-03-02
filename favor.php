@@ -25,7 +25,6 @@
 	if ($empty) {
 		echo "<div id=\"empty\">No tweet to display.</div>";
 	} else {
-		echo "<div id=\"empty\">Shows only 50 latest favs.</div>";
 		$output = '<ol class="timeline" id="allTimeline">';
 		include('lib/timeline_format.php');
 		foreach ($statuses as $status) {
@@ -44,6 +43,7 @@
 		//$output .= "</div>";
 
 		echo $output;
+		echo "<div id=\"empty\">Shows only 50 latest favs.(Due to API v1.1 limits)</div>";
 	}
 ?>
 </div>
