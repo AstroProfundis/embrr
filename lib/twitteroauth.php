@@ -701,17 +701,6 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function publicTimeline($sinceid = false,$include_entities = true){
-		$url = '/statuses/public_timeline';
-		$args = array();
-		if($sinceid){
-			$args['since_id'] = $sinceid;
-		}
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
-	}
-
 	function removeFavorite($id){
 		$url = "/favorites/destroy";
 		$args = array();
@@ -775,8 +764,10 @@ class TwitterOAuth {
 	}
 
 	function trends($woeid = 1){
-		$url = "/trends/$woeid";
-		return $this->get($url);
+		$url = "/trends/place";
+		$args = array();
+		$args['id'] = $woeid;
+		return $this->get($url, $args);
 	}
 
 	/* ---------- Misc. ---------- */
