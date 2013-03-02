@@ -120,14 +120,14 @@
 			$userlist = $t->listMembers($id, $c);
 			$nextlist = (string) $userlist->next_cursor_str;
 			$prelist = (string) $userlist->previous_cursor_str;
-			$userlist = $userlist->users->user;
+			$userlist = $userlist->users;
 			break;
 		case 'list_followers':
 			$t->type = 'json';
 			$userlist = $t->listFollowers($id, $c);
 			$nextlist = (string) $userlist->next_cursor_str;
 			$prelist = (string) $userlist->previous_cursor_str;
-			$userlist = $userlist->users->user;
+			$userlist = $userlist->users;
 			break;
 		case 'browse':
 			$userlist = $t->followers($id, $p);
