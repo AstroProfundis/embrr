@@ -639,7 +639,7 @@ class TwitterOAuth {
 
 	/* ---------- Spam ---------- */
 	function reportSpam($screen_name){
-		$url = '/report_spam';
+		$url = '/users/report_spam';
 		$args = array();
 		$args['screen_name'] = $screen_name;
 		return $this->post($url, $args);
