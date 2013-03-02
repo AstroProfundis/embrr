@@ -127,16 +127,16 @@
     
 	<?php 
 		
-		$empty = count($lists->list) == 0? true: false;
+		$empty = count($lists) == 0? true: false;
 		if ($empty) {
 			echo "<div id=\"empty\">No Tweet To Display</div>";
 		} else {
 			$output = '<ol class="rank_list">';			
-			foreach ($lists->list as $list) {
+			foreach ($lists as $list) {
 		
 				$listurl = substr($list->uri,1);
 				$user = $list->user;
-				$listname = explode('/',$list->full_name);
+				$listname = $list->slug;
 				$mode = $list->mode == 'private' ? "Private" : "";
 				
 				$output .= "
