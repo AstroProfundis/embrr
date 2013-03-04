@@ -1,3 +1,7 @@
+Tue Mar  5 03:12:41 CST 2013	<shadowglen@me.com>
+* Updated jQuery Infinite Scroll plugin to support user-defined Next Page
+* Fixed auto-load in Search and DM pages (Change "Back" link id to "less" to avoid loading the same page)
+
 Mon Mar  4 14:30:47 CST 2013	<shadowglen@me.com>
 * Updated search page to API 1.1
 
@@ -15,21 +19,24 @@ Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 
 TODO:
 
-* Search page: unable to load more
-  * Related files: search.php, lib/twitteroauth.php
-  * Possible reason: API changed and 'page' no longer supported
+* Home page, User page and Replies page: still using 'page' parameter which is not documented in API 1.1
+  * Related files: user.php, index.php, lib/twitteroauth.php
 
 * Lists page: buttons not fully compatible on "All you lists" tab
   * Related files: lists.php, list.php, lib/twitteroauth.php
   * Possible reason: GET :user/lists is removed and replaced by GET lists/list,
     and the code need to be updated
 
-* Message page: unable to load more
-  * Related files: message.php, lib/twitteroauth.php, ajax/updateMessage.php
+* Lists page: unable to load more tweets
+  * Related files: lists.php, lib/twitteroauth.php
   * Possible reason: API changed and 'page' no longer supported
 
-* Favorite page: unable to load more
+* Favorite page: unable to load more tweets
   * Related files: favor.php, lib/twitteroauth.php
+  * Possible reason: API changed and 'page' no longer supported
+
+* Retweets page: unable to load more tweets
+  * Related files: retweets.php, lib/twitteroauth.php
   * Possible reason: API changed and 'page' no longer supported
 
 * Mentions page: siderbar position bug after checking API quota

@@ -58,10 +58,10 @@
 			$firstmsg = $messages[0]->id + 1;
 			$lastmsg = $messages[count($messages)-1]->id - 1;
 			if ($isSentPage) {
-				$output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"message.php?t=sent&since_id=" . $firstmsg . "\">Back</a>";
+				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"message.php?t=sent&since_id=" . $firstmsg . "\">Back</a>";
 				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?t=sent&max_id=" . $lastmsg . "\">Next</a>";
 			} else {
-				$output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"message.php?since_id=" . $firstmsg ."\">Back</a>";
+				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"message.php?since_id=" . $firstmsg ."\">Back</a>";
 				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?max_id=" . $lastmsg ."\">Next</a>";
 			}
 			
