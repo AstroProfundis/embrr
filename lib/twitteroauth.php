@@ -568,20 +568,19 @@ class TwitterOAuth {
 	}
 
 	/* ---------- Search ---------- */
-	function search($q = false, $page = false, $rpp = false, $include_entities = true){
-		$searchApiUrl = strpos($this->host, "twitter.com") > 0 ? "http://search.twitter.com" : $this->host;
- 			$url = $searchApiUrl.'/search.'.$this->type;
+	function search($q = false, $since_id = false, $max_id = false, $include_entities = true){
+ 		$url = '/search/tweets';
 		if(!$q) {
 			return false;
 		} else{
 			$args = array();
 			$args['q'] = $q;
 		}
-		if($page){
-			$args['page'] = $page;
+		if($since_id){
+			$args['since_id'] = $since_id;
 		}
-		if($rpp){
-			$args['rpp'] = $rpp;
+		if($max_id){
+			$args['max_id'] = $max_id;
 		}
 		if($include_entities) {
 			$args['include_entities'] = $include_entities;

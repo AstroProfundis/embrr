@@ -1,3 +1,6 @@
+Mon Mar  4 14:30:47 CST 2013	<shadowglen@me.com>
+* Updated search page to API 1.1
+
 Sun Mar  3 02:39:50 CST 2013	<shadowglen@me.com>
 * Changed update_with_media function into API 1.1 format
 
@@ -12,8 +15,9 @@ Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 
 TODO:
 
-* Search page: search api is still in 1.0 format
+* Search page: unable to load more
   * Related files: search.php, lib/twitteroauth.php
+  * Possible reason: API changed and 'page' no longer supported
 
 * Lists page: buttons not fully compatible on "All you lists" tab
   * Related files: lists.php, list.php, lib/twitteroauth.php

@@ -6,28 +6,31 @@
 	$title = "Search";
 	include ('inc/header.php');
 
-	function getSearch($query, $page){
+	function getSearch($query, $sinceid, $maxid){
 		GLOBAL $output;
 		$t = getTwitter();
-		$MAX_TWEETS = 20;
-		$statuses = $t->search($query,$page,$MAX_TWEETS);
+		$answer = $t->search($query,$sinceid,$maxid);
 
 		//if ($statuses === false) {
 		//	header('location: error.php');exit();
 		//}
-		$resultCount = count($statuses->results);
+		$resultCount = count($answer->statuses);
 		if ($resultCount <= 0) {
 			echo "<div id=\"empty\">No tweet to display.</div>";
 		} else {
 			include_once('lib/timeline_format.php');
 			$output = '<ol class="timeline" id="allTimeline">';
-			foreach ($statuses->results as $status) {
-				$output .= format_search($status);
+			foreach ($answer->statuses as $status) {
+				if (isset($status->retweeted_status)) {
+                                        $output .= format_retweet($status);
+                                } else {
+                                        $output .= format_timeline($status,$t->username);
+                                }
 			}
 			$output .= "</ol><div id=\"pagination\">";
 
-			if ($page > 1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"search.php?q=".urlencode($query)."&p=" . ($page - 1) . "\">Back</a>";
-			if ($resultCount == $MAX_TWEETS) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php?q=".urlencode($query)."&p=" . ($page + 1) . "\">Next</a>";
+			$next_results = isset($answer->search_metadata->next_results) ? $answer->search_metadata->next_results : false;
+			if ($next_results) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php". $next_results ."\">Next</a>";
 			$output .= "</div>";
 		}
 	}
@@ -43,15 +46,18 @@
 		<input type="submit" class="more round" style="width: 103px; margin-left: 10px; display: block; float: left; height: 34px; font-family: tahoma; color: rgb(51, 51, 51);" value="Search">
 	</form>
 <?php
-	$p = 1;
-	if (isset($_GET['p'])) {
-		$p = (int) $_GET['p'];
-		if ($p <= 0) $p = 1;
+	$sinceid = false;
+	$maxid = false;
+	if (isset($_GET['since_id'])) {
+		$sinceid = $_GET['p'];
+	}
+	if (isset($_GET['max_id'])) {
+		$maxid = $_GET['max_id'];
 	}
 	$output = '';
 	if (isset($_GET['q'])) {
 		$q = $_GET['q'];
-		getSearch($q, $p);
+		getSearch($q, $sinceid, $maxid);
 	}
 	echo $output;
 ?>
