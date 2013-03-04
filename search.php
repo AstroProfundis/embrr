@@ -49,7 +49,7 @@
 	$sinceid = false;
 	$maxid = false;
 	if (isset($_GET['since_id'])) {
-		$sinceid = $_GET['p'];
+		$sinceid = $_GET['since_id'];
 	}
 	if (isset($_GET['max_id'])) {
 		$maxid = $_GET['max_id'];
