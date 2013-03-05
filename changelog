@@ -1,5 +1,5 @@
-Tue Mar  5 14:46:02 CST 2013	<shadowglen@me.com>
-* Fixed auto-load in List Statuses page
+Tue Mar  5 15:28:34 CST 2013	<shadowglen@me.com>
+* Fixed auto-load in List Statuses page and Retweets page
 
 Tue Mar  5 03:12:41 CST 2013	<shadowglen@me.com>
 * Updated jQuery Infinite Scroll plugin to support user-defined Next Page
@@ -32,10 +32,6 @@ TODO:
 
 * Favorite page: unable to load more tweets
   * Related files: favor.php, lib/twitteroauth.php
-  * Possible reason: API changed and 'page' no longer supported
-
-* Retweets page: unable to load more tweets
-  * Related files: retweets.php, lib/twitteroauth.php
   * Possible reason: API changed and 'page' no longer supported
 
 * Mentions page: siderbar position bug after checking API quota

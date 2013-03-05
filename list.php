@@ -9,12 +9,6 @@
 
 <div id="statuses">
 	<?php 
-		$p = 1;
-		if (isset($_GET['p'])) {
-			$p = (int) $_GET['p'];
-			if ($p <= 0) $p = 1;
-		}
-		
 		$id = isset($_GET['id'])? $_GET['id'] : false;
 		$since_id = isset($_GET['since_id'])? $_GET['since_id'] : false;
 		$max_id = isset($_GET['max_id'])? $_GET['max_id'] : false;
