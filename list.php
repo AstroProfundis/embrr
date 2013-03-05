@@ -16,8 +16,10 @@
 		}
 		
 		$id = isset($_GET['id'])? $_GET['id'] : false;
+		$since_id = isset($_GET['since_id'])? $_GET['since_id'] : false;
+		$max_id = isset($_GET['max_id'])? $_GET['max_id'] : false;
 		$t = getTwitter();
-		$statuses = $t->listStatus($id, $p);
+		$statuses = $t->listStatus($id, $since_id, $max_id);
 		$listInfo = $t->listInfo($id);
 		if ($statuses === false) {
 			header('location: error.php');exit();
@@ -52,18 +54,24 @@
 		
 			$output = '<ol class="timeline" id="allTimeline">';
 			include('lib/timeline_format.php');
+			$firstid = false;
+			$lastid = false;
 			foreach ($statuses as $status) {
+				if (!$firstid) $firstid = $status->id_str;
+				$lastid = $status->id_str;
 				if (isset($status->retweeted_status)) {
 					$output .= format_retweet($status);
 				} else { 
 					$output .= format_timeline($status,$t->username);
 				}
 			}
+			$firstid = $firstid + 1;
+			$lastid = $lastid - 1;
 			
 			$output .= "</ol><div id=\"pagination\">";
 			
-			if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"list.php?id=$id&p=" . ($p-1) . "\">Back</a>";
-			if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"list.php?id=$id&p=" . ($p+1) . "\">Next</a>";
+			$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"list.php?id={$id}&since_id={$firstid}\">Back</a>";
+			$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"list.php?id={$id}&max_id={$lastid}\">Next</a>";
 			
 			$output .= "</div>";
 			

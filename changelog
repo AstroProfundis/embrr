@@ -1,3 +1,6 @@
+Tue Mar  5 14:46:02 CST 2013	<shadowglen@me.com>
+* Fixed auto-load in List Statuses page
+
 Tue Mar  5 03:12:41 CST 2013	<shadowglen@me.com>
 * Updated jQuery Infinite Scroll plugin to support user-defined Next Page
 * Fixed auto-load in Search and DM pages (Change "Back" link id to "less" to avoid loading the same page)
@@ -26,10 +29,6 @@ TODO:
   * Related files: lists.php, list.php, lib/twitteroauth.php
   * Possible reason: GET :user/lists is removed and replaced by GET lists/list,
     and the code need to be updated
-
-* Lists page: unable to load more tweets
-  * Related files: lists.php, lib/twitteroauth.php
-  * Possible reason: API changed and 'page' no longer supported
 
 * Favorite page: unable to load more tweets
   * Related files: favor.php, lib/twitteroauth.php

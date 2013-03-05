@@ -415,15 +415,16 @@ class TwitterOAuth {
 
 	}
 
-	function listStatus($id, $since_id = false, $include_rts = true, $include_entities = true){
+	function listStatus($id, $since_id = false, $max_id = false, $include_rts = true, $include_entities = true){
 		$arr = explode('/', $id);
 		$url = "/lists/statuses";
 		$args = array();
 		$args['slug'] = $arr[1];
 		$args['owner_screen_name'] = $arr[0];
-		if($since_id){
+		if($since_id)
 			$args['since_id'] = $since_id;
-		}
+		if($max_id)
+			$args['max_id'] = $max_id;
 		if($include_rts)
 			$args['include_rts'] = $include_rts;
 		if($include_entities)
