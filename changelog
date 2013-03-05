@@ -25,6 +25,9 @@ TODO:
 * Home page, User page and Replies page: still using 'page' parameter which is not documented in API 1.1
   * Related files: user.php, index.php, lib/twitteroauth.php
 
+* Profile image loading function in wrong format
+  * Related files: lib/twitteroauth.php
+
 * Lists page: buttons not fully compatible on "All you lists" tab
   * Related files: lists.php, list.php, lib/twitteroauth.php
   * Possible reason: GET :user/lists is removed and replaced by GET lists/list,

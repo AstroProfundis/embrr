@@ -22,7 +22,6 @@ class TwitterOAuth {
 	/* Contains the last API call */
 	public $last_api_call;
 	/* Set up the API root URL */
-	//public $host = "https://api.twitter.com/1/";
 	public $host = API_URL;
 	/* Set timeout default */
 	public $timeout = 5;

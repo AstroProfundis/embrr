@@ -171,10 +171,10 @@
 
 	function imageUpload($image){
 		$t = getTwitter();
-		$signingurl = 'https://api.twitter.com/1/account/verify_credentials.json';
+		$signingurl = 'https://api.twitter.com/1.1/account/verify_credentials.json';
 		$request = OAuthRequest::from_consumer_and_token($t->consumer, $t->token, 'GET', $signingurl, array());
 		$request->sign_request($t->sha1_method, $t->consumer, $t->token);
-		$r_header = $request->to_header("http://api.twitter.com/");
+		$r_header = $request->to_header("https://api.twitter.com/");
 		
 		$url = 'http://img.ly/api/2/upload.json';
 		$postdata = array('media' => $image);		
