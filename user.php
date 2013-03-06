@@ -25,7 +25,7 @@
 	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
 	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 	if (isset($_GET['fav'])) {
-		$statuses = $t->getFavorites($userid);
+		$statuses = $t->getFavorites($userid, $since_id, $max_id);
 	} else {
 		$statuses = $t->userTimeline($p, $userid);
 	}
