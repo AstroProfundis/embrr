@@ -16,34 +16,39 @@
 	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : false;
 	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
 
-	$FAV_COUNT = 50;
-	$statuses = $t->getFavorites($user_id, $since_id, $FAV_COUNT); // due to the API change and its limits, only get 50 neweast favs and no pages supported
+	$statuses = $t->getFavorites($user_id, $since_id, $max_id);
 	if ($statuses === false) {
 		header('location: error.php');exit();
 	} 
-	$empty = count($statuses) == 0? true: false;
+	$empty = count($statuses) == 0 ? true : false;
 	if ($empty) {
 		echo "<div id=\"empty\">No tweet to display.</div>";
 	} else {
 		$output = '<ol class="timeline" id="allTimeline">';
 		include('lib/timeline_format.php');
+		$firstid = false;
+		$lastid = false;
 		foreach ($statuses as $status) {
 			if (isset($status->retweeted_status)) {
 				$output .= format_retweet($status);
 			} else { 
 				$output .= format_timeline($status,$t->username);
 			}
+			if(!$firstid)
+				$firstid = $status->id_str;
+			$lastid = $status->id_str;
 		}
+		$firstid += 1;
+		$lastid -= 1;
 
-		$output .= "</ol>";//<div id=\"pagination\">";
+		$output .= "</ol>";<div id=\"pagination\">";
 
-		//if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"favor.php?p=" . ($p-1) . "\">Back</a>";
-		//if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"favor.php?p=" . ($p+1) . "\">Next</a>";
+		$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"favor.php?since_id={$firstid}\">Back</a>";
+		$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"favor.php?max_id={$lastid}\">Next</a>";
 
-		//$output .= "</div>";
+		$output .= "</div>";
 
 		echo $output;
-		echo "<div id=\"empty\">Shows only 50 latest favs.(Due to API v1.1 limits)</div>";
 	}
 ?>
 </div>

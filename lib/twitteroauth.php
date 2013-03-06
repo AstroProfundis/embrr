@@ -630,13 +630,15 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function getFavorites($userid = false, $sinceid = false, $count = false, $include_entities = true){
+	function getFavorites($userid = false, $sinceid = false, $maxid = false, $count = false, $include_entities = true){
 		$url = '/favorites/list';
 		$args = array();
 		if($userid)
 			$args['screen_name'] = $userid;
 		if($sinceid)
 			$args['since_id'] = $sinceid;
+		if($maxid)
+			$args['max_id'] = $maxid;
 		if($count)
 			$args['count'] = $count;
 		if($include_entities)
