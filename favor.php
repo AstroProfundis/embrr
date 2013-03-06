@@ -42,7 +42,7 @@
 		$firstid += 1;
 		$lastid -= 1;
 
-		$output .= "</ol>";<div id=\"pagination\">";
+		$output .= "</ol><div id=\"pagination\">";
 
 		$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"favor.php?since_id={$firstid}\">Back</a>";
 		$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"favor.php?max_id={$lastid}\">Next</a>";
