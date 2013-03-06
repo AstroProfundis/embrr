@@ -15,6 +15,7 @@
 	$t = getTwitter();
 	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : false;
 	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 
 	$statuses = $t->getFavorites($user_id, $since_id, $max_id);
 	if ($statuses === false) {
