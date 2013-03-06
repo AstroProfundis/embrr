@@ -22,9 +22,10 @@
 
 	$t = getTwitter();
 	$userid = $_GET['id'];
+	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 	if (isset($_GET['fav'])) {
-		$FAV_COUNT = 30;
-		$statuses = $t->getFavorites($userid, $FAV_COUNT); // display 30 latest favs of given user
+		$statuses = $t->getFavorites($userid);
 	} else {
 		$statuses = $t->userTimeline($p, $userid);
 	}
@@ -92,18 +93,25 @@
 			echo "<div id=\"empty\">No tweet to display.</div>";
 		} else {
 			$output = '<ol class="timeline" id="allTimeline">';
+			$firstid = false;
+			$lastid = false;
 			foreach ($statuses as $status) {
 				if (isset($status->retweeted_status)) {
 					$output .= format_retweet($status);
 				} else { 
-				$output .= format_timeline($status,$t->username);
+					$output .= format_timeline($status,$t->username);
 				}
+				if(!$firstid)
+					$firstid = $status->id_str;
+				$lastid = $status->id_str;
 			}
+			$firstid += 1;
+			$lastid -= 1;
+
 			$output .= "</ol><div id=\"pagination\">";
 			if ($_GET['fav'] == true) {
-				echo "<div id=\"empty\">Shows only 30 latest favs.(Due to API v1.1 limits)</div>";
-				//if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&p=" . ($p-1) . "\">Back</a>";
-				//if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&p=" . ($p+1) . "\">Next</a>";
+				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&since_id={$firstid}\">Back</a>";
+				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&max_id={$lastid}\">Next</a>";
 			} else {
 				if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&p=" . ($p-1) . "\">Back</a>";
 				if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&p=" . ($p+1) . "\">Next</a>";
