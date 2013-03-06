@@ -22,6 +22,9 @@ Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 
 TODO:
 
+* Timeline: unable to load DM context box when click a user's avatar and chose Send Me a Message
+  * Possible reason: AJAX bug
+
 * Home page, User page and Replies page: still using 'page' parameter which is not documented in API 1.1
   * Related files: user.php, index.php, lib/twitteroauth.php
 
