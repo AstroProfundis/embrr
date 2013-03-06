@@ -39,10 +39,6 @@ TODO:
   * Possible reason: GET :user/lists is removed and replaced by GET lists/list,
     and the code need to be updated
 
-* Favorite page: unable to load more tweets
-  * Related files: favor.php, lib/twitteroauth.php
-  * Possible reason: API changed and 'page' no longer supported
-
 * Mentions page: siderbar position bug after checking API quota
   * Related files: inc/siderbar.php, ajax/apiQuota.php
 
