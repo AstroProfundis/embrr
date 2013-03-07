@@ -54,7 +54,7 @@ header {margin:1em auto;text-align:right;width:600px}
 .timeline li {cursor:default;margin:0px;overflow:hidden;padding:10px;position:relative}
 .status_author, .rank_img {left:10px;position:absolute;top:15px;width:50px}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.6.4.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/mediaPreview.js"></script>
 <script src="js/public.js"></script>
