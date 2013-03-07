@@ -1,3 +1,6 @@
+Fri Mar  8 00:46:37 CST 2013	<shadowglen@me.com>
+* Fixed API 1.1 format and auto-load in Home page, User page and Replies page
+
 Wed Mar  6 22:03:15 CST 2013  <moeallenz@gmail.com>
 * Fixed auto-load in Fav page
 
@@ -27,9 +30,6 @@ TODO:
 
 * User page: unable to load DM context box when click a user's avatar on tweet and chose Send Me a Message
   * Possible reason: AJAX bug
-
-* Home page, User page and Replies page: still using 'page' parameter which is not documented in API 1.1
-  * Related files: user.php, index.php, lib/twitteroauth.php
 
 * Profile image loading function in wrong format
   * Related files: lib/twitteroauth.php

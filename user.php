@@ -14,12 +14,6 @@
 		header('location: error.php');exit();
 	}
 
-	$p = 1;
-	if (isset($_GET['p'])) {
-		$p = (int) $_GET['p'];
-		if ($p <= 0) $p = 1;
-	}
-
 	$t = getTwitter();
 	$userid = $_GET['id'];
 	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
@@ -27,7 +21,7 @@
 	if (isset($_GET['fav'])) {
 		$statuses = $t->getFavorites($userid, $since_id, $max_id);
 	} else {
-		$statuses = $t->userTimeline($p, $userid);
+		$statuses = $t->userTimeline($userid, $since_id, $max_id);
 	}
 	
 	if ($statuses === false) {
@@ -113,8 +107,8 @@
 				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&since_id={$firstid}\">Back</a>";
 				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&max_id={$lastid}\">Next</a>";
 			} else {
-				if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&p=" . ($p-1) . "\">Back</a>";
-				if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&p=" . ($p+1) . "\">Next</a>";
+				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&since_id={$firstid}\">Back</a>";
+				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&max_id={$lastid}\">Next</a>";
 			}
 			$output .= "</div>";
 			echo $output;
