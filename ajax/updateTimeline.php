@@ -6,7 +6,7 @@
 	include('../lib/timeline_format.php');
 	$t = getTwitter();
 	if ( isset($_GET['since_id']) ) {
-		$statuses = $t->homeTimeline(false, $_GET['since_id']);
+		$statuses = $t->homeTimeline($_GET['since_id']);
 		$count = count($statuses);
 		$html = "";
 		if ($count <= 0) {

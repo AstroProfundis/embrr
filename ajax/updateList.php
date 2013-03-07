@@ -6,7 +6,7 @@
 	$t = getTwitter();
 	if ( isset($_GET['since_id']) && isset($_GET['id'])) {
 
-		$statuses = $t->listStatus($_GET['id'], false, $_GET['since_id']);
+		$statuses = $t->listStatus($_GET['id'], $_GET['since_id']);
 
 		$empty = count($statuses) == 0? true: false;
 
