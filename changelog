@@ -1,3 +1,6 @@
+Fri Mar  8 15:15:35 CST 2013	<shadowglen@me.com>
+* Fixed avatar uploading function
+
 Fri Mar  8 00:46:37 CST 2013	<shadowglen@me.com>
 * Fixed API 1.1 format and auto-load in Home page, User page, Profile page, and Replies page
 
@@ -30,9 +33,6 @@ TODO:
 
 * User page: unable to load DM context box when click a user's avatar on tweet and chose Send Me a Message
   * Possible reason: AJAX bug
-
-* Profile image loading function in wrong format
-  * Related files: lib/twitteroauth.php
 
 * Lists page: buttons not fully compatible on "All you lists" tab
   * Related files: lists.php, list.php, lib/twitteroauth.php
