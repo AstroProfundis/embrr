@@ -12,13 +12,10 @@
 	include('inc/sentForm.php');
 	include('lib/timeline_format.php');
 		$t = getTwitter();
-		$p = 1;
-		if (isset($_GET['p'])) {
-			$p = (int) $_GET['p'];
-			if ($p <= 0) $p = 1;
-		}
+		$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+		$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 	
-		$statuses = $t->replies($p);
+		$statuses = $t->replies($since_id, $max_id);
 		if ($statuses === false) {
 			header('location: error.php');exit();
 		} 
@@ -28,14 +25,20 @@
 		} else {
 			$output = '<ol class="timeline" id="allTimeline">';
 			
+			$firstid = false;
+			$lastid = false;
 			foreach ($statuses as $status) {
+				if (!$firstid) $firstid = $status->id_str;
+				$lastid = $status->id_str;
 				$output .= format_timeline($status,$t->username);
 			}
+			$firstid = $firstid + 1;
+			$lastid = $lastid - 1;
 			
 			$output .= "</ol><div id=\"pagination\">";
 			
-			if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"replies.php?p=" . ($p-1) . "\">Back</a>";
-			if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"replies.php?p=" . ($p+1) . "\">Next</a>";
+			$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"replies.php?since_id=" . $firstid . "\">Back</a>";
+			$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"replies.php?max_id=" . $lastid . "\">Next</a>";
 			
 			$output .= "</div>";
 			
