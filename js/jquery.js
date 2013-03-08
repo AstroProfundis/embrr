@@ -55,7 +55,7 @@ jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options
 		loading: {
 			finished: undefined,
 			finishedMsg: "<em>Congratulations, you've reached the edge of the timeline.</em>",
-			img: "http://www.infinite-scroll.com/loading.gif",
+			img: "img/square.gif",
 			msg: null,
 			msgText: "<em>Loading more tweets...</em>",
 			selector: null,

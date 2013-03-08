@@ -31,14 +31,10 @@
 <?php
   include('inc/sentForm.php'); 
   
-	$p = 1;
-	if (isset($_GET['p']))
-	{
-		$p = (int) $_GET['p'];
-		if ($p <= 0) $p = 1;
-	}
+	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 
-	$statuses = $t->homeTimeline($p);
+	$statuses = $t->homeTimeline($since_id, $max_id);
 	if ($statuses == false)
 	{
 		header('location: error.php');exit();
@@ -55,7 +51,11 @@
 
 		include('lib/timeline_format.php');
 		$maxid = isset($_COOKIE['maxid']) ? $_COOKIE['maxid'] : '';
+		$firstid = false;
+		$lastid = false;
 		foreach ($statuses as $status) {
+			if (!$firstid) $firstid = $status->id_str;
+			$lastid = $status->id_str;
 			if($maxid == '' || $p == 1 || strcmp($status->id_str,$maxid) < 0) {
 				if (isset($status->retweeted_status)) {
 					$output .= format_retweet($status);
@@ -64,13 +64,15 @@
 				}
 			}
 		}
+		$firstid = $firstid + 1;
+		$lastid = $lastid - 1;
 
 		$output .= "</ol><div id=\"pagination\">";
 		$time = $_SERVER['REQUEST_TIME']+3600;
 		setcookie('maxid',$statuses[$count-1]->id_str,$time,'/');
 
-		if ($p >1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"index.php?p=" . ($p-1) . "\">Back</a>";
-		if (!$empty) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"index.php?p=" . ($p+1) . "\">Next</a>";
+		$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"index.php?since_id=" . $firstid . "\">Back</a>";
+		$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"index.php?max_id=" . $lastid . "\">Next</a>";
 		echo $output;
 	}
 ?>

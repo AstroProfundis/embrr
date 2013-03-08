@@ -602,11 +602,11 @@ class TwitterOAuth {
 		return $this->post($url);
 	}
 
-	function homeTimeline($page = false, $since_id = false, $count = false, $include_entities = true) {
+	function homeTimeline($since_id = false, $max_id = false, $count = false, $include_entities = true) {
 		$url = '/statuses/home_timeline';
 		$args = array();
-		if($page)
-			$args['page'] = $page;
+		if($max_id)
+			$args['max_id'] = $max_id;
 		if($since_id)
 			$args['since_id'] = $since_id;
 		if($count)
@@ -662,13 +662,15 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function replies($page = false, $since_id = false,$include_entities = true){
+	function replies($since_id = false, $max_id = false, $count = false, $include_entities = true){
 		$url = '/statuses/mentions_timeline';
 		$args = array();
-		if($page)
-			$args['page'] = (int) $page;
+		if($max_id)
+			$args['max_id'] = $max_id;
 		if($since_id)
 			$args['since_id'] = $since_id;
+		if($count)
+			$args['count'] = $count;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
@@ -697,13 +699,13 @@ class TwitterOAuth {
 		}
 	}
 
-	function userTimeline($page = false, $id = false, $count = false, $since_id = false, $include_rts = true, $include_entities = true){
+	function userTimeline($id = false, $since_id = false, $max_id = false, $count = false, $include_rts = true, $include_entities = true){
 		$url = '/statuses/user_timeline';
 		$args = array();
-		if($page)
-			$args['page'] = $page;
+		if($max_id)
+			$args['max_id'] = $max_id;
 		if($id)
-			$args['id'] = $id;
+			$args['screen_name'] = $id;
 		if($count)
 			$args['count'] = $count;
 		if($since_id)
@@ -766,24 +768,22 @@ class TwitterOAuth {
 	/* media */
 	function updateProfileImage($image, $skip_status=true) {
 		$url = '/account/update_profile_image';
-		$mul = array();
+		$args = array();
 		if($image){
-			$mul['image']=$image;
-		}
-		if($skip_status) {
+			$args['image']=$image;
 			$args['skip_status']=$skip_status;
 		}
-		return $this->post($url, $args, $mul);
+		return $this->post($url, $args);
 	}
 	
 	function updateProfileBackground($image, $skip_status=true) {
 		$url = '/account/update_profile_background_image';
-		$mul = array();
+		$args = array();
 		if($image){
-			$mul['image']=$image;
-			$mul['skip_status']=$skip_status;
+			$args['image']=$image;
+			$args['skip_status']=$skip_status;
 		}
-		return $this->post($url, NULL, $mul);
+		return $this->post($url, $args);
 	}
 	
 	function updateMedia($status,$image,$replying_to = false) {

@@ -7,7 +7,7 @@
 	$t = getTwitter();
 	if ( isset($_GET['since_id']) ) {
 
-		$statuses = $t->replies(false, $_GET['since_id']);
+		$statuses = $t->replies($_GET['since_id']);
 		$count = count($statuses);
 		if ($count == 0) {
 			echo "empty";
