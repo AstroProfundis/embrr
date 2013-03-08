@@ -4,9 +4,9 @@
 	}
 	include ('../lib/twitese.php');
 	if (isset($_FILES['image'])) {
-		$image = "@{$_FILES['image']['tmp_name']};type={$_FILES['image']['type']};filename={$_FILES['image']['name']}";
 		switch($_GET['do']) {
 			case 'image':
+			$image = "@{$_FILES['image']['tmp_name']};type={$_FILES['image']['type']};filename={$_FILES['image']['name']}";
 			$result = imageUpload($image);
 			if (isset($result->url)) {
 				echo '{"result": "success" , "url" : "' . $result->url . '"}';
@@ -15,6 +15,8 @@
 			}
 			break;
 			case 'profile':
+			$image = file_get_contents($_FILES['image']['tmp_name']);
+			$image = base64_encode($image);
 			$t = getTwitter();
 			$skip_status = $_POST['skip_status'];
 			$result = $t->updateProfileImage($image,$skip_status);

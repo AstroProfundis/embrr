@@ -768,24 +768,22 @@ class TwitterOAuth {
 	/* media */
 	function updateProfileImage($image, $skip_status=true) {
 		$url = '/account/update_profile_image';
-		$mul = array();
+		$args = array();
 		if($image){
-			$mul['image']=$image;
-		}
-		if($skip_status) {
+			$args['image']=$image;
 			$args['skip_status']=$skip_status;
 		}
-		return $this->post($url, $args, $mul);
+		return $this->post($url, $args);
 	}
 	
 	function updateProfileBackground($image, $skip_status=true) {
 		$url = '/account/update_profile_background_image';
-		$mul = array();
+		$args = array();
 		if($image){
-			$mul['image']=$image;
-			$mul['skip_status']=$skip_status;
+			$args['image']=$image;
+			$args['skip_status']=$skip_status;
 		}
-		return $this->post($url, NULL, $mul);
+		return $this->post($url, $args);
 	}
 	
 	function updateMedia($status,$image,$replying_to = false) {
