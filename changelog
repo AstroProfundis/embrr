@@ -1,5 +1,6 @@
-Fri Mar  8 15:15:35 CST 2013	<shadowglen@me.com>
+Fri Mar  8 16:50:44 CST 2013	<shadowglen@me.com>
 * Fixed avatar uploading function
+* Checked js files about sidebar and decided not to regard "Unable to Lock Top" as a bug
 
 Fri Mar  8 00:46:37 CST 2013	<shadowglen@me.com>
 * Fixed API 1.1 format and auto-load in Home page, User page, Profile page, and Replies page
@@ -38,9 +39,6 @@ TODO:
   * Related files: lists.php, list.php, lib/twitteroauth.php
   * Possible reason: GET :user/lists is removed and replaced by GET lists/list,
     and the code need to be updated
-
-* Mentions page: siderbar position bug after checking API quota
-  * Related files: inc/siderbar.php, ajax/apiQuota.php
 
 * Clean up messed code
 
