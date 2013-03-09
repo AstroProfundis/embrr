@@ -42,33 +42,6 @@
 			}
 		}
 		
-		if ( isset($_POST['list_members']) ) {
-			if (trim($_POST['list_members']) == '') {
-					echo "<div id=\"otherTip\">添加成员失败，成员列表不能为空</div>";
-			} else {
-				$listId = $_POST['pre_list_name'];
-				$memberList = explode(",", $_POST['list_members']);
-				$count = 0;
-				$failList = '';
-				
-				foreach ($memberList as $member) {
-					$result = $t->addListMember($listId, $id, $member);
-					if (!isset($result->error) && isset($result->user)) $count ++;
-					else $failList .= $member . " ";
-				}
-				
-				if ($count > 0) {
-					if ($count == count($memberList))
-						echo "<div id=\"otherTip\">成功添加 $count 个成员</div>";
-					else 
-						echo "<div id=\"otherTip\">成功添加 $count 个成员，失败名单：$failList </div>";
-				} else {
-					echo "<div id=\"otherTip\">添加成员失败，请重试</div>";
-				}
-			}
-		}
-	?>
-	<?php 
 		$isSelf = true;
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
@@ -136,14 +109,14 @@
 				$listurl = substr($list->uri,1);
 				$user = $list->user;
 				$listname = explode('/',$list->full_name);
-				$mode = $list->mode == 'private' ? "Private" : "";
+				$mode = $list->mode == 'private' ? "Private" : "Public";
 				
 				$output .= "
 				<li>
 					<span class=\"rank_img\"><img src=\"".getAvatar($user->profile_image_url)."\" /></span>
 					<div class=\"rank_content\">
 						<span class=\"rank_num\"><span class=\"rank_name\"><a href=\"list.php?id=$listurl\"><em>$listname[0]/</em>$listname[1]</a></span></span>
-						<span class=\"rank_count\">Followers：$list->subscriber_count 　Members：$list->member_count 　$mode</span> 
+						<span class=\"rank_count\">Followers: {$list->subscriber_count}&nbsp;&nbsp;Members: {$list->member_count}&nbsp;&nbsp;$mode</span> 
 				";
 				if ($list->description != '') $output .= "<span class=\"rank_description\">简介：$list->description</span>";
 				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"unfollow_list\">Unfollow</a></span>";

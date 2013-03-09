@@ -101,15 +101,44 @@ $(function(){
 		var position = $(this).position();
 		var liPosition = $(this).parent().parent().parent().position();
 		var list_name = $(this).parent().parent().find(".rank_name").text().split("/")[1];
+		var owner_name = $(this).parent().parent().find(".rank_name").text().split("/")[0];
+		var rank_count = $(this).parent().parent().find(".rank_count");
+		owner_name = owner_name.split("@")[1];
 		$('<form method="POST" action="./lists.php?t=1" id="member_form">' +
 	    	'<span>User ID:(Saperated with comma, e.g. JLHwung,twitter)</span>' +
 	    	'<span><textarea type="text" name="list_members" id="list_members"></textarea></span>' +
-	    	'<input type="hidden" name="member_list_name" value="' + list_name + '" />' +
 	    	'<span><input type="submit" class="btn" id="member_submit" value="Submit" /> <input type="button" class="btn" id="member_cancel" value="Cancel" /></span>' +
 	    '</form>').appendTo("#statuses").css("left", liPosition.left + position.left).css("top", liPosition.top + position.top + 30);
 		
 		$("#member_cancel").click(function(){
 			$("#member_form").remove();
+		});
+		
+		$("#member_submit").click(function(e){
+			e.preventDefault();
+			var list_members = $("#list_members").val();
+			if (list_members.length <= 0) {
+				window.alert("User IDs cannot be empty!");
+				return;
+			}
+			$("#member_form").remove();
+			updateSentTip("adding members to list " + list_name + "...", 5000, "ing");
+                        $.ajax({
+                                url: "ajax/addMembersToList.php",
+                                type: "POST",
+                                data: "slug=" + list_name + "&owner=" + owner_name + "&add_members=" + list_members,
+                                success: function(msg) {
+                                        if (msg.indexOf("error") >= 0) {
+                                                updateSentTip("Adding failed. Please try again.", 3000, "failure");
+                                        } else {
+                                                updateSentTip("Successfully adding members to list " + list_name, 3000, "success");
+						rank_count.html(msg);
+                                        }
+                                },
+                                error: function(msg) {
+                                        updateSentTip("Adding failed. Please try again.", 3000, "failure");
+                                }
+                        });
 		})
 	})
 	
