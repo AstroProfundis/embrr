@@ -11,7 +11,9 @@ $(function(){
 	$(".list_delete_btn").click(function(e){
 		e.preventDefault();
 		var $this = $(this);  
-		var list_id = $(".list_id").text();
+		var lidparts = $(".list_id").text().split("/");
+		var slug = lidparts[1];
+		var owner = lidparts[0].replace("@","");
 		var member_name = $.trim($(this).parent().parent().find(".rank_screenname").text());
 		member_name = member_name.replace("(","").replace(")","");
 		var member_id = $.trim($(this).parent().parent().find("#rank_id").text());
@@ -22,7 +24,7 @@ $(function(){
 			$.ajax({
 				url: "ajax/delete.php",
 				type: "POST",
-				data: "id=" + list_id + "&list_member=" + member_id,
+				data: "slug=" + slug + "&owner=" + owner + "&list_member=" + member_id,
 				success: function(msg) {
 					if (msg.indexOf("success") >= 0) {
 						$this.parent().parent().parent().remove();

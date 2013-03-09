@@ -23,7 +23,7 @@ $(function(){
 			data: "action=destory&id=" + id,
 			success: function(msg) {
 				if (msg.indexOf("success") >= 0) {
-					updateSentTip("Successfully unfollowing list" + id, 3000, "success");
+					updateSentTip("Successfully unfollowing list " + id, 3000, "success");
 					$this.parent().parent().parent().fadeOut("fast");
 				} else {
 					updateSentTip("Unfollow failed. Please try again.", 3000, "failure");
@@ -39,18 +39,18 @@ $(function(){
 	$(".delete_list").click(function(e){
 		e.preventDefault();
 		var $this = $(this);  
-		var list_id = $this.parent().parent().find(".rank_name").text().substr(1);
-		var confirm = window.confirm("Do you really want to delete " + list_id + "?");
+		var list_slug = $this.parent().parent().find(".rank_name").text().split("/")[1];
+		var confirm = window.confirm("Do you really want to delete " + list_slug + "?");
 		if (confirm) {
-			updateSentTip("deleting list" + list_id + "...", 5000, "ing");
+			updateSentTip("deleting list " + list_slug + "...", 5000, "ing");
 			$.ajax({
 				url: "ajax/delete.php",
 				type: "POST",
-				data: "list_id=" + list_id,
+				data: "list_slug=" + list_slug,
 				success: function(msg) {
 					if (msg.indexOf("success") >= 0) {
 						$this.parent().parent().parent().fadeOut("fast");
-						updateSentTip("Successfully deleting" + list_id, 3000, "success");
+						updateSentTip("Successfully deleting " + list_id, 3000, "success");
 					} else {
 						updateSentTip("Delete failed. Please try again.", 3000, "failure");
 					}

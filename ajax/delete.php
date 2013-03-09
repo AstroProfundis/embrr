@@ -19,14 +19,13 @@
 		if ($result) echo 'success';
 		else echo 'error';
 	}
-	elseif ( isset($_POST['list_id']) ) {
-		$result = $t->deleteList($_POST['list_id']);
+	elseif ( isset($_POST['list_slug']) ) {
+		$result = $t->deleteList($_POST['list_slug']);
 		if ($result) echo 'success';
 		else echo 'error';
 	}
 	elseif ( isset($_POST['list_member']) ) {
-		//$user = $t->showUser($_POST['list_member']);
-		$result = $t->deleteListMember($_POST['id'], $_POST['list_member']);
+		$result = $t->deleteListMember($_POST['slug'], $_POST['owner'], $_POST['list_member']);
 		if ($result) echo 'success';
 		else echo 'error';
 	}
