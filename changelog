@@ -1,3 +1,6 @@
+Sat Mar  9 17:55:22 CST 2013	<shadowglen@me.com>
+* Changed lists adding members function to ajax style
+
 Sat Mar  9 15:16:16 CST 2013	<shadowglen@me.com>
 * Fixed lists created by user page
 * Fixed protection option on list create/edit form
@@ -41,6 +44,9 @@ TODO:
 
 * Lists page: request/response style different than other functions
   * Related files: lists.php, js/lists.js
+
+* List Members page: unable to delete member
+  * Related files: list_members.php, lib/twitteroauth.php
 
 * Clean up messed code
 

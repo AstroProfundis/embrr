@@ -268,7 +268,7 @@ class TwitterOAuth {
 
 	/* ---------- List ---------- */
 	function addListMember($listid, $id, $memberid){
-		$url = "/lists/members/create";
+		$url = "/lists/members/create_all";
 		$args = array();
 		if($listid)
 			$args['slug'] = $listid;
