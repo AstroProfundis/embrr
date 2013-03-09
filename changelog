@@ -1,3 +1,7 @@
+Sat Mar  9 15:16:16 CST 2013	<shadowglen@me.com>
+* Fixed lists created by user page
+* Fixed protection option on list create/edit form
+
 Fri Mar  8 16:50:44 CST 2013	<shadowglen@me.com>
 * Fixed avatar uploading function
 * Checked js files about sidebar and decided not to regard "Unable to Lock Top" as a bug
@@ -35,10 +39,8 @@ TODO:
 * User page: unable to load DM context box when click a user's avatar on tweet and chose Send Me a Message
   * Possible reason: AJAX bug
 
-* Lists page: buttons not fully compatible on "All you lists" tab
-  * Related files: lists.php, list.php, lib/twitteroauth.php
-  * Possible reason: GET :user/lists is removed and replaced by GET lists/list,
-    and the code need to be updated
+* Lists page: request/response style different than other functions
+  * Related files: lists.php, js/lists.js
 
 * Clean up messed code
 
