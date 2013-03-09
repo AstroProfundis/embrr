@@ -15,7 +15,7 @@ $(function(){
 	$(".unfollow_list").live("click",function(e){
 		e.preventDefault();
 		var $this = $(this);
-		var id = $(this).parent().parent().find(".rank_name").text().substr(1);
+		var id = $this.parent().parent().find(".rank_name").text().substr(1);
 		updateSentTip("Unfollowing lists...", 5000, "ing");
 		$.ajax({
 			url: "ajax/list.php",
@@ -24,7 +24,7 @@ $(function(){
 			success: function(msg) {
 				if (msg.indexOf("success") >= 0) {
 					updateSentTip("Successfully unfollowing list" + id, 3000, "success");
-					$this.remove();
+					$this.parent().parent().parent().fadeOut("fast");
 				} else {
 					updateSentTip("Unfollow failed. Please try again.", 3000, "failure");
 				}
@@ -39,8 +39,8 @@ $(function(){
 	$(".delete_list").click(function(e){
 		e.preventDefault();
 		var $this = $(this);  
-		var list_id = $(this).parent().parent().find(".rank_name").text().substr(1);
-		var confirm = window.confirm("Do you really want to delete" + list_id + "?");
+		var list_id = $this.parent().parent().find(".rank_name").text().substr(1);
+		var confirm = window.confirm("Do you really want to delete " + list_id + "?");
 		if (confirm) {
 			updateSentTip("deleting list" + list_id + "...", 5000, "ing");
 			$.ajax({
@@ -49,7 +49,7 @@ $(function(){
 				data: "list_id=" + list_id,
 				success: function(msg) {
 					if (msg.indexOf("success") >= 0) {
-						$this.parent().parent().parent().remove();
+						$this.parent().parent().parent().fadeOut("fast");
 						updateSentTip("Successfully deleting" + list_id, 3000, "success");
 					} else {
 						updateSentTip("Delete failed. Please try again.", 3000, "failure");
@@ -70,6 +70,7 @@ $(function(){
 		$("#list_protect").removeAttr("checked");
 		$("#pre_list_name").val("");
 		$("#is_edit").val(0);
+		$("#list_submit").val("Create");
 	});
 	
 	$(".edit_list").click(function(e){
@@ -77,7 +78,7 @@ $(function(){
 		var parent = $(this).parent().parent();
 		var list_name = parent.find(".rank_name").text().split("/")[1];
 		var list_description = parent.find(".rank_description").text().slice(3);
-		var list_protect = parent.find(".rank_count").text().indexOf("隐私群") > 0;
+		var list_protect = parent.find(".rank_count").text().indexOf("Private") > 0;
 
 		$("#list_form").show("fast");
 		$("#list_name").focus().val(list_name);
@@ -88,6 +89,7 @@ $(function(){
 			$("#list_protect").removeAttr("checked");
 		}
 		$("#is_edit").val(1);
+		$("#list_submit").val("Edit");
 		$("#pre_list_name").val(list_name);
 	})
 	

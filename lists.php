@@ -18,7 +18,7 @@
 				if (trim($_POST['list_name']) == '') {
 						echo "<div id=\"otherTip\">创建推群失败，推群名不能为空</div>";
 				} else {
-					$isProtect = isset($_POST['list_protect']) ? true : false;
+					$isProtect = $_POST['list_protect'] == "on" ? true : false;
 					$result = $t->createList($_POST['list_name'], $_POST['list_description'], $isProtect);
 					if ($result) {
 						echo "<div id=\"otherTip\">创建推群成功</div>";
@@ -30,8 +30,8 @@
 				if (trim($_POST['list_name']) == '') {
 						echo "<div id=\"otherTip\">修改推群失败，推群名不能为空</div>";
 				} else {
-					$listId = $_POST['member_list_name'];
-					$isProtect = isset($_POST['list_protect']) ? true : false;
+					$listId = $_POST['pre_list_name'];
+					$isProtect = $_POST['list_protect'] == "on" ? true : false;
 					$result = $t->editList($listId, $_POST['list_name'], $_POST['list_description'], $isProtect);
 					if ($result) {
 						echo "<div id=\"otherTip\">修改推群成功</div>";
@@ -46,7 +46,7 @@
 			if (trim($_POST['list_members']) == '') {
 					echo "<div id=\"otherTip\">添加成员失败，成员列表不能为空</div>";
 			} else {
-				$listId = $_POST['member_list_name'];
+				$listId = $_POST['pre_list_name'];
 				$memberList = explode(",", $_POST['list_members']);
 				$count = 0;
 				$failList = '';
@@ -105,23 +105,23 @@
 		
 	?>
 	<div id="subnav">
-	<?php if ($isSelf) { ?>
-		<?php if ($type == 0) {?>
+	<?php if ($isSelf) {
+		if ($type == 0) {?>
 	       	<span class="subnavNormal">Lists you follow</span><span class="subnavLink"><a href="lists.php?t=1">All your lists</a></span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
 		<?php } else if ($type == 1) {?>
 	       	<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavNormal">All your lists</span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
 		<?php } else {?>
 			<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavLink"><a href="lists.php?t=1">All your lists</a></span><span class="subnavNormal">Lists following you</span>
-		<?php } ?>
-	<?php } else {?>
-		<?php if ($type == 0) {?>
+		<?php }
+	} else {
+		if ($type == 0) {?>
 	       	<span class="subnavNormal">Following Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
 		<?php } else if ($type == 1) {?>
 	       	<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavNormal">All Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
 		<?php } else {?>
 			<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavNormal">Lists Following</span>
-		<?php } ?>
-	<?php } ?>
+		<?php }
+	} ?>
     </div>
     
 	<?php 
@@ -170,7 +170,7 @@
 	    	<span><label for="list_description">Description</label><textarea type="text" name="list_description" id="list_description"></textarea></span>
 	    	<span><label for="list_protect">Private</label><input type="checkbox" name="list_protect" id="list_protect"  />
 			<a style="background: transparent url(img/sprite-icons.png) no-repeat scroll -272px -16px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; text-decoration: none; height: 10px; float: right; position: relative; width: 9px; left: 3px; top: -160px;" title="Close" onclick="$('#list_form').slideToggle(300)" href="#"></a>
-			<input type="submit" class="btn" id="list_submit" value="Creat" />
+			<input type="submit" class="btn" id="list_submit" value="" />
 			
 			</span>
 	    	<span></span>
@@ -183,10 +183,10 @@
 	<?php 
 	    if ($type == 0 || $type == 2) {
 	    	if ($isSelf) {
-				if ($prelist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"lists.php?t=$type&c=$prelist\">Back</a>";
+				if ($prelist != 0) echo "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"lists.php?t=$type&c=$prelist\">Back</a>";
 				if ($nextlist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"lists.php?t=$type&c=$nextlist\">Next</a>";
 	    	} else {
-				if ($prelist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"lists.php?id=$id&t=$type&c=$prelist\">Back</a>";
+				if ($prelist != 0) echo "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"lists.php?id=$id&t=$type&c=$prelist\">Back</a>";
 				if ($nextlist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"lists.php?id=$id&t=$type&c=$nextlist\">Next</a>";
 	    	}
 		}
