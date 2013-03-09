@@ -321,20 +321,20 @@ class TwitterOAuth {
 		return $results;
 	}
 
-	function deleteList($id){
-		$url = "/lists/destroy.json";
+	function deleteList($slug){
+		$url = "/lists/destroy";
 		$args = array();
-		$args['list_id'] = $id;
+		$args['slug'] = $slug;
+		$args['owner_screen_name'] = $this->username;
 		return $this->post($url, $args);
 	}
 
-	function deleteListMember($id, $memberid){
+	function deleteListMember($slug, $owner, $memberid){
 		$url = "/lists/members/destroy";
 		$args = array();
-		$args['list_id'] = $id;
-		if($memberid){
-			$args['user_id'] = $memberid;
-		}
+		$args['slug'] = $slug;
+		$args['owner_screen_name'] = $owner;
+		$args['user_id'] = $memberid;
 		return $this->post($url, $args);
 	}
 

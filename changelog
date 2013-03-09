@@ -1,3 +1,6 @@
+Sat Mar  9 22:17:51 CST 2013	<shadowglen@me.com>
+* Fixed member deletion function of list
+
 Sat Mar  9 17:55:22 CST 2013	<shadowglen@me.com>
 * Changed lists adding members function to ajax style
 
@@ -42,11 +45,8 @@ TODO:
 * User page: unable to load DM context box when click a user's avatar on tweet and chose Send Me a Message
   * Possible reason: AJAX bug
 
-* Lists page: request/response style different than other functions
+* Lists page: request/response style of create/edit different than other functions
   * Related files: lists.php, js/lists.js
-
-* List Members page: unable to delete member
-  * Related files: list_members.php, lib/twitteroauth.php
 
 * Clean up messed code
 
