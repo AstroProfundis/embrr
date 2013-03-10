@@ -363,6 +363,10 @@ function rmmention($this,e){
 	var in_reply_id = $this.parent().parent().parent().find(".status_id").text();
 	var text = "@"+replie_id;
 	var mode = "In reply to ";
+	if ($("#textbox").length <= 0) {
+		$("#info_head").after('<h2>In reply to ' + replie_id + '</h2>' + formHTML);
+		formFunc();
+	}
 	scroll(0,0);
 	$("#textbox").focus().val($("#textbox").val()+text+' ');
 	$("#in_reply_to").val(in_reply_id);
@@ -373,6 +377,10 @@ function rmmention($this,e){
 function rmdm($this,e){
 	var replie_id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
 	var text = "D "+replie_id;
+	if ($("#textbox").length <= 0) {
+		$("#info_head").after('<h2>Send message to ' + replie_id + '</h2>' + formHTML);
+		formFunc();
+	}
 	scroll(0,0);
 	$("#textbox").focus().val($("#textbox").val()+text+' ');;
 	$("#in_reply_to").val(e.target.parent().parent().parent().find(".status_id").text());

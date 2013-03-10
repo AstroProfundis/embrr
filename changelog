@@ -1,3 +1,6 @@
+Sun Mar 10 21:49:40 CST 2013	<shadowglen@me.com>
+* Fixed "unable to load text box in some pages" bug
+
 Sun Mar 10 16:13:05 CST 2013	<shadowglen@me.com>
 * Changed lists create/edit function to ajax style
 
@@ -44,9 +47,6 @@ Sat Mar  2 21:20:43 CST 2013	<shadowglen@me.com>
 * Initial log
 
 TODO:
-
-* User page: unable to load DM context box when click a user's avatar on tweet and chose Send Me a Message
-  * Possible reason: AJAX bug
 
 * Clean up messed code
 
