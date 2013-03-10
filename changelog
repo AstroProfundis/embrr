@@ -48,9 +48,6 @@ TODO:
 * User page: unable to load DM context box when click a user's avatar on tweet and chose Send Me a Message
   * Possible reason: AJAX bug
 
-* Lists page: newly created list cannot response to edit/delete/add_members operation
-  * Related files: lists.php, js/lists.js
-
 * Clean up messed code
 
 * Modify media upload method to official
