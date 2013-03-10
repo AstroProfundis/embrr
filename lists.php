@@ -12,35 +12,6 @@
 	<?php 
 		$t = getTwitter();
 		$t->type = 'json';
-		$id = isset($_GET['id'])? $_GET['id'] : false;
-		if ( isset($_POST['list_name']) ) {
-			if ($_POST['is_edit'] == 0) {
-				if (trim($_POST['list_name']) == '') {
-						echo "<div id=\"otherTip\">创建推群失败，推群名不能为空</div>";
-				} else {
-					$isProtect = $_POST['list_protect'] == "on" ? true : false;
-					$result = $t->createList($_POST['list_name'], $_POST['list_description'], $isProtect);
-					if ($result) {
-						echo "<div id=\"otherTip\">创建推群成功</div>";
-					} else {
-						echo "<div id=\"otherTip\">创建推群失败，请重试</div>";
-					}
-				}
-			} else {
-				if (trim($_POST['list_name']) == '') {
-						echo "<div id=\"otherTip\">修改推群失败，推群名不能为空</div>";
-				} else {
-					$listId = $_POST['pre_list_name'];
-					$isProtect = $_POST['list_protect'] == "on" ? true : false;
-					$result = $t->editList($listId, $_POST['list_name'], $_POST['list_description'], $isProtect);
-					if ($result) {
-						echo "<div id=\"otherTip\">修改推群成功</div>";
-					} else {
-						echo "<div id=\"otherTip\">修改推群失败，请重试</div>";
-					}
-				}
-			}
-		}
 		
 		$isSelf = true;
 		if (isset($_GET['id'])) {
@@ -114,13 +85,13 @@
 				$output .= "
 				<li>
 					<span class=\"rank_img\"><img src=\"".getAvatar($user->profile_image_url)."\" /></span>
-					<div class=\"rank_content\">
+					<div class=\"rank_content\" id=\"list{$list->id_str}\">
 						<span class=\"rank_num\"><span class=\"rank_name\"><a href=\"list.php?id=$listurl\"><em>$listname[0]/</em>$listname[1]</a></span></span>
 						<span class=\"rank_count\">Followers: {$list->subscriber_count}&nbsp;&nbsp;Members: {$list->member_count}&nbsp;&nbsp;$mode</span> 
 				";
-				if ($list->description != '') $output .= "<span class=\"rank_description\">简介：$list->description</span>";
-				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"unfollow_list\">Unfollow</a></span>";
-				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"javascript:void()\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"javascript:void()\" class=\"add_member\">Add Members</a></span>";
+				$output .= "<span class=\"rank_description\">Bio: $list->description</span>";
+				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"#\" class=\"unfollow_list\">Unfollow</a></span>";
+				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"#\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"#\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"#\" class=\"add_member\">Add Members</a></span>";
 				$output .= "
 					</div>
 				</li>
@@ -135,8 +106,9 @@
 	?>
 	
 	<?php if ($isSelf && $type == 1) {?>
-	    <a href="javascript:void()" class="more round" id="list_create_btn" style="margin: 20px auto;">Create a new list</a>
+	    <a href="#" class="more round" id="list_create_btn" style="margin: 20px auto;">Create a new list</a>
 	    <form method="POST" action="./lists.php?t=1" id="list_form">
+	    	<input type="hidden" name="list_spanid" value="" id="list_spanid" />
 	    	<input type="hidden" name="pre_list_name" value="" id="pre_list_name" />
 	    	<input type="hidden" name="is_edit" value="0" id="is_edit" />
 	    	<span><label for="list_name">List name</label><input type="text" name="list_name" id="list_name" /></span>

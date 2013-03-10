@@ -291,7 +291,7 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function createList($name, $description, $isPortect){
+	function createList($name, $description, $mode){
 		$url = "/lists/create";
 		$args = array();
 		if($name){
@@ -300,8 +300,8 @@ class TwitterOAuth {
 		if($description){
 			$args['description'] = $description;
 		}
-		if($isProtect){
-			$args['mode'] = 'private';
+		if($mode){
+			$args['mode'] = $mode;
 		}
 		return $this->post($url, $args);
 	}
@@ -314,10 +314,11 @@ class TwitterOAuth {
 		$args['screen_name'] = $username;
 		$lists = $this->get($url, $args);
 		$results = array();
-		foreach ($lists as $list) {
-			$ownername = $list->user->screen_name;
-			if ($ownername == $username) $results[] = $list;
-		}
+		if($lists)
+			foreach ($lists as $list) {
+				$ownername = $list->user->screen_name;
+				if ($ownername == $username) $results[] = $list;
+			}
 		return $results;
 	}
 
@@ -338,7 +339,7 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function editList($prename, $name, $description, $isProtect){
+	function editList($prename, $name, $description, $mode){
 		$url = "/lists/update";
 		$args = array();
 		if($prename){
@@ -351,8 +352,8 @@ class TwitterOAuth {
 		if($description){
 			$args['description'] = $description;
 		}
-		if($isProtect){
-			$args['mode'] = "private";
+		if($mode){
+			$args['mode'] = $mode;
 		}
 		return $this->post($url, $args);
 	}
