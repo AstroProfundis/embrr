@@ -55,8 +55,8 @@
 			
 			$output .= "</ol><div id=\"pagination\">";
 			
-			$firstmsg = $messages[0]->id + 1;
-			$lastmsg = $messages[count($messages)-1]->id - 1;
+			$firstmsg = $messages[0]->id_str;
+			$lastmsg = bcsub($messages[count($messages)-1]->id_str, "1");
 			if ($isSentPage) {
 				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"message.php?t=sent&since_id=" . $firstmsg . "\">Back</a>";
 				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"message.php?t=sent&max_id=" . $lastmsg . "\">Next</a>";

@@ -1,0 +1,7 @@
+* There are lots of bugs when api response is error info
+
+* Profile background image updating function
+
+* Profile timeline needs to be AJAX updated after posting a new tweet
+
+* Clean up messed code.

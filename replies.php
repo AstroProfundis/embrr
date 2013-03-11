@@ -32,8 +32,7 @@
 				$lastid = $status->id_str;
 				$output .= format_timeline($status,$t->username);
 			}
-			$firstid = $firstid + 1;
-			$lastid = $lastid - 1;
+			$lastid = bcsub($lastid, "1");
 			
 			$output .= "</ol><div id=\"pagination\">";
 			

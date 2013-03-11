@@ -64,8 +64,7 @@
 				}
 			}
 		}
-		$firstid = $firstid + 1;
-		$lastid = $lastid - 1;
+		$lastid = bcsub($lastid, "1");
 
 		$output .= "</ol><div id=\"pagination\">";
 		$time = $_SERVER['REQUEST_TIME']+3600;
