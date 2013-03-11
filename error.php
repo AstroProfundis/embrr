@@ -11,11 +11,7 @@
 			switch($_GET['t']){
 				case 1:
 				echo '<p>Fail to connect Twitter right now. Please <a href="index.php">go back</a> or <a href="logout.php">sign in</a> minutes later.</p>';
-				if(loginStatus())
-				{
-				echo '<p> The API will reset in '.intval((format_time(getTwitter()->ratelimit()->reset_time) - time())/60).' min(s).';
 				break;
-				}
 				default:
 				echo '<p>Ooops, an unknown error occured. Please <a href="index.php">go back</a> or <a href="logout.php">sign in</a> again.</p>';
 			}
