@@ -99,8 +99,7 @@
 					$firstid = $status->id_str;
 				$lastid = $status->id_str;
 			}
-			$firstid += 1;
-			$lastid -= 1;
+			$lastid = bcsub($lastid, "1");
 
 			$output .= "</ol><div id=\"pagination\">";
 			if ($_GET['fav'] == true) {
