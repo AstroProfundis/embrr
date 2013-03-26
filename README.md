@@ -12,6 +12,8 @@ All helps are welcomed!
 配置说明
 ========
 
+依赖 `php-bcmath` 组件。
+
 如果出现 Fav, DM 等页面无法翻页的问题，尝试更改 `php.ini` 的配置：
 
     ; The number of significant digits displayed in floating point numbers.
