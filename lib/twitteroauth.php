@@ -306,20 +306,13 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function allLists($username = false) { // api for created lists had been removed from v1.1
-		$url = "/lists/list";
+	function myLists($username = false, $user_id = false, $count = false) {
+		$url = "/lists/ownerships";
 		$args = array();
 		if($username)
 			$username = $this->username;
 		$args['screen_name'] = $username;
-		$lists = $this->get($url, $args);
-		$results = array();
-		if($lists)
-			foreach ($lists as $list) {
-				$ownername = $list->user->screen_name;
-				if ($ownername == $username) $results[] = $list;
-			}
-		return $results;
+		return $this->get($url, $args);
 	}
 
 	function deleteList($slug){
