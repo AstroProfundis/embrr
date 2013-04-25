@@ -141,13 +141,14 @@ var formFunc = function(){
 							source.hide().slideDown('fast');
 							var statusid = $.trim($(msg).find('.status_id').text());
 							var statusText = $.trim($(msg).find('.tweet').html());
+							var statusDate = $.trim($(msg).find('span.date a').attr('id'));
 							embrTweet(source);
 							$(".mine").slideDown("fast");
 							$("#full_status").fadeIn("fast");
 							$("#currently .status-text").hide().text(limitation(text)).fadeIn("fast");
-							$("#latest_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\">less than 5 seconds ago</a>").fadeIn("fast");
+							$("#latest_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>").fadeIn("fast");
 							$("#currently .full-text").hide().html(statusText);
-							$("#full_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\">less than 5 seconds ago</a>");
+							$("#full_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>");
 							$("#full_meta a,.full-text a").click(function (e){e.stopPropagation();});
 							previewMedia(source);
 							freshProfile();
