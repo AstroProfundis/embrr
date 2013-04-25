@@ -30,7 +30,7 @@
 				$lists = $lists->lists; 
 				break;
 			case 1:
-				$lists = $t->myLists($id);
+				$lists = $t->myLists($id)->lists;
 				break;
 			case 2:
 				$lists = $t->beAddedLists($id, $c);
