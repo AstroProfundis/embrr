@@ -51,9 +51,9 @@
 	<div id="subnav">
 	<?php if ($isSelf) {
 		if ($type == 0) {?>
-	       	<span class="subnavNormal">Lists you follow</span><span class="subnavLink"><a href="lists.php?t=1">All your lists</a></span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
+	       	<span class="subnavNormal">Lists you follow</span><span class="subnavLink"><a href="lists.php?t=1">Lists you created</a></span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
 		<?php } else if ($type == 1) {?>
-	       	<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavNormal">All your lists</span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
+	       	<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavNormal">Lists you created</span><span class="subnavLink"><a href="lists.php?t=2">Lists following you</a></span>
 		<?php } else {?>
 			<span class="subnavLink"><a href="lists.php?t=0">Lists you follow</a></span><span class="subnavLink"><a href="lists.php?t=1">All your lists</a></span><span class="subnavNormal">Lists following you</span>
 		<?php }
