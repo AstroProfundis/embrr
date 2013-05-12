@@ -44,7 +44,7 @@
 
 	function decrypt($crypt_text) {
 		if ( !function_exists('mcrypt_module_open') ) {
-			return EDdecrypt($plain_text, SECURE_KEY);
+			return EDdecrypt($crypt_text, SECURE_KEY);
 		}
 		$crypt_text = base64_decode($crypt_text);
 		$td = mcrypt_module_open('blowfish', '', 'cfb', '');

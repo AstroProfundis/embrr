@@ -1,5 +1,6 @@
 Sun May 12 15:20:14 CST 2013	<shadowglen@me.com>
 * Fixed some call-time pass-by-reference bug
+* Now user's screen_name can be shown without mcrypt module, but it may be not correct
 
 Mon Mar 11 14:15:15 CST 2013	<shadowglen@me.com>
 * Changed max_id calculation to using bcmath module
