@@ -59,11 +59,11 @@
 		<?php }
 	} else {
 		if ($type == 0) {?>
-	       	<span class="subnavNormal">Following Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
+	       	<span class="subnavNormal">Following Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following @<?php echo $id?></a></span>
 		<?php } else if ($type == 1) {?>
-	       	<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavNormal">All Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following</a></span>
+	       	<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavNormal">All Lists</span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=2">Lists Following @<?php echo $id?></a></span>
 		<?php } else {?>
-			<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavNormal">Lists Following</span>
+			<span class="subnavLink"><a href="lists.php?t=0&id=<?php echo $id?>">Following Lists</a></span><span class="subnavLink"><a href="lists.php?id=<?php echo $id?>&t=1">All Lists</a></span><span class="subnavNormal">Lists Following @<?php echo $id?></span>
 		<?php }
 	} ?>
     </div>
