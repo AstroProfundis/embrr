@@ -309,9 +309,11 @@ class TwitterOAuth {
 	function myLists($username = false, $user_id = false, $count = false) {
 		$url = "/lists/ownerships";
 		$args = array();
-		if($username)
+		if($username){
+			$args['screen_name'] = $username;
+		} else {
 			$username = $this->username;
-		$args['screen_name'] = $username;
+		}
 		return $this->get($url, $args);
 	}
 
