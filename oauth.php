@@ -48,6 +48,9 @@
 				if(!isset($_COOKIE['showpic'])){
 					setcookie('showpic', 'true', $time, '/');
 				}
+				if(!isset($_COOKIE['shownick'])){
+					setcookie('shownick', 'false', $time, '/');
+				}
 				if(!isset($_COOKIE['mediaPre'])){
 					setcookie('mediaPre', 'true', $time, '/');
 				}

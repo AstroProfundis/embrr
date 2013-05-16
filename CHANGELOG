@@ -1,3 +1,6 @@
+Fri May 17 01:29:07 CST 2013	<shadowglen@me.com>
+* Added an option to switch nickname/username
+
 Sun May 12 15:20:14 CST 2013	<shadowglen@me.com>
 * Fixed some call-time pass-by-reference bug
 * Now user's screen_name can be shown without mcrypt module, but it may be not correct

@@ -15,6 +15,7 @@ $(function(){
 	checkbox('sidebarscroll',"#sidebarscroll",true,function(){
 		$(window).unbind('scroll',scroller);
 	});
+	checkbox('shownick',"#shownick",false);
 	checkbox('twitterbg',"#twitterbg",false,function(){
 		if($.cookie('twitterbg') === 'true'){
 			$.ajax({
@@ -61,6 +62,7 @@ $(function(){
 			$.cookie('Bgcolor', '');
 			$.cookie('Bgimage','');
 			$.cookie('showpic','true');
+			$.cookie('shownick','false');
 			$.cookie('mediaPre','true');
 			$.cookie('p_avatar','false');
 			$.cookie('homeInterval',1);
