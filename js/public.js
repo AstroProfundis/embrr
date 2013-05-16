@@ -590,9 +590,9 @@ function onNwRT($this){
 					statusBody.find(".source").hide();
 					statusBody.find(".status_info").append("<span class=\"rt_source\">Retweeted by you from <a rel=\"nofollow\" href=\"http://code.google.com/p/embr/\">embr</a></span>").fadeIn("fast");
 					statusBody.find(".date").hide();
-					statusBody.find(".status_info").append("<span class=\"rt_undo\" title=\"Your followers will no longer see the tweet as retweeted by you.\">&nbsp;<a href=\"#\">(Undo)</a><span class=\"rt_id\" style=\"display: none;\">"+msg+"</span></span>").fadeIn("fast");
+					statusBody.find(".status_info").append("<span class=\"rt_undos\" title=\"Your followers will no longer see the tweet as retweeted by you.\">&nbsp;<a class=\"rt_undo\" href=\"#\">(Undo)</a><span class=\"rt_id\" style=\"display: none;\">"+msg+"</span></span>").fadeIn("fast");
 					updateSentTip("This tweet has been retweeted!",3e3,"success");
-					$(".rt_undo").tipsy({
+					$(".rt_undos").tipsy({
 							gravity: 's'
 						});
 				}else{
@@ -682,7 +682,7 @@ function onUndoRt($this){
 					if (statusInfo.find(".rt_source").size() === 1){
 						statusInfo.find(".source").show().find(".date").show();
 						statusInfo.find(".rt_source").remove()
-						statusInfo.find(".rt_undo").remove();
+						statusInfo.find(".rt_undos").remove();
 						statusBody.removeClass("retweet");
 					}else{
 						statusBody.fadeOut("fast");
