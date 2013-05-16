@@ -40,7 +40,7 @@
 			</span>
 			<span class="status_body">
 			<span class="status_id">'.$status_id.'</span>
-			<span class="status_word" style="font-size: 12px;"><a class="user_name" href="user.php?id='.$user->screen_name.'">'.$user->screen_name.'</a> <span class="tweet">'.$text.'</span></span>
+			<span class="status_word" style="font-size: 12px;"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">'.$text.'</span></span>
 			<span class="status_info" style="font-size: 11px; margin: 0px;">';
 		if($end && isset($status->in_reply_to_user_id)){
 			$html .= '<span class="in_reply_to"> <a class="ajax_reply" href="ajax/status.php?id='.$status->in_reply_to_status_id_str.'&uid='.$user->id.'">in reply to '.$status->in_reply_to_screen_name.'</a></span>';

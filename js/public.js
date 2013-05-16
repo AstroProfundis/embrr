@@ -322,7 +322,7 @@ function rminit($this){
 	if($rm.length > 0){
 		$rm.fadeIn('fast');
 	}else{
-		var id = $that.find(".status_word").find(".user_name").text();
+		var id = $that.find(".status_word").find(".user_name").attr("id");
 		$that.addClass("loading");
 		$.ajax({
 			url: 'ajax/relation.php',
@@ -360,7 +360,7 @@ function rminit($this){
 }
 
 function rmmention($this,e){
-	var replie_id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var replie_id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	var in_reply_id = $this.parent().parent().parent().find(".status_id").text();
 	var text = "@"+replie_id;
 	var mode = "In reply to ";
@@ -376,7 +376,7 @@ function rmmention($this,e){
 	leaveWord();
 }
 function rmdm($this,e){
-	var replie_id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var replie_id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	var text = "D "+replie_id;
 	if ($("#textbox").length <= 0) {
 		$("#info_head").after('<h2>Send message to ' + replie_id + '</h2>' + formHTML);
@@ -390,7 +390,7 @@ function rmdm($this,e){
 	leaveWord();
 }
 function rmfollow($this){
-	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	updateSentTip("Following "+id+"...",5e3,"ing");
 	$.ajax({
 		url: "ajax/relation.php",
@@ -409,7 +409,7 @@ function rmfollow($this){
 	});
 }
 function rmunfollow($this){
-	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	if (confirm("Are you sure to unfollow "+id+" ?")){
 		updateSentTip("Unfollowing "+id+"...",5e3,"ing");
 		$.ajax({
@@ -430,7 +430,7 @@ function rmunfollow($this){
 	}
 }
 function rmblock($this){
-	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	if (confirm("Are you sure to block "+id+" ?")){
 		updateSentTip("Blocking "+id+"...",5e3,"ing");
 		$.ajax({
@@ -451,7 +451,7 @@ function rmblock($this){
 	}
 }
 function rmunblock($this){
-	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	if (confirm("Are you sure to unblock "+id+" ?")){
 		updateSentTip("Unblocking "+id+"...",5e3,"ing");
 		$.ajax({
@@ -472,7 +472,7 @@ function rmunblock($this){
 	}
 }
 function rmspam($this){
-	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").text();
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
 	if (confirm("Are you sure to report "+id+" ?")){
 		updateSentTip("Reporting "+id+" as a spammer...",5e3,"ing");
 		$.ajax({
@@ -516,7 +516,7 @@ function onFavor($this){
 }
 function onReplie($this,e){
 	var $word = $this.parent().parent().find(".status_word");
-	var replie_id = $word.find(".user_name").text();
+	var replie_id = $word.find(".user_name").attr("id");
 	var in_reply_id = $this.parent().parent().find(".status_id").text();
 	var text = "@"+replie_id;
 	var start = text.length+1;
@@ -553,7 +553,7 @@ function onReplie($this,e){
 	leaveWord();
 }
 function onRT($this){
-	var replie_id = $this.parent().parent().find(".status_word").find(".user_name").text();
+	var replie_id = $this.parent().parent().find(".status_word").find(".user_name").attr("id");
 	scroll(0,0);
 	var status_word = $this.parent().parent().find(".status_word").clone();
 	status_word.find('.tweet a[rel=noreferrer]').each(function(){
@@ -565,7 +565,7 @@ function onRT($this){
 	leaveWord();
 }
 function onReplieDM($this){
-	var replie_id = $this.parent().parent().find(".status_word").find(".user_name").text();
+	var replie_id = $this.parent().parent().find(".status_word").find(".user_name").attr("id");
 	var text = "D "+replie_id;
 	scroll(0,0);
 	$("#textbox").focus().val($("#textbox").val()+text+' ');

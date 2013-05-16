@@ -12,7 +12,7 @@
 			<span class="status_body">
 			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon"></span>
 			<span class="status_id">'.$status->id_str.'</span>
-			<span class="status_word"><a class="user_name" href="user.php?id='.$status_owner->screen_name.'">'.$status_owner->screen_name.'</a> <span class="tweet">&nbsp;'.$text.'</span></span>
+			<span class="status_word"><a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a> <span class="tweet">&nbsp;'.$text.'</span></span>
 			<span class="actions">
 			<a class="replie_btn" title="Reply" href="#">Reply</a>
 			<a class="rt_btn" title="Retweet" href="#">Retweet</a>';
@@ -46,7 +46,7 @@
 			<span class="status_body">
 			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon"></span><span class="status_id">'.$status->id_str.'</span>
 			<span class="status_word">
-			<a class="user_name" href="user.php?id='.$status_owner->screen_name.'">'.$status_owner->screen_name.'</a><span class="tweet">&nbsp;'.$text.'</span></span>
+			<a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a><span class="tweet">&nbsp;'.$text.'</span></span>
 			<span class="actions">
 			<a class="replie_btn" title="Reply" href="#">Reply</a>
 			<a class="rt_btn" title="Retweet" href="#">Retweet</a>';
@@ -93,7 +93,7 @@
 		</span>
 		<span class="status_body">
 		<span class="status_id">'.$status->id_str.'</span>
-		<span class="status_word"><a class="user_name" href="user.php?id='.$user->screen_name.'">'.$user->screen_name.'</a> <span class="tweet">&nbsp;'.$text.'</span></span>';
+		<span class="status_word"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">&nbsp;'.$text.'</span></span>';
 		$output .= "<span class=\"actions\">
 			<a class=\"replie_btn\" title=\"Reply\" href=\"#\">Reply</a>
 			<a class=\"rt_btn\" title=\"Retweet\" href=\"#\">Retweet</a>
@@ -118,10 +118,12 @@
 	function format_message($message,$isSentPage=false) {
 		if ($isSentPage) {
 			$name = $message->recipient_screen_name;
+			$nick = $message->recipient->name;
 			$imgurl = getAvatar($message->recipient->profile_image_url);
 			$messenger = $message->recipient;
 		} else {
 			$name = $message->sender_screen_name;
+			$nick = $message->sender->name;
 			$imgurl = getAvatar($message->sender->profile_image_url);
 			$messenger = $message->sender;
 		}
@@ -135,7 +137,7 @@
 				</span>
 				<span class=\"status_body\">
 					<span class=\"status_id\">$message->id </span>
-					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$name\">$name</a> $text </span>
+					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$name\" id=\"$name\">".($_COOKIE["shownick"]=='true' ? $nick : $name)."</a> $text </span>
 					<span class=\"actions\">
 		";
 		
@@ -145,28 +147,6 @@
 			$output .= "<a class=\"msg_replie_btn\" href=\"#\">reply</a><a class=\"msg_delete_btn\" href=\"#\">delete</a>";
 		}
 		$output .="</span><span class=\"status_info\"><span class=\"date\" id=\"$date\">".date('Y-m-d H:i:s', $date)."</span></span></span></li>";
-		return $output;
-	}
-	function format_search($status){
-		$date = format_time($status->created_at);
-		$text = formatEntities($status->entities,$status->text);
-      $output = "
-              <li>
-              <span class=\"status_author\">
-              <a href=\"user.php?id=$status->from_user\" target=\"_blank\"><img id=\"avatar\" src =\"".getAvatar($status->profile_image_url)."\" title=\"Hello, I am $status->from_user. Click for more... \" /></a>
-              </span>
-              <span class=\"status_body\">
-              <span class=\"status_id\">$status->id_str</span>
-              <span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$status->from_user\">$status->from_user</a> <span class=\"tweet\">$text</span> </span>
-				  <span class=\"actions\">
-              <a class=\"replie_btn\" href=\"#\">Reply</a><a class=\"rt_btn\" href=\"#\">Retweet</a>
-              <a class=\"retw_btn\" title=\"New Retweet\" href=\"#\">New Retweet</a>
-              <a class=\"favor_btn\" href=\"#\">Fav</a><a class=\"trans_btn\" title=\"Translate\" href=\"#\">Translate</a></span><span class=\"status_info\"><span class=\"source\">via ".html_entity_decode($status->source)."</span>
-              <span class=\"date\"><a href=\"status.php?id=$status->id_str\" id=\"$date\" target=\"_blank\">".date('Y-m-d H:i:s', strtotime($status->created_at))."</a></span>
-              </span>
-              </span>
-              </li>
-              ";
 		return $output;
 	}
 ?>

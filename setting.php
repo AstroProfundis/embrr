@@ -137,6 +137,11 @@
 			<label>Use twitter account background</label>
 			
 			<br /><br />
+
+			<input id="shownick" type="checkbox" />
+			<label>Use nickname instead of username</label>
+
+			<br /><br />
 			
 			<label>Custom Themes</label>
 			<select id="styleSelect"></select>
