@@ -19,7 +19,7 @@ $(function(){
 				break;
 			case 'replie_btn':
 				e.preventDefault();
-				var replie_id = $this.parent().parent().find(".status_word").find(".user_name").text();
+				var replie_id = $this.parent().parent().find(".status_word").find(".user_name").attr("id");
 				if ($("#textbox").length > 0) {
 					onInfoReplie($this,e);
 				} else {

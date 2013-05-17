@@ -4,7 +4,7 @@ $(function () {
 	var temp = [];
 	var auto = [];
 	$("a.user_name").each(function(){
-		var u = this.text;
+		var u = this.id;
 		if (!(u in temp)) {
 			temp[u] = true;
 			auto.push(u);
@@ -17,7 +17,7 @@ $(function () {
 		switch(type) {
 			case 'msg_replie_btn':
 				e.preventDefault();
-				$("#sent_id").val($this.parent().parent().find(".status_word").find(".user_name").text());
+				$("#sent_id").val($this.parent().parent().find(".status_word").find(".user_name").attr("id"));
 				$("#textbox").focus();
 				break;
 			case 'msg_delete_btn':

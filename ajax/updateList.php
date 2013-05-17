@@ -33,7 +33,7 @@
 					</span>
 					<span class=\"status_body\">
 					<span class=\"status_id\">$status->id_str </span>
-					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$user->screen_name\">$user->screen_name</a><span class=\"tweet\"> $text </span></span>
+					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$user->screen_name\" id=\"$user->screen_name\">".($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name)."</a><span class=\"tweet\"> $text </span></span>
 					<span class=\"actions\">
 					<a class=\"replie_btn\" title=\"Reply\" href=\"a_reply.php?id=$status->id_str\">Reply</a>
 					<a class=\"rt_btn\" title=\"Retweet\" href=\"a_rt.php?id=$status->id_str\">RT</a>
