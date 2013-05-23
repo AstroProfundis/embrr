@@ -11,7 +11,7 @@
 	<?php if (strrpos($_SERVER['PHP_SELF'], 'profile')) {
 		$t = getTwitter();
 	$user = $t->showUser();
-	$expanded_url = $user->entities->url->urls[0]->expanded_url
+	$expanded_url = $user->entities->url->urls[0]->expanded_url ? $user->entities->url->urls[0]->expanded_url : $user->url;
 ?>
 	<ul id="user_info_profile">
 		<li><span>Name</span> <?php echo $user->name ?></li>
