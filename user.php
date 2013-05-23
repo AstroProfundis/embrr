@@ -44,7 +44,7 @@
 		$userinfo['friends_count'] = $user->friends_count;
 		$userinfo['statuses_count'] = $user->statuses_count;
 		$userinfo['followers_count'] = $user->followers_count;
-		$userinfo['url'] = $user->url;
+		$userinfo['url'] = $user->entities->url->urls[0]->expanded_url;
 		$userinfo['description'] = formatText($user->description);
 		$userinfo['location'] = $user->location;
 		$userinfo['date_joined'] = date('Y-m-d', format_time($user->created_at)); //from dabr

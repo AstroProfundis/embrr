@@ -11,11 +11,12 @@
 	<?php if (strrpos($_SERVER['PHP_SELF'], 'profile')) {
 		$t = getTwitter();
 	$user = $t->showUser();
+	$expanded_url = $user->entities->url->urls[0]->expanded_url
 ?>
 	<ul id="user_info_profile">
 		<li><span>Name</span> <?php echo $user->name ?></li>
 		<?php if ($user->location) echo "<li><span>Location</span> $user->location</li>"; ?>
-		<?php if (($user->url) and (strlen($user->url)>20)) echo '<li><span>Web</span> <a href="' .$user->url. '" target="_blank">' .substr($user->url, 0, 20). '...</a></li>'; else if (($user->url) and (strlen($user->url)<=20)) echo '<li><span>Web</span> <a href="' .$user->url. '" target="_blank">' .$user->url. '</a></li>';?>
+		<?php if (($expanded_url) and (strlen($expanded_url)>20)) echo '<li><span>Web</span> <a href="' .$expanded_url. '" target="_blank">' .substr($expanded_url, 0, 20). '...</a></li>'; else if (($expanded_url) and (strlen($expanded_url)<=20)) echo '<li><span>Web</span> <a href="' .$expanded_url. '" target="_blank">' .$expanded_url. '</a></li>';?>
 		<?php if ($user->description) echo "<li><span>Bio</span> ".formatText($user->description)."</li>"; ?>
 		</ul>
 	<?php }?>
