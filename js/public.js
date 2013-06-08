@@ -559,7 +559,7 @@ function onRT($this){
 	status_word.find('.tweet a[rel=noreferrer]').each(function(){
 		$(this).text($(this).attr('href'));
 	});
-	$("#textbox").focus().val(" RT @"+replie_id+":"+status_word.text().replace(replie_id,"")).caret(0);
+	$("#textbox").focus().val(" RT @"+replie_id+":"+status_word.find('.tweet').text()).caret(0);
 	$("#full_status,#latest_meta,#full_meta,#currently .full-text,#latest_meta").hide();
 	$("#currently .status-text").html("Retweet @"+replie_id+"'s tweet with comment.");
 	leaveWord();
