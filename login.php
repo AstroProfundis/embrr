@@ -25,7 +25,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<meta charset="utf-8" />
 <meta name="keywords" content="embr, open source, php, twitter, oauth" />
 <meta name="description" content="Vivid Interface for Twitter" />
 <meta name="author" content="Contributors" />
@@ -117,7 +117,7 @@ function register() {
 </fieldset>
 </form>
 <div style="background: none repeat scroll 0% 0% transparent;" id="footer">
-<p>&copy; 2011 Contributors <?php if(isset($_COOKIE['twitese_name'])) echo 'and '.$_COOKIE['twitese_name'];?> &middot; <a href="http://code.google.com/p/embr/" target="_blank" title="Embr Open Source">Open Source</a></p>
+<p>&copy; 2013 Contributors <?php if(isset($_COOKIE['twitese_name'])) echo 'and '.$_COOKIE['twitese_name'];?> &middot; <a href="http://code.google.com/p/embr/" target="_blank" title="Embr Open Source">Open Source</a></p>
 </div>
 </div>
 </body>

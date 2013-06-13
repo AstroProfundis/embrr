@@ -422,8 +422,10 @@ class TwitterOAuth {
 
 	function listStatus($id, $page = false, $since_id = false,$include_rts = true, $include_entities = true){
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]/statuses";
+		$url = '/lists/statuses';
 		$args = array();
+		$args['list_id'] = $arr[1];
+		$args['slug'] = $arr[0];
 		if($page){
 			$args['page'] = $page;
 		}
@@ -678,14 +680,10 @@ class TwitterOAuth {
 	}
 
 	function getFavorites($page = false,$userid=false,$include_entities = true){
-		if($userid == false){
-			$url = '/favorites';
-		}
-		else{
-			$url = '/favorites/'.$userid;
-		}
-		
+		$url = '/favorites/list';
 		$args = array();
+		if($userid)
+			$args['user_id'] = $userid;
 		if($page)
 			$args['page'] = $page;
 		if($include_entities)
@@ -715,7 +713,7 @@ class TwitterOAuth {
 	}
 
 	function replies($page = false, $since_id = false,$include_entities = true){
-		$url = '/statuses/mentions';
+		$url = '/statuses/mentions_timeline';
 		$args = array();
 		if($page)
 			$args['page'] = (int) $page;
