@@ -26,7 +26,6 @@
 </div>
 </div>
 <hr />
-<!-- 
 <div id="apiquota">
 <h2 id="apiquota_title">
 <span>API Quota</span>
@@ -34,7 +33,6 @@
 <ul id="apiquota_list" class="sidebar-menu">
 </ul>
 </div>
-!-->
 <!--Preload Start-->
 <div class="preload" style="position: absolute; left: -9999em; top: -9999em;">
 <img src="img/spinner.gif" width="14" height="14"/>
