@@ -25,7 +25,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<meta charset="utf-8" />
 <meta name="keywords" content="embr, open source, php, twitter, oauth" />
 <meta name="description" content="Vivid Interface for Twitter" />
 <meta name="author" content="Contributors" />

@@ -16,7 +16,7 @@
 		setcookie('followers_count', $user->followers_count, $time, '/');
 		setcookie('imgurl', getAvatar($user->profile_image_url), $time, '/');
 		setcookie('name', $user->screen_name, $time, '/');
-		setcookie('listed_count', GetListed($t), $time, '/');
+		setcookie('listed_count', $user->listed_count, $time, '/');
 		if($_GET['extra'] == 'bg') {
 			setcookie('Bgcolor', '#'.$user->profile_background_color,$time,'/');
 			setcookie('Bgimage', $user->profile_background_image_url,$time,'/');
