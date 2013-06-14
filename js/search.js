@@ -1,4 +1,16 @@
 $(function(){
+	$.ajax({
+		url: "ajax/savedSearches.php",
+		type: "GET",
+		success: function(msg) {
+			var searches = eval("("+msg+")");
+			$("#query").autocomplete(searches);
+		},
+		error: function(msg) {
+			updateSentTip("Failed to fetch the saved searches!", 3000, "failure");
+		}
+	});
+
 	formHTML = "<h2>What are you doing?</h2>" + formHTML + "<div class=\"clear\"></div>";
 	$("#allTimeline").click(function(e) {
 		var $this = $(e.target);

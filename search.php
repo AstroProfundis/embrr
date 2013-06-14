@@ -42,7 +42,7 @@
 <div id="statuses" class="column round-left">
 
 	<form action="search.php" method="get" id="search_form">
-		<input type="text" name="q" id="query" value="<?php echo $_GET['q'] ?>" />
+		<input type="text" name="q" id="query" value="<?php echo $_GET['q'] ?>" autocomplete="off" />
 		<input type="submit" class="more round" style="width: 103px; margin-left: 10px; display: block; float: left; height: 34px; font-family: tahoma; color: rgb(51, 51, 51);" value="Search">
 	</form>
 <?php
