@@ -1027,17 +1027,35 @@ $(function (){
 });
 function updateTrends(){
 	sidebarscroll('pause');
-	$.ajax({
-		url: "ajax/updateTrends.php",
-		type: "GET",
-		success: function (msg){
-			if ($.trim(msg).indexOf("</ul>" > 0)){
-				$("#trend_entries").html(msg);
-			}
-			$("#trends_title").removeClass().addClass("open");
-			$("#trend_entries").slideDown("fast");
+	if (navigator.geolocation) {
+		if ($.cookie('woeid') == undefined) {
+			navigator.geolocation.getCurrentPosition(function (pos, error) {
+				$.ajax({
+					url: "ajax/updateTrends.php?lat=" + pos.coords.latitude + "&long=" + pos.coords.longitude,
+					type: "GET",
+					success: function (msg){
+						if ($.trim(msg).indexOf("</ul>" > 0)){
+							$("#trend_entries").html(msg);
+						}
+						$("#trends_title").removeClass().addClass("open");
+						$("#trend_entries").slideDown("fast");
+					}
+				})
+			});
+		} else {
+			$.ajax({
+				url: "ajax/updateTrends.php",
+				type: "GET",
+				success: function (msg){
+					if ($.trim(msg).indexOf("</ul>" > 0)){
+						$("#trend_entries").html(msg);
+					}
+					$("#trends_title").removeClass().addClass("open");
+					$("#trend_entries").slideDown("fast");
+				}
+			});
 		}
-	});
+	}
 }
 function updateFollowing(){
 	$.ajax({

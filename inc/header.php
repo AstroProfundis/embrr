@@ -37,7 +37,7 @@ body {font-size:<?php echo $fontsize ?> !important;<?php
  	if ($Bgimage != "") echo 'background-image: url("'.$Bgimage.'");';
  ?>background-repeat:<?php echo $Bgrepeat ?>}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/mediaPreview.js"></script>
 <script src="js/public.js"></script>

@@ -234,12 +234,14 @@ class TwitterOAuth {
 		return $this->get($url);
 	}
 
-	function blockingList($page){
-		$url = '/blocks/blocking';
+	function blockingList($id, $cursor=-1, $skip_status = 1){
+		$url = '/blocks/list';
 		$args = array();
-		if($page){
-			$args['page'] = $page;
-		}
+		if($id)
+			$args['user_id'] = $id;
+		if($cursor)
+			$args['cursor'] = $cursor;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -299,17 +301,21 @@ class TwitterOAuth {
 
 	/* ---------- List ---------- */
 	function addListMember($listid, $memberid){
-		$url = "/$this->username/$listid/members";
+		$url = "/lists/members/create_all";
 		$args = array();
-		if($memberid){
-			$args['id'] = $memberid;
-		}
+		if($listid) 
+			$args['slug'] = $listid;
+		if($memberid)
+			$args['user_id'] = $memberid;
+		
 		return $this->post($url, $args);
 	}
 
-	function beAddedLists($username = '', $cursor = false){
-		$url = "/$username/lists/memberships";
+	function beAddedLists($owner_screen_name = '', $cursor = false){
+		$url = "/lists/memberships";
 		$args = array();
+		if($owner_screen_name)
+			$args['owner_screen_name'] = $owner_screen_name;
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
@@ -317,105 +323,121 @@ class TwitterOAuth {
 	}
 
 	function createList($name, $description, $isPortect){
-		$url = "/$this->username/lists";
+		$url = "/lists/create";
 		$args = array();
-		if($name){
+		if($name)
 			$args['name'] = $name;
-		}
-		if($description){
+		if($description)
 			$args['description'] = $description;
-		}
-		if($isProtect){
+		if($isProtect)
 			$args['mode'] = 'private';
-		}
+		
 		return $this->post($url, $args);
 	}
 
 	function createdLists($username = '', $cursor = false){
-		$url = "/$username/lists";
+		$url = "/lists/ownerships";
 		$args = array();
-		if($cursor){
+		if($cursor)
 			$args['cursor'] = $cursor;
-		}
+		
 		return $this->get($url, $args);
 	}
 
 	function deleteList($id){
-		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]";
-		return $this->delete($url);
+		$url = "/lists/destroy";
+		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
+		return $this->post($url, $args);
 	}
 
 	function deleteListMember($id, $memberid){
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/members";
+		$url = "/lists/members/destroy_all";
 		$args = array();
-		$args['list_id'] = $arr[1];
-		if($memberid){
+		$args['slug'] = $arr[1];
+		if($memberid)
 			$args['id'] = $memberid;
-		}
-		return $this->delete($url, $args);
+		
+		return $this->post($url, $args);
 	}
 
 	function editList($prename, $name, $description, $isProtect){
-		$url = "/$this->username/lists/$prename";
+		$url = "/lists/update";
 		$args = array();
-		if($name){
+		if($prename)
+			$args['slug'] = $prename;
+		if($name)
 			$args['name'] = $name;
-		}
-		if($description){
+		if($description)
 			$args['description'] = $description;
-		}
-		if($isProtect){
+		if($isProtect)
 			$args['mode'] = "private";
-		}
 		return $this->post($url, $args);
 	}
 
 	function followedLists($username = '', $cursor = false){
-		$url = "/$username/lists/subscriptions";
+		$url = "/lists/subscriptions";
 		$args = array();
-		if($cursor){
+		if($username) 
+			$args['user_id'] = $username;
+		if($cursor)
 			$args['cursor'] = $cursor;
-		}
 		return $this->get($url, $args);
 	}
 
 	function followList($id){
+		$url = "/lists/subscribers/create";
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/subscribers";
+		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
 		return $this->post($url, $args);
 	}
 
 	function isFollowedList($id){
+		$url = "/lists/subscribers/show";
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/$arr[1]/subscribers/$this->username";
-		return $this->get($url);
+		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
+		$args['user_id'] = $this->username;
+		return $this->get($url, $args);
 	}
 
-	function listFollowers($id, $cursor = false){
+	function listFollowers($id, $cursor = false, $skip_status = 1){
+		$url = "/lists/subscribers";
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/$arr[1]/subscribers";
 		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
 	function listInfo($id){
 		$arr = explode('/', $id);
-		$url = "/$arr[0]/lists/$arr[1]";
-		return $this->get($url);
+		$url = "/lists/show";
+		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
+		return $this->get($url, $args);
 	}
 
-	function listMembers($id, $cursor = false){
+	function listMembers($id, $cursor = false, $skip_status = 1){
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/members";
+		$url = "/lists/members";
 		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 
 	}
@@ -424,8 +446,8 @@ class TwitterOAuth {
 		$arr = explode('/', $id);
 		$url = '/lists/statuses';
 		$args = array();
-		$args['list_id'] = $arr[1];
-		$args['slug'] = $arr[0];
+		$args['slug'] = $arr[1];
+		$args['owner_screen_name'] = $arr[0];
 		if($page){
 			$args['page'] = $page;
 		}
@@ -441,8 +463,11 @@ class TwitterOAuth {
 
 	function unfollowList($id){
 		$arr = explode("/", $id);
-		$url = "/$arr[0]/$arr[1]/subscribers";
-		return $this->delete($url);
+		$url = "/lists/subscribers/destroy";
+		$args = array();
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
+		return $this->post($url, $args);
 	}
 
 	/* ---------- Friendship ---------- */
@@ -451,14 +476,12 @@ class TwitterOAuth {
 		return $this->delete($url);
 	}
 
-	function followers($id = false, $page = false, $count = 30){
-		$url = '/statuses/followers';
-		$url .= $id ? "/$id" : "";
+	function followers($id = false, $page = false, $skip_status = true){
+		$url = 'followers/list';
 		if( $id )
-			$args['id'] = $id;
-		if( $count )
-			$args['count'] = (int) $count;
+			$args['user_id'] = $id;
 		$args['cursor'] = $page ? $page : -1;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -470,15 +493,13 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function friends($id = false, $page = false, $count = 30){
-		$url = '/statuses/friends';
-		$url .= $id ? "/$id" : "";
+	function friends($id = false, $page = false, $skip_status = true){
+		$url = '/friends/list';
 		$args = array();
 		if( $id )
-			$args['id'] = $id;
-		if( $count )
-			$args['count'] = (int) $count;
+			$args['user_id'] = $id;
 		$args['cursor'] = $page ? $page : -1;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -530,7 +551,7 @@ class TwitterOAuth {
 	/* ---------- Retweet ---------- */
 	function getRetweeters($id, $count = false){
 		$url = "/statuses/retweets/$id";
-		if($count != false){
+		if($count != false) {
 			$url .= "?count=$count";
 		}
 		return $this->get($url);
@@ -547,69 +568,23 @@ class TwitterOAuth {
 		}
 		$url = "/statuses/retweets/$id";
 		$args = array();
-		$args['count'] = $count;
-		if($include_entities)
+		$args['count'] = unt;
+		if($include_ities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url,$args);
-	}
-
-	// Returns the 20 most recent retweets posted by the authenticating user.
-	function retweeted_by_me($page = false, $count = 20, $since_id = false, $max_id = false,$include_entities = true){
-		$url = '/statuses/retweeted_by_me';
-		$args = array();
-		if($since_id){
-			$args['since_id'] = $since_id;
-		}
-		if($max_id){
-			$args['max_id'] = $max_id;
-		}
-		if($count){
-			$args['count'] = $count;
-		}
-		if($page){
-			$args['page'] = $page;
-		}
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
-	}
-
-	// Returns the 20 most recent retweets posted by the authenticating user's friends.
-	function retweeted_to_me($page = false, $count = false, $since_id = false, $max_id = false,$include_entities = true){
-		$url = '/statuses/retweeted_to_me';
-		$args = array();
-		if($since_id){
-			$args['since_id'] = $since_id;
-		}
-		if($max_id){
-			$args['max_id'] = $max_id;
-		}
-		if($count){
-			$args['count'] = $count;
-		}
-		if($page){
-			$args['page'] = $page;
-		}
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
 	}
 
 	function retweets_of_me($page = false, $count = false, $since_id = false, $max_id = false,$include_entities = true){
 		$url = '/statuses/retweets_of_me';
 		$args = array();
-		if($since_id){
+		if($since_id)
 			$args['since_id'] = $since_id;
-		}
-		if($max_id){
+		if($max_id)
 			$args['max_id'] = $max_id;
-		}
-		if($count){
+		if($count)
 			$args['count'] = $count;
-		}
-		if($page){
+		if($page)
 			$args['page'] = $page;
-		}
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
@@ -617,23 +592,19 @@ class TwitterOAuth {
 
 	/* ---------- Search ---------- */
 	function search($q = false, $page = false, $rpp = false, $include_entities = true){
-		$searchApiUrl = strpos($this->host, "twitter.com") > 0 ? "http://search.twitter.com" : $this->host;
- 			$url = $searchApiUrl.'/search.'.$this->type;
+		$url = "/search/tweets";
 		if(!$q) {
 			return false;
-		} else{
+		} else {
 			$args = array();
 			$args['q'] = $q;
 		}
-		if($page){
+		if($page)
 			$args['page'] = $page;
-		}
-		if($rpp){
+		if($rpp)
 			$args['rpp'] = $rpp;
-		}
-		if($include_entities) {
+		if($include_entities)
 			$args['include_entities'] = $include_entities;
-		}
 		return $this->get($url, $args);
 	}
 
@@ -766,11 +737,23 @@ class TwitterOAuth {
 		return $response;
 	}
 
-	function trends($woeid = 1){
-		$url = "/trends/$woeid";
-		return $this->get($url);
+	function trends_closest($lat = false, $long=false) {
+		$url = "/trends/closest";
+		$args = array();
+		if ($lat)
+			$args['lat'] = $lat;
+		if ($long)
+			$args['long'] = $long;
+		return $this->get($url, $args);
 	}
-
+	
+	function trends_place($id = 1) {
+		$url = "/trends/place";
+		$args = array();
+		if ($id)
+			$args['id'] = $id;
+		return $this->get($url, $args);
+	}
 	/* ---------- Misc. ---------- */
 	function twitterAvailable(){
 		$url = "/help/test";

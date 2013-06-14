@@ -10,18 +10,18 @@
 		GLOBAL $output;
 		$t = getTwitter();
 		$MAX_TWEETS = 20;
-		$statuses = $t->search($query,$page,$MAX_TWEETS);
+		$statuses = $t->search($query,$page,$MAX_TWEETS)->statuses;
 
 		//if ($statuses === false) {
 		//	header('location: error.php');exit();
 		//}
-		$resultCount = count($statuses->results);
+		$resultCount = count($statuses);
 		if ($resultCount <= 0) {
 			echo "<div id=\"empty\">No tweet to display.</div>";
 		} else {
 			include_once('lib/timeline_format.php');
 			$output = '<ol class="timeline" id="allTimeline">';
-			foreach ($statuses->results as $status) {
+			foreach ($statuses as $status) {
 				$output .= format_search($status);
 			}
 			$output .= "</ol><div id=\"pagination\">";

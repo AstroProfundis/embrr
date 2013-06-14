@@ -11,30 +11,29 @@
 <div id="statuses">
 	<?php 
 		$t = getTwitter();
-		$t->type = 'xml';
 		if ( isset($_POST['list_name']) ) {
 			if ($_POST['is_edit'] == 0) {
 				if (trim($_POST['list_name']) == '') {
-						echo "<div id=\"otherTip\">创建推群失败，推群名不能为空</div>";
+						echo "<div id=\"otherTip\">Fail to create list, the name CANNOT be empty</div>";
 				} else {
 					$isProtect = isset($_POST['list_protect']) ? true : false;
 					$result = $t->createList($_POST['list_name'], $_POST['list_description'], $isProtect);
 					if ($result) {
-						echo "<div id=\"otherTip\">创建推群成功</div>";
+						echo "<div id=\"otherTip\">Success</div>";
 					} else {
-						echo "<div id=\"otherTip\">创建推群失败，请重试</div>";
+						echo "<div id=\"otherTip\">Failed, please retry</div>";
 					}
 				}
 			} else {
 				if (trim($_POST['list_name']) == '') {
-						echo "<div id=\"otherTip\">修改推群失败，推群名不能为空</div>";
+						echo "<div id=\"otherTip\">Fail to create list, the name CANNOT be empty</div>";
 				} else {
 					$isProtect = isset($_POST['list_protect']) ? true : false;
 					$result = $t->editList($_POST['pre_list_name'], $_POST['list_name'], $_POST['list_description'], $isProtect);
 					if ($result) {
-						echo "<div id=\"otherTip\">修改推群成功</div>";
+						echo "<div id=\"otherTip\">Success</div>";
 					} else {
-						echo "<div id=\"otherTip\">修改推群失败，请重试</div>";
+						echo "<div id=\"otherTip\">Failed, please retry</div>";
 					}
 				}
 			}
@@ -42,26 +41,14 @@
 		
 		if ( isset($_POST['list_members']) ) {
 			if (trim($_POST['list_members']) == '') {
-					echo "<div id=\"otherTip\">添加成员失败，成员列表不能为空</div>";
+					echo "<div id=\"otherTip\">Fail to add members, the member list is empty!</div>";
 			} else {
 				$listId = $_POST['member_list_name'];
-				$memberList = explode(",", $_POST['list_members']);
-				$count = 0;
-				$failList = '';
-				
-				foreach ($memberList as $member) {
-					$result = $t->addListMember($listId, $member);
-					if (!isset($result->error) && isset($result->user)) $count ++;
-					else $failList .= $member . " ";
-				}
-				
-				if ($count > 0) {
-					if ($count == count($memberList))
-						echo "<div id=\"otherTip\">成功添加 $count 个成员</div>";
-					else 
-						echo "<div id=\"otherTip\">成功添加 $count 个成员，失败名单：$failList </div>";
+				$result = $t->addListMember($listId, $_POST['list_members']);
+				if (isset($result->error)) {
+					echo "<div id=\"otherTip\">Failed, please retry!</div>";
 				} else {
-					echo "<div id=\"otherTip\">添加成员失败，请重试</div>";
+					echo "<div id=\"otherTip\">Success!</div>";
 				}
 			}
 		}
@@ -79,24 +66,19 @@
 		switch ($type) {
 			case 0:
 				$lists = $t->followedLists($id, $c);
-				$nextlist = $lists->next_cursor;
-				$prelist = $lists->previous_cursor;
-				$lists = $lists->lists; 
 				break;
 			case 1:
-				$lists = $t->createdLists($id);
-				$lists = $lists->lists; 
+				$lists = $t->createdLists($id, $c);
 				break;
 			case 2:
 				$lists = $t->beAddedLists($id, $c);
-				$nextlist = $lists->next_cursor;
-				$prelist = $lists->previous_cursor;
-				$lists = $lists->lists; 
 				break;
 			default:
 				$lists = false;
 		}
-		
+		$nextlist = $lists->next_cursor;
+		$prelist = $lists->previous_cursor;
+		$lists = $lists->lists; 
 		if ($lists === false) {
 			header('location: error.php');exit();
 		} 
@@ -125,12 +107,12 @@
     
 	<?php 
 		
-		$empty = count($lists->list) == 0? true: false;
+		$empty = count($lists) == 0? true: false;
 		if ($empty) {
 			echo "<div id=\"empty\">No Tweet To Display</div>";
 		} else {
 			$output = '<ol class="rank_list">';			
-			foreach ($lists->list as $list) {
+			foreach ($lists as $list) {
 		
 				$listurl = substr($list->uri,1);
 				$user = $list->user;
@@ -144,7 +126,7 @@
 						<span class=\"rank_num\"><span class=\"rank_name\"><a href=\"list.php?id=$listurl\"><em>$listname[0]/</em>$listname[1]</a></span></span>
 						<span class=\"rank_count\">Followers：$list->subscriber_count 　Members：$list->member_count 　$mode</span> 
 				";
-				if ($list->description != '') $output .= "<span class=\"rank_description\">简介：$list->description</span>";
+				if ($list->description != '') $output .= "<span class=\"rank_description\">Description: $list->description</span>";
 				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"unfollow_list\">Unfollow</a></span>";
 				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"javascript:void()\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"javascript:void()\" class=\"add_member\">Add Members</a></span>";
 				$output .= "
