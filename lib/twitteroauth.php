@@ -264,14 +264,16 @@ class TwitterOAuth {
 	}
 
 	/* ---------- List ---------- */
-	function addListMember($listid, $memberid){
+	function addListMember($listid, $id, $memberid){
 		$url = "/lists/members/create_all";
 		$args = array();
-		if($listid) 
+		if($listid)
 			$args['slug'] = $listid;
-		if($memberid)
-			$args['owner_screen_name'] = $memberid;
-		
+		if($id)
+			$args['owner_screen_name'] = $id;
+		if($memberid){
+			$args['screen_name'] = $memberid;
+		}
 		return $this->post($url, $args);
 	}
 
