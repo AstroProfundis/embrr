@@ -4,7 +4,7 @@ $(function(){
 		type: "GET",
 		success: function(msg) {
 			var searches = eval("("+msg+")");
-			$("#query").autocomplete(searches);
+			$("#query").autocomplete(searches, {minChars:0});
 		},
 		error: function(msg) {
 			updateSentTip("Failed to fetch the saved searches!", 3000, "failure");
