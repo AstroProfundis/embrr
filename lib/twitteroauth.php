@@ -277,7 +277,7 @@ class TwitterOAuth {
 		if($listid) 
 			$args['slug'] = $listid;
 		if($memberid)
-			$args['screen_name'] = $memberid;
+			$args['owner_screen_name'] = $memberid;
 		
 		return $this->post($url, $args);
 	}
@@ -315,21 +315,20 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function deleteList($id){
+	function deleteList($slug){
 		$url = "/lists/destroy";
 		$args = array();
-		$args['owner_screen_name'] = $arr[0];
-		$args['slug'] = $arr[1];
+		$args['slug'] = $slug;
+		$args['owner_screen_name'] = $this->username;
 		return $this->post($url, $args);
 	}
 
-	function deleteListMember($id, $memberid){
-		$arr = explode("/", $id);
+	function deleteListMember($slug, $owner, $memberid){
 		$url = "/lists/members/destroy_all";
 		$args = array();
-		$args['slug'] = $arr[1];
-		if($memberid)
-			$args['id'] = $memberid;
+		$args['slug'] = $slug;
+		$args['owner_screen_name'] = $owner;
+		$args['user_id'] = $memberid;
 		
 		return $this->post($url, $args);
 	}
@@ -353,7 +352,7 @@ class TwitterOAuth {
 		$args = array();
 		if($username)
 			$args['screen_name'] = $username;
-		if($cursor){
+		if($cursor)
 			$args['cursor'] = $cursor;
 		return $this->get($url, $args);
 	}
@@ -539,13 +538,13 @@ class TwitterOAuth {
 		return $this->post($url);
 	}
 
-	function retweets($id, $count = 20,$include_entities = true){
+	function retweets($id, $count = 20, $include_entities = true){
 		if($count > 100){
 			$count = 100;
 		}
 		$url = "/statuses/retweets/$id";
 		$args = array();
-		$args['count'] = unt;
+		$args['count'] = $count;
 		if($include_ities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url,$args);
