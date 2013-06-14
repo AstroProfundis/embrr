@@ -588,7 +588,7 @@ function onNwRT($this){
 				if (msg.length >= 0){
 					statusBody.parent().addClass("retweet");
 					statusBody.find(".source").hide();
-					statusBody.find(".status_info").append("<span class=\"rt_source\">Retweeted by you from <a rel=\"nofollow\" href=\"http://code.google.com/p/embr/\">embr</a></span>").fadeIn("fast");
+					statusBody.find(".status_info").append("<span class=\"rt_source\">Retweeted by you.").fadeIn("fast");
 					statusBody.find(".date").hide();
 					statusBody.find(".status_info").append("<span class=\"rt_undos\" title=\"Your followers will no longer see the tweet as retweeted by you.\">&nbsp;<a class=\"rt_undo\" href=\"#\">(Undo)</a><span class=\"rt_id\" style=\"display: none;\">"+msg+"</span></span>").fadeIn("fast");
 					updateSentTip("This tweet has been retweeted!",3e3,"success");
