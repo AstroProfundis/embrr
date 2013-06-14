@@ -19,7 +19,7 @@
 		setcookie('followers_count', $user->followers_count, $time, '/');
 		setcookie('imgurl', getAvatar($user->profile_image_url), $time, '/');
 		setcookie('name', $user->screen_name, $time, '/');
-		setcookie('listed_count', GetListed($t), $time, '/');
+		setcookie('listed_count', $user->listed_count, $time, '/');
 	}
 
 	function getDefCookie($name, $default="") {
@@ -225,11 +225,6 @@
 	   }
 	   return false;
    }
-
-	function GetListed($t){
-		$listed = $t->veverify(true)->listed_count;
-		return	$listed;
-	}
 
 	function getAvatar($profileImg){
 		if (getcookie('p_avatar') == 'true') {
