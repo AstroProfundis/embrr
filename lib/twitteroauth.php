@@ -202,13 +202,6 @@ class TwitterOAuth {
 	/* ---------- API METHODS ---------- */
 	/*                                   */
 	/* ---------- Block ---------- */
-	function blockingIDs(){
-		$url = '/blocks/ids';
-		$args = array();
-		$args['cursor'] = $page ? $page : -1;
-		return $this->get($url, $args);
-	}
-
 	function blockingList($id, $cursor=-1, $skip_status = 1){
 		$url = '/blocks/list';
 		$args = array();
@@ -449,13 +442,14 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function followers($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET followers/list instead
+	function followers($id = false, $cursor = -1, $skip_status = false){ // GET statuses/friends is removed, try GET followers/list instead
 		$url = '/followers/list';
 		$args = array();
 		if( $id )
 			$args['screen_name'] = $id;
 		$args['skip_status'] = $skip_status;
-		$args['cursor'] = $page ? $page : -1;
+		if($cursor)
+			$args['cursor'] = $cursor;
 		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
@@ -469,13 +463,14 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function friends($id = false, $page = false, $skip_status = false){ // GET statuses/friends is removed, try GET friends/list instead
+	function friends($id = false, $cursor = -1, $skip_status = false){ // GET statuses/friends is removed, try GET friends/list instead
 		$url = '/friends/list';
 		$args = array();
 		if( $id )
 			$args['screen_name'] = $id;
 		$args['skip_status'] = $skip_status;
-		$args['cursor'] = $page ? $page : -1;
+		if($cursor)
+			$args['cursor'] = $cursor;
 		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
@@ -568,6 +563,11 @@ class TwitterOAuth {
 	}
 
 	/* ---------- Search ---------- */
+	function savedSearches(){
+		$url = '/saved_searches/list';
+		return $this->get($url);
+	}
+
 	function search($q = false, $since_id = false, $max_id = false, $include_entities = true){
  		$url = '/search/tweets';
 		if(!$q) {
@@ -616,20 +616,6 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 	
-	function friendsTimeline($page = false, $since_id = false, $count = false,$include_entities = true){
-		$url = '/statuses/friends_timeline';
-		$args = array();
-		if($page)
-			$args['page'] = $page;
-		if($since_id)
-			$args['since_id'] = $since_id;
-		if($count)
-			$args['count'] = $count;
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
-		return $this->get($url, $args);
-	}
-
 	function getFavorites($userid = false, $sinceid = false, $maxid = false, $count = false, $include_entities = true){
 		$url = '/favorites/list';
 		$args = array();
