@@ -10,14 +10,7 @@
 	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 
 	$t = getTwitter();
-	$retweets_to_me_class = '';
-	$retweeted_by_me_class = '';
-	$retweeted_of_me_class = '';
-	$retweets;
 
-	$retweets_to_me_class = 'subnavLink';
-	$retweeted_by_me_class = 'subnavLink';
-	$retweeted_of_me_class = 'subnavNormal';
 	$retweets = $t->retweets_of_me($count, $since_id, $max_id);
 
 	echo '<div id="statuses" class="column round-left">';
@@ -25,11 +18,8 @@
 	$html = '<script src="js/btns.js"></script>
 	<style>
 	.big-retweet-icon{display:none}
-	.timeline li {border-bottom:1px solid #EFEFEF;border-top:none !important}
 	</style>';
-	$html .= "<div id='subnav'>
-		<span class='$retweeted_of_me_class'>Your tweets, retweeted</span>
-		</div>";
+	$html .='<div class="clear"></div>';
 	$empty = count($retweets) == 0? true: false;
 	if ($empty) {
 		$html .= "<div id=\"empty\">No retweets to display.</div>";

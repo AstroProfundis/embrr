@@ -26,7 +26,7 @@
 				$lists = $t->followedLists($id, $c);
 				break;
 			case 1:
-				$lists = $t->myLists($id)->lists;
+				$lists = $t->myLists($id);
 				break;
 			case 2:
 				$lists = $t->beAddedLists($id, $c);

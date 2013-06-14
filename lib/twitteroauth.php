@@ -306,11 +306,14 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function myLists($username = '', $cursor = false){
+	function myLists($username = false, $user_id = false, $count = false){
 		$url = "/lists/ownerships";
 		$args = array();
-		if($cursor)
-			$args['cursor'] = $cursor;
+		if($username){
+			$args['screen_name'] = $username;
+		} else {
+			$args['screen_name'] = $this->username;
+		}
 		
 		return $this->get($url, $args);
 	}
