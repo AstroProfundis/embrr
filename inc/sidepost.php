@@ -1,3 +1,16 @@
+<script>
+	$.ajax({
+		url: "ajax/savedSearches.php",
+		type: "GET",
+		success: function(msg) {
+			var searches = eval("("+msg+")");
+			$("#header_search_query").autocomplete(searches);
+		},
+		error: function(msg) {
+			updateSentTip("Failed to fetch the saved searches!", 3000, "failure");
+		}
+	});
+</script>
 <table>
 <tr>
 <td>
