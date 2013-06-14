@@ -306,7 +306,7 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function createdLists($username = '', $cursor = false){
+	function myLists($username = '', $cursor = false){
 		$url = "/lists/ownerships";
 		$args = array();
 		if($cursor)
@@ -527,7 +527,7 @@ class TwitterOAuth {
 	/* ---------- Retweet ---------- */
 	function getRetweeters($id, $count = false){
 		$url = "/statuses/retweets/$id";
-		if($count != false) {
+		if($count != false){
 			$url .= "?count=$count";
 		}
 		return $this->get($url);
@@ -545,7 +545,7 @@ class TwitterOAuth {
 		$url = "/statuses/retweets/$id";
 		$args = array();
 		$args['count'] = $count;
-		if($include_ities)
+		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url,$args);
 	}
@@ -580,8 +580,9 @@ class TwitterOAuth {
 		if($max_id){
 			$args['max_id'] = $max_id;
 		}
-		if($include_entities) {
+		if($include_entities){
 			$args['include_entities'] = $include_entities;
+		}
 		return $this->get($url, $args);
 	}
 
