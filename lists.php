@@ -11,8 +11,7 @@
 <div id="statuses">
 	<?php 
 		$t = getTwitter();
-		$t->type = 'json';
-		
+
 		$isSelf = true;
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
@@ -25,23 +24,19 @@
 		switch ($type) {
 			case 0:
 				$lists = $t->followedLists($id, $c);
-				$nextlist = $lists->next_cursor;
-				$prelist = $lists->previous_cursor;
-				$lists = $lists->lists; 
 				break;
 			case 1:
 				$lists = $t->myLists($id)->lists;
 				break;
 			case 2:
 				$lists = $t->beAddedLists($id, $c);
-				$nextlist = $lists->next_cursor;
-				$prelist = $lists->previous_cursor;
-				$lists = $lists->lists; 
 				break;
 			default:
 				$lists = false;
 		}
-		
+		$nextlist = $lists->next_cursor;
+		$prelist = $lists->previous_cursor;
+		$lists = $lists->lists; 
 		if ($lists === false) {
 			header('location: error.php');exit();
 		} 
@@ -89,9 +84,9 @@
 						<span class=\"rank_num\"><span class=\"rank_name\"><a href=\"list.php?id=$listurl\"><em>$listname[0]/</em>$listname[1]</a></span></span>
 						<span class=\"rank_count\">Followers: {$list->subscriber_count}&nbsp;&nbsp;Members: {$list->member_count}&nbsp;&nbsp;$mode</span> 
 				";
-				$output .= "<span class=\"rank_description\">Bio: $list->description</span>";
-				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"#\" class=\"unfollow_list\">Unfollow</a></span>";
-				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"#\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"#\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"#\" class=\"add_member\">Add Members</a></span>";
+				if ($list->description != '') $output .= "<span class=\"rank_description\">Description: $list->description</span>";
+				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"unfollow_list\">Unfollow</a></span>";
+				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"javascript:void()\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"javascript:void()\" class=\"add_member\">Add Members</a></span>";
 				$output .= "
 					</div>
 				</li>

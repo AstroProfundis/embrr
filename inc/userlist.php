@@ -93,55 +93,45 @@
 	}
 
 	echo '<div class="clear"></div>';
+	$p = -1;
 	switch ($type) {
 		case 'blocks':
-			$t->type = 'json';
-			$userlist = $t->blockingList($p);
-			$next_page = $userlist->next_cursor_str;
-			$previous_page = $userlist->previous_cursor_str;
+			$userlist = $t->blockingList($id, $p);
+			$next_page = $userlist->next_cursor;
+			$previous_page = $userlist->previous_cursor;
 			$userlist = $userlist->users;
 			break;
 		case 'friends':
-			$t->type = 'json';
 			$userlist = $t->friends($id, $p);
-			$next_page = $userlist->next_cursor_str;
-			$previous_page = $userlist->previous_cursor_str;
+			$next_page = $userlist->next_cursor;
+			$previous_page = $userlist->previous_cursor;
 			$userlist = $userlist->users;
 			break;
 		case 'followers':
-			$t->type = 'json';
 			$userlist = $t->followers($id, $p);
-			$next_page = $userlist->next_cursor_str;
-			$previous_page = $userlist->previous_cursor_str;
+			$next_page = $userlist->next_cursor;
+			$previous_page = $userlist->previous_cursor;
 			$userlist = $userlist->users;
 			break;
 		case 'list_members':
-			$t->type = 'json';
 			$userlist = $t->listMembers($id, $c);
-			$nextlist = (string) $userlist->next_cursor_str;
-			$prelist = (string) $userlist->previous_cursor_str;
+			$nextlist = $userlist->next_cursor_str;
+			$prelist = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
 		case 'list_followers':
-			$t->type = 'json';
 			$userlist = $t->listFollowers($id, $c);
-			$nextlist = (string) $userlist->next_cursor_str;
-			$prelist = (string) $userlist->previous_cursor_str;
+			$nextlist = $userlist->next_cursor_str;
+			$prelist = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
 		case 'browse':
 			$userlist = $t->followers($id, $p);
 			break;
 	}
-
 	$empty = count($userlist) == 0? true: false;
 	if ($empty) {
-		if($type == 'blocks'){
-			$empty_msg = 'No blocked user to display.';
-		}else{
-			$empty_msg = 'No tweet to display.';
-		}
-		echo "<div id=\"empty\">$empty_msg</div>";
+		echo "<div id=\"empty\">No user to display.</div>";
 	} else {
 		$output = '<ol class="rank_list">';
 		foreach ($userlist as $user) {

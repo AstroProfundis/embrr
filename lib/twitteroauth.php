@@ -209,10 +209,14 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function blockingList($page){
+	function blockingList($id, $cursor=-1, $skip_status = 1){
 		$url = '/blocks/list';
 		$args = array();
-		$args['cursor'] = $page ? $page : -1;
+		if($id)
+			$args['screen_name'] = $id;
+		if($cursor)
+			$args['cursor'] = $cursor;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -267,16 +271,14 @@ class TwitterOAuth {
 	}
 
 	/* ---------- List ---------- */
-	function addListMember($listid, $id, $memberid){
+	function addListMember($listid, $memberid){
 		$url = "/lists/members/create_all";
 		$args = array();
-		if($listid)
+		if($listid) 
 			$args['slug'] = $listid;
-		if($id)
-			$args['owner_screen_name'] = $id;
-		if($memberid){
+		if($memberid)
 			$args['screen_name'] = $memberid;
-		}
+		
 		return $this->post($url, $args);
 	}
 
@@ -291,65 +293,58 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function createList($name, $description, $mode){
+	function createList($name, $description, $isPortect){
 		$url = "/lists/create";
 		$args = array();
-		if($name){
+		if($name)
 			$args['name'] = $name;
-		}
-		if($description){
+		if($description)
 			$args['description'] = $description;
-		}
-		if($mode){
-			$args['mode'] = $mode;
-		}
+		if($isProtect)
+			$args['mode'] = 'private';
+		
 		return $this->post($url, $args);
 	}
 
-	function myLists($username = false, $user_id = false, $count = false) {
+	function createdLists($username = '', $cursor = false){
 		$url = "/lists/ownerships";
 		$args = array();
-		if($username){
-			$args['screen_name'] = $username;
-		} else {
-			$username = $this->username;
-		}
+		if($cursor)
+			$args['cursor'] = $cursor;
+		
 		return $this->get($url, $args);
 	}
 
-	function deleteList($slug){
+	function deleteList($id){
 		$url = "/lists/destroy";
 		$args = array();
-		$args['slug'] = $slug;
-		$args['owner_screen_name'] = $this->username;
+		$args['owner_screen_name'] = $arr[0];
+		$args['slug'] = $arr[1];
 		return $this->post($url, $args);
 	}
 
-	function deleteListMember($slug, $owner, $memberid){
-		$url = "/lists/members/destroy";
+	function deleteListMember($id, $memberid){
+		$arr = explode("/", $id);
+		$url = "/lists/members/destroy_all";
 		$args = array();
-		$args['slug'] = $slug;
-		$args['owner_screen_name'] = $owner;
-		$args['user_id'] = $memberid;
+		$args['slug'] = $arr[1];
+		if($memberid)
+			$args['id'] = $memberid;
+		
 		return $this->post($url, $args);
 	}
 
-	function editList($prename, $name, $description, $mode){
+	function editList($prename, $name, $description, $isProtect){
 		$url = "/lists/update";
 		$args = array();
-		if($prename){
+		if($prename)
 			$args['slug'] = $prename;
-			$args['owner_screen_name'] = $this->username;
-		}
-		if($name){
+		if($name)
 			$args['name'] = $name;
-		}
-		if($description){
+		if($description)
 			$args['description'] = $description;
-		}
-		if($mode){
-			$args['mode'] = $mode;
-		}
+		if($isProtect)
+			$args['mode'] = "private";
 		return $this->post($url, $args);
 	}
 
@@ -360,7 +355,6 @@ class TwitterOAuth {
 			$args['screen_name'] = $username;
 		if($cursor){
 			$args['cursor'] = $cursor;
-		}
 		return $this->get($url, $args);
 	}
 
@@ -392,6 +386,7 @@ class TwitterOAuth {
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -413,6 +408,7 @@ class TwitterOAuth {
 		if($cursor){
 			$args['cursor'] = $cursor;
 		}
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 
 	}
@@ -458,6 +454,7 @@ class TwitterOAuth {
 			$args['screen_name'] = $id;
 		$args['skip_status'] = $skip_status;
 		$args['cursor'] = $page ? $page : -1;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -477,6 +474,7 @@ class TwitterOAuth {
 			$args['screen_name'] = $id;
 		$args['skip_status'] = $skip_status;
 		$args['cursor'] = $page ? $page : -1;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
 
@@ -530,7 +528,7 @@ class TwitterOAuth {
 	/* ---------- Retweet ---------- */
 	function getRetweeters($id, $count = false){
 		$url = "/statuses/retweets/$id";
-		if($count != false){
+		if($count != false) {
 			$url .= "?count=$count";
 		}
 		return $this->get($url);
@@ -547,8 +545,8 @@ class TwitterOAuth {
 		}
 		$url = "/statuses/retweets/$id";
 		$args = array();
-		$args['count'] = $count;
-		if($include_entities)
+		$args['count'] = unt;
+		if($include_ities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url,$args);
 	}
@@ -556,13 +554,11 @@ class TwitterOAuth {
 	function retweets_of_me($count = false, $since_id = false, $max_id = false,$include_entities = true){
 		$url = '/statuses/retweets_of_me';
 		$args = array();
-		if($since_id){
+		if($since_id)
 			$args['since_id'] = $since_id;
-		}
-		if($max_id){
+		if($max_id)
 			$args['max_id'] = $max_id;
-		}
-		if($count){
+		if($count)
 			$args['count'] = $count;
 		}
 		if($include_entities)
@@ -575,7 +571,7 @@ class TwitterOAuth {
  		$url = '/search/tweets';
 		if(!$q) {
 			return false;
-		} else{
+		} else {
 			$args = array();
 			$args['q'] = $q;
 		}
@@ -587,7 +583,6 @@ class TwitterOAuth {
 		}
 		if($include_entities) {
 			$args['include_entities'] = $include_entities;
-		}
 		return $this->get($url, $args);
 	}
 
@@ -721,13 +716,23 @@ class TwitterOAuth {
 		return $response;
 	}
 
-	function trends($woeid = 1){
-		$url = "/trends/place";
+	function trends_closest($lat = false, $long=false) {
+		$url = "/trends/closest";
 		$args = array();
-		$args['id'] = $woeid;
+		if ($lat)
+			$args['lat'] = $lat;
+		if ($long)
+			$args['long'] = $long;
 		return $this->get($url, $args);
 	}
-
+	
+	function trends_place($id = 1) {
+		$url = "/trends/place";
+		$args = array();
+		if ($id)
+			$args['id'] = $id;
+		return $this->get($url, $args);
+	}
 	/* ---------- Misc. ---------- */
 	function twitterAvailable(){
 		$url = "/help/test";
