@@ -553,7 +553,7 @@ class TwitterOAuth {
 		return $this->get($url,$args);
 	}
 
-	function retweets_of_me($count = false, $since_id = false, $max_id = false,$include_entities = true){
+	function retweets_of_me($count = false, $since_id = false, $max_id = false, $include_entities = true){
 		$url = '/statuses/retweets_of_me';
 		$args = array();
 		if($since_id)
@@ -562,7 +562,6 @@ class TwitterOAuth {
 			$args['max_id'] = $max_id;
 		if($count)
 			$args['count'] = $count;
-		}
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
