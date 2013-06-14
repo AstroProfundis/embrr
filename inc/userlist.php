@@ -93,24 +93,23 @@
 	}
 
 	echo '<div class="clear"></div>';
-	$p = -1;
 	switch ($type) {
 		case 'blocks':
 			$userlist = $t->blockingList($id, $p);
-			$next_page = $userlist->next_cursor;
-			$previous_page = $userlist->previous_cursor;
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
 		case 'friends':
 			$userlist = $t->friends($id, $p);
-			$next_page = $userlist->next_cursor;
-			$previous_page = $userlist->previous_cursor;
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
 		case 'followers':
 			$userlist = $t->followers($id, $p);
-			$next_page = $userlist->next_cursor;
-			$previous_page = $userlist->previous_cursor;
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
 		case 'list_members':
@@ -129,7 +128,7 @@
 			$userlist = $t->followers($id, $p);
 			break;
 	}
-	$empty = count($userlist) == 0? true: false;
+	$empty = count($userlist) == 0 ? true : false;
 	if ($empty) {
 		echo "<div id=\"empty\">No user to display.</div>";
 	} else {
