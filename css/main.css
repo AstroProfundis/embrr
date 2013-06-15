@@ -315,14 +315,15 @@ footer li img{border:0 none;margin:-3px;padding:0}
 /*actions button*/
 .actions{border-width:0;bottom:8px;line-height:1.25em;position:absolute;right:0;display:none;z-index:9}
 .rt_btn,.replie_btn,.favor_btn,.delete_btn,.msg_replie_btn,.msg_delete_btn,.retw_btn,.trans_btn,.unfav_btn,.unrt_btn{display:inline-block;height:16px;width:21px;margin:-7px 0;overflow:hidden;text-indent:-9999em}
+.ss_delete_btn{display:inline-block;height:16px;width:21px;overflow:hidden;text-indent:-9999em;float:right}
 .replie_btn,.msg_replie_btn{background:url("../img/sprite_icons.png") no-repeat scroll 4px 1px transparent}
 .replie_btn:hover,.msg_replie_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -17px 1px transparent}
 .retw_btn,.unrt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll 0 -15px transparent}
 .retw_btn:hover,.unrt_btn{background:url("../img/sprite_icons.png") no-repeat scroll -21px -15px transparent}
 .favor_btn,.unfav_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll 2px -32px transparent}
 .favor_btn:hover,.unfav_btn{background:url("../img/sprite_icons.png") no-repeat scroll -19px -32px transparent}
-.delete_btn,.msg_delete_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -47px transparent}
-.delete_btn:hover,.msg_delete_btn:hover{background:transparent url(../img/sprite_icons.png) no-repeat scroll -21px -47px}
+.ss_delete_btn,.delete_btn,.msg_delete_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -47px transparent}
+.ss_delete_btn:hover,.delete_btn:hover,.msg_delete_btn:hover{background:transparent url(../img/sprite_icons.png) no-repeat scroll -21px -47px}
 .rt_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -63px transparent}
 .rt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -21px -63px transparent}
 .trans_btn{background:url("../img/sprite_icons.png") no-repeat scroll -2px -79px transparent}
