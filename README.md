@@ -24,7 +24,7 @@ For nginx users, you'll need to add these lines to your nginx config file:
 
     location / {
         if (!-f $request_filename) {
-            rewrite ^/(\d+)$ /statuse.php?id=$1 last;
+            rewrite ^/(\d+)$ /status.php?id=$1 last;
             rewrite ^/(\w+)$ /user.php?id=$1 last;
             break;
         }
@@ -60,7 +60,7 @@ nginx
 
     location / {
         if (!-f $request_filename) {
-            rewrite ^/(\d+)$ /statuse.php?id=$1 last;
+            rewrite ^/(\d+)$ /status.php?id=$1 last;
             rewrite ^/(\w+)$ /user.php?id=$1 last;
             break;
         }
