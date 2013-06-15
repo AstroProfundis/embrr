@@ -7,31 +7,22 @@
 	include ('inc/header.php');
 
 	function getSearch($query, $sinceid, $maxid){
+		GLOBAL $output;
 		$t = getTwitter();
-		$answer = $t->search($query,$sinceid,$maxid);
-
-		//if ($statuses === false) {
-		//	header('location: error.php');exit();
-		//}
-		$resultCount = count($answer->statuses);
+		$result = $t->search($query, $sinceid, $maxid);
+		$statuses = $result->statuses;
+		$maxid = end($statuses)->id_str;
+		$resultCount = count($statuses);
 		if ($resultCount <= 0) {
 			echo "<div id=\"empty\">No tweet to display.</div>";
 		} else {
 			include_once('lib/timeline_format.php');
 			$output = '<ol class="timeline" id="allTimeline">';
-			foreach ($answer->statuses as $status) {
-				if (isset($status->retweeted_status)) {
-                                        $output .= format_retweet($status);
-                                } else {
-                                        $output .= format_timeline($status,$t->username);
-                                }
+			foreach ($statuses as $status) {
+				$output .= format_timeline($status, $t->username);
 			}
-			$output .= "</ol><div id=\"pagination\">";
-
-			$next_results = isset($answer->search_metadata->next_results) ? $answer->search_metadata->next_results : false;
-			if ($next_results) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php". $next_results ."\">Next</a>";
-			$output .= "</div>";
-			echo $output;
+			$output .= "</ol><div id=\"pagination\"><a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php?q=".urlencode($query)."&max_id=" . $maxid . "\">Next</a></div>";
+			//echo $output;
 		}
 	}
 
