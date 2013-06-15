@@ -696,8 +696,10 @@ class TwitterOAuth {
 	}
 
 	function showStatus($id,$include_entities = true){
-		$url = "/statuses/show/$id";
+		$url = "/statuses/show/";
 		$args = array();
+		if($id)
+			$args['id'] = $id;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url,$args);
