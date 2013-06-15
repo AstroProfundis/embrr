@@ -239,7 +239,8 @@ td.column,#side .stats td{padding:0;vertical-align:top}
 #side hr{float:left;width:177px;display:block;border:0;height:1px;margin:7px 0 6px 11px;opacity:.7;background:#C0DEED;color:#C0DEED}
 .notify{text-align:center;line-height:1;padding:5px 0;background-repeat:no-repeat;background-position:left center;margin-bottom:8px}
 .notify div{background-color:#edffe5;font-size:.9em;margin:0 12px 0 24px;padding:10px 5px;border-radius:5px}
-#trend_entries, #apiquota_list{display:none;width:198px;float:left;margin-top:5px!important}
+#trend_entries, #apiquota_list{display:none;width:177px;float:left;margin-top:5px!important}
+#trend_entries li{word-break:break-all}
 #trends, #following, #apiquota, #version{margin-left:-2px}
 #trends_title, #following_title, #apiquota_title,#version_title{background:transparent url(../img/toggle_down_dark.png) no-repeat scroll right center;font-weight:400;font-size:110%;padding-left:3px;margin-bottom:0;margin-top:0;width:177px;cursor:pointer}
 #version_title{background:none!important}
