@@ -72,10 +72,10 @@
 
 		$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"index.php?since_id=" . $firstid . "\">Back</a>";
 		$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"index.php?max_id=" . $lastid . "\">Next</a>";
+		$output .= "</div>";
 		echo $output;
 	}
 ?>
-</div>
 </div>
 <?php 
 	include ('inc/sidebar.php');
