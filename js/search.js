@@ -1,6 +1,44 @@
 $(function(){
 	var theAC = null;
 	var searches = null;
+
+	$("#btn_savesearch").click(function(e){
+		var nowsearch = $("#query").val().trim();
+		if (theAC == null || searches == null || nowsearch == '') {
+			updateSentTip("Error in saving search!", 3000, "failure");
+			return;
+		}
+
+		var sameone = false;
+		$.each(searches, function(){
+			if (nowsearch == this[1]) {
+				updateSentTip("Duplicated search!", 3000, "failure");
+				sameone = true;
+			}
+		});
+		if (sameone) return;
+
+		$.ajax({
+			url: "ajax/savedSearches.php",
+			data: {method: "save", query: nowsearch},
+			type: "GET",
+			success: function(msg) {
+				if (msg.indexOf("[") >= 0) {
+					updateSentTip("Successfully saved search!", 3000, "success");
+					var theData = eval("("+msg+")");
+					searches.push(theData);
+					theAC.flushCache();
+					theAC.setOptions({data:searches});
+				}
+				else
+					updateSentTip("Error in saving search!", 3000, "failure");
+			},
+			error: function(msg) {
+				updateSentTip("Error in saving search!", 3000, "failure");
+			}
+		});
+	});
+
 	$.ajax({
 		url: "ajax/savedSearches.php",
 		data: {method: "list"},
@@ -25,14 +63,13 @@ $(function(){
 							data: {method: "delete", ssid: selectedId},
 							type: "GET",
 							success: function(m) {
-								if (m.indexOf("success") >= 0) {
+								if (m.indexOf("success") >= 0)
 									updateSentTip("Successfully deleted saved search!", 3000, "success");
-									searches.splice(selectedIndex, 1);
-									theAC.flushCache();
-									theAC.setOptions({data:searches});
-								}
 								else
 									updateSentTip("Error in deleting saved search!", 3000, "failure");
+								searches.splice(selectedIndex, 1);
+								theAC.flushCache();
+								theAC.setOptions({data:searches});
 							},
 							error: function(m) {
 								updateSentTip("Error in deleting saved search!", 3000, "failure");

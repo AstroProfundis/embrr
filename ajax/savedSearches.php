@@ -30,5 +30,13 @@
 		else
 			echo "error";
 	}
+	else if ($_GET['method'] == "save") {
+		$query = $_GET['query'];
+		$ss = $t->saveSearch($query);
+		if (isset($ss->query))
+			echo '["'.$ss->id_str.'", "'.$ss->query.'"]';
+		else
+			echo "error";
+	}
 ?>
 

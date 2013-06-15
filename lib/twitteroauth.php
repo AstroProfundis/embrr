@@ -575,6 +575,13 @@ class TwitterOAuth {
 		return $this->post($url);
 	}
 
+	function saveSearch($query){
+		$url = "/saved_searches/create";
+		$args = array();
+		$args['query'] = $query;
+		return $this->post($url, $args);
+	}
+
 	function search($q = false, $since_id = false, $max_id = false, $include_entities = true){
  		$url = '/search/tweets';
 		if(!$q) {
