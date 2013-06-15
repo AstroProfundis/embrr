@@ -28,6 +28,7 @@ $(function(){
 								if (m.indexOf("success") >= 0) {
 									updateSentTip("Successfully deleted saved search!", 3000, "success");
 									searches.splice(selectedIndex, 1);
+									theAC.flushCache();
 									theAC.setOptions({data:searches});
 								}
 								else
