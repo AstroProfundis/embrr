@@ -591,7 +591,7 @@ class TwitterOAuth {
 	}
 
 	/* ---------- Search ---------- */
-	function search($q = false, $page = false, $rpp = false, $include_entities = true){
+	function search($q = false, $max_id = false, $include_entities = true){
 		$url = "/search/tweets";
 		if(!$q) {
 			return false;
@@ -599,10 +599,8 @@ class TwitterOAuth {
 			$args = array();
 			$args['q'] = $q;
 		}
-		if($page)
-			$args['page'] = $page;
-		if($rpp)
-			$args['rpp'] = $rpp;
+		if($max_id)
+			$args['max_id'] = $max_id;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);

@@ -6,15 +6,12 @@
 	$title = "Search";
 	include ('inc/header.php');
 
-	function getSearch($query, $page){
+	function getSearch($query, $max_id_str){
 		GLOBAL $output;
 		$t = getTwitter();
-		$MAX_TWEETS = 20;
-		$statuses = $t->search($query,$page,$MAX_TWEETS)->statuses;
-
-		//if ($statuses === false) {
-		//	header('location: error.php');exit();
-		//}
+		$result = $t->search($query, $max_id_str);
+		$statuses = $result->statuses;
+		$max_id_str = end($statuses)->id_str;
 		$resultCount = count($statuses);
 		if ($resultCount <= 0) {
 			echo "<div id=\"empty\">No tweet to display.</div>";
@@ -22,13 +19,9 @@
 			include_once('lib/timeline_format.php');
 			$output = '<ol class="timeline" id="allTimeline">';
 			foreach ($statuses as $status) {
-				$output .= format_search($status);
+				$output .= format_timeline($status, $t->username);
 			}
-			$output .= "</ol><div id=\"pagination\">";
-
-			if ($page > 1) $output .= "<a id=\"more\" class=\"round more\" style=\"float: left;\" href=\"search.php?q=".urlencode($query)."&p=" . ($page - 1) . "\">Back</a>";
-			if ($resultCount == $MAX_TWEETS) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php?q=".urlencode($query)."&p=" . ($page + 1) . "\">Next</a>";
-			$output .= "</div>";
+			$output .= "</ol><div id=\"pagination\"><a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php?q=".urlencode($query)."&maxid=" . $max_id_str . "\">Next</a></div>";
 		}
 	}
 
@@ -44,14 +37,15 @@
 	</form>
 <?php
 	$p = 1;
-	if (isset($_GET['p'])) {
-		$p = (int) $_GET['p'];
-		if ($p <= 0) $p = 1;
+	if (isset($_GET['max_id'])) {
+		$max_id = $_GET['max_id'];
+	} else {
+		$max_id = false;
 	}
 	$output = '';
 	if (isset($_GET['q'])) {
 		$q = $_GET['q'];
-		getSearch($q, $p);
+		getSearch($q, $max_id);
 	}
 	echo $output;
 ?>
