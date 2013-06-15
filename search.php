@@ -7,11 +7,9 @@
 	include ('inc/header.php');
 
 	function getSearch($query, $sinceid, $maxid){
-		GLOBAL $output;
 		$t = getTwitter();
 		$result = $t->search($query, $sinceid, $maxid);
 		$statuses = $result->statuses;
-		$maxid = end($statuses)->id_str;
 		$resultCount = count($statuses);
 		if ($resultCount <= 0) {
 			echo "<div id=\"empty\">No tweet to display.</div>";
@@ -21,8 +19,11 @@
 			foreach ($statuses as $status) {
 				$output .= format_timeline($status, $t->username);
 			}
-			$output .= "</ol><div id=\"pagination\"><a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php?q=".urlencode($query)."&max_id=" . $maxid . "\">Next</a></div>";
-			//echo $output;
+			$output .= "</ol><div id=\"pagination\">";
+            $next_results = isset($result->search_metadata->next_results) ? $result->search_metadata->next_results : false;
+            if ($next_results) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php". $next_results ."\">Next</a>";
+            $output .= "</div>";
+			echo $output;
 		}
 	}
 
