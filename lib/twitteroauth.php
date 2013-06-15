@@ -570,6 +570,11 @@ class TwitterOAuth {
 		return $this->get($url);
 	}
 
+	function deleteSavedSearch($ssid){
+		$url = "/saved_searches/destroy/{$ssid}";
+		return $this->post($url);
+	}
+
 	function search($q = false, $since_id = false, $max_id = false, $include_entities = true){
  		$url = '/search/tweets';
 		if(!$q) {
