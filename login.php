@@ -73,8 +73,7 @@ function register() {
 }
 </script>
 </head>
- 
-<?php if(BASIC_AUTH) require ('basic_auth.php'); ?>
+
 <body class="form-container">
 <div class="clear rounded_5px" id="container">
  <div id="header">

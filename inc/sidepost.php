@@ -35,7 +35,7 @@
 </div>
 <hr />
 <div id="version">
-<h2 id="version_title"><span>Version: 0.6.2 (f-96)</span></h2>
+<h2 id="version_title"><span>Version: 0.6.2 (f-99)</span></h2>
 </div>
 <!--Preload Start-->
 <div class="preload" style="position: absolute; left: -9999em; top: -9999em;">
