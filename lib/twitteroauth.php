@@ -471,7 +471,7 @@ class TwitterOAuth {
 			$args['screen_name'] = $id;
 		if($cursor)
 			$args['cursor'] = $cursor;
-		$args['skip_status'] = $		;
+		$args['skip_status'] = $skip_status;
 		return $this->get($url, $args);
 	}
  	
