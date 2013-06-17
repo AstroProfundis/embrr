@@ -625,6 +625,8 @@ class TwitterOAuth {
 			$args['since_id'] = $since_id;
 		if($count)
 			$args['count'] = $count;
+		else
+			$args['count'] = 30;
 		if($include_entities)
 			$args['include_entities'] = $include_entities;
 		return $this->get($url, $args);
