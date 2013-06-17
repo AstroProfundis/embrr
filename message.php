@@ -42,9 +42,9 @@
 		if ($messages === false) {
 			header('location: error.php');exit();
 		} 
-		$empty = count($messages) == 0? true: false;
+		$empty = count($messages) <= 1 ? true : false;
 		if ($empty) {
-			echo "<div id=\"empty\">No tweets to display.</div>";
+			echo "<div id=\"empty\">No tweets to display.<br />Maybe you've used API quota out.</div>";
 		} else {
 			include ('lib/timeline_format.php');
 			$output = '<ol class="timeline" id="allMessage">';

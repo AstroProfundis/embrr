@@ -19,9 +19,9 @@
 		if ($statuses === false) {
 			header('location: error.php');exit();
 		} 
-		$empty = count($statuses) == 0? true: false;
+		$empty = count($statuses) <= 1 ? true : false;
 		if ($empty) {
-			echo "<div id=\"empty\">No tweet to display.</div>";
+			echo "<div id=\"empty\">No tweet to display.<br />Check API quota to see if you used it out.</div>";
 		} else {
 			$output = '<ol class="timeline" id="allTimeline">';
 			
