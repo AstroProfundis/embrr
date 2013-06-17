@@ -12,7 +12,7 @@ And here are some tips you may want to know:
 
  * embrr requires `php-curl` and `php-bcmath`
  * while not necessarily required, `php-mcrypt` is recommended
- * embrr is compatible with PHP 5.3 and 5.4, we didn't test it on 5.2 or older versions
+ * embrr is compatible with PHP 5.2, 5.3 and 5.4, we didn't test it on 5.1 or older versions
 
 Installing in sub-directory
 --------
@@ -48,7 +48,7 @@ embrr, 一个修改版的 embr
 
  * embrr 依赖于 `php-curl` 和 `php-bcmath` 组件
  * 虽然不是必需依赖，但建议安装 `php-mcrypt` 组件
- * embrr 兼容 PHP 5.3 和 5.4, 我们没有测试过 5.2 及之前版本
+ * embrr 兼容 PHP 5.2, 5.3 和 5.4, 我们没有测试过 5.1 及之前版本
 
 在二级目录中安装
 --------
