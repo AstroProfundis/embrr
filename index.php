@@ -40,10 +40,10 @@
 		header('location: error.php');exit();
 	}
 	$count = count($statuses);
-	$empty = $count == 0 ? true: false;
+	$empty = $count <= 1 ? true : false;
 	if ($empty)
 	{
-		echo "<div id=\"empty\">No tweet to display.</div>";
+		echo "<div id=\"empty\">No tweet to display.<br />Check API quota to see if you used it out.</div>";
 	}
 	else
 	{
