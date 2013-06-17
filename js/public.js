@@ -853,9 +853,9 @@ $(function (){
 				if(d == 't.cn' || d == 'goo.gl' || d == 'bit.ly' || d == 'j.mp' || d == 'is.gd' || d == '163.fm') {
 					e.preventDefault();
 					updateSentTip('Unshorting the URL...',3e3,'ing');
-					$.getJSON('http://api.longurl.org/v2/expand?url=' +encodeURIComponent($this.attr('href')) + '&format=json&callback=?', function(data) {
-						if('long-url' in data) {
-							var url = data['long-url'];
+					$.getJSON('ajax/expand.php?url=' +encodeURIComponent($this.attr('href')), function(data) {
+						if('expanded_url' in data) {
+							var url = data['expanded_url'];
 							if (url != $this.attr('href')) {
 								var tmp = url.split("://");
 								$this.text(tmp[1]);
