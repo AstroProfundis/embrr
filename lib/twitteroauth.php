@@ -202,7 +202,7 @@ class TwitterOAuth {
 	/* ---------- API METHODS ---------- */
 	/*                                   */
 	/* ---------- Block ---------- */
-	function blockingList($id, $cursor=-1, $skip_status = 1){
+	function blockingList($id, $cursor=-1, $skip_status = true){
 		$url = '/blocks/list';
 		$args = array();
 		if($id)
@@ -374,7 +374,7 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function listFollowers($id, $cursor = false){
+	function listFollowers($id, $cursor = false, $skip_status = true){
 		$url = "/lists/subscribers";
 		$arr = explode('/', $id);
 		$args = array();
@@ -396,7 +396,7 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function listMembers($id, $cursor = false){
+	function listMembers($id, $cursor = false, $skip_status = true){
 		$url = "/lists/members";
 		$arr = explode("/", $id);
 		$args = array();
@@ -444,12 +444,11 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function followers($id = false, $cursor = -1, $skip_status = false){ // GET statuses/friends is removed, try GET followers/list instead
+	function followers($id = false, $cursor = -1, $skip_status = true){ // GET statuses/friends is removed, try GET followers/list instead
 		$url = '/followers/list';
 		$args = array();
 		if( $id )
 			$args['screen_name'] = $id;
-		$args['skip_status'] = $skip_status;
 		if($cursor)
 			$args['cursor'] = $cursor;
 		$args['skip_status'] = $skip_status;
@@ -465,15 +464,14 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 
-	function friends($id = false, $cursor = -1, $skip_status = false){ // GET statuses/friends is removed, try GET friends/list instead
+	function friends($id = false, $cursor = -1, $skip_status = true){ // GET statuses/friends is removed, try GET friends/list instead
 		$url = '/friends/list';
 		$args = array();
 		if( $id )
 			$args['screen_name'] = $id;
-		$args['skip_status'] = $skip_status;
 		if($cursor)
 			$args['cursor'] = $cursor;
-		$args['skip_status'] = $skip_status;
+		$args['skip_status'] = $		;
 		return $this->get($url, $args);
 	}
 
@@ -780,7 +778,7 @@ class TwitterOAuth {
 	}
 	
 	/* media */
-	function updateProfileImage($image, $skip_status=true) {
+	function updateProfileImage($image, $skip_status = true) {
 		$url = '/account/update_profile_image';
 		$args = array();
 		if($image){
@@ -790,7 +788,7 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 	
-	function updateProfileBackground($image, $skip_status=true) {
+	function updateProfileBackground($image, $skip_status = true) {
 		$url = '/account/update_profile_background_image';
 		$args = array();
 		if($image){

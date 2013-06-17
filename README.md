@@ -2,7 +2,7 @@ embrr, a fork from embr
 ========
 This is a twitter web client fork from [embr](https://code.google.com/p/embr/), mainly based on `r91` and merged necessary changes until the latest revisions, updated to Twitter REST API `v1.1` and have some improved features.
 
-You can download the zip archive of current version at [here](https://github.com/AstroProfundis/embrr/zipball/master) if you don't want to use `git-clone`.
+You can download the zip archive of current version [here](https://github.com/AstroProfundis/embrr/zipball/master) if you don't want to use `git-clone`.
 
 How to Install
 --------
@@ -12,7 +12,7 @@ And here are some tips you may want to know:
 
  * embrr requires `php-curl` and `php-bcmath`
  * while not necessarily required, `php-mcrypt` is recommended
- * embrr is compatible with PHP 5.4
+ * embrr is compatible with PHP 5.3 and 5.4, we didn't test it on 5.2 or older versions
 
 Installing in sub-directory
 --------
@@ -36,7 +36,7 @@ And of course, adjust it if you are in a sub-directory.
 embrr, 一个修改版的 embr
 ========
 
-这是一个从 [embr](https://code.google.com/p/embr/) 修改而来的 twitter 网页端，主要基于 `r91` 版本并合并了后续修订版的必要更新，升级到了 Twitter RST API `v1.1` 并有一些功能上的改进。
+这是一个从 [embr](https://code.google.com/p/embr/) 修改而来的 twitter 网页端，主要基于 `r91` 版本并合并了后续修订版的必要更新，升级到了 Twitter REST API `v1.1` 并有一些功能上的改进。
 
 如果不想使用 `git-clone` 获取代码，可以点[这里](https://github.com/AstroProfundis/embrr/zipball/master)下载当前版本的 zip 压缩包。
 
@@ -46,9 +46,9 @@ embrr, 一个修改版的 embr
 
 有几点值得注意的地方是：
 
- * embrr 依赖 `php-curl` 和 `php-bcmath` 组件
- * 虽然不是必须，但建议安装 `php-mcrypt` 组件
- * embrr 与 PHP 5.4 兼容
+ * embrr 依赖于 `php-curl` 和 `php-bcmath` 组件
+ * 虽然不是必需依赖，但建议安装 `php-mcrypt` 组件
+ * embrr 兼容 PHP 5.3 和 5.4, 我们没有测试过 5.2 及之前版本
 
 在二级目录中安装
 --------
