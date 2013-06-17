@@ -474,33 +474,12 @@ class TwitterOAuth {
 		$args['skip_status'] = $		;
 		return $this->get($url, $args);
 	}
-
-	function isFriend($user_a, $user_b){ // I'm confused about this method and the next one
-		//$url = '/friendships/exists';
-		//$args = array();
-		//$args['user_a'] = $user_a;
-		//$args['user_b'] = $user_b;
-		//return $this->get($url, $args);
-		return $this->friendship($user_a, $user_b);
-	}
-
-	function friendship($source_screen_name,$target_screen_name){
-		$url = '/friendships/show';
-		$args = array();
-		$args['source_screen_name'] = $source_screen_name;
-		$args['target_screen_name'] = $target_screen_name;
-		return $this->get($url, $args);
- 	}
  	
-	function relationship($target, $source = false){
+	function relationship($target_screen_name, $source_screen_name = false){
 		$url = '/friendships/show';
 		$args = array();
-		$args['target_screen_name'] = $target;
-		if($source){
-			$args['source_screen_name'] = $source;
-		} else {
-			$args['source_screen_name'] = $this->username;
-		}
+		$args['target_screen_name'] = $target_screen_name;
+		$args['source_screen_name'] = $source_screen_name ? $source_screen_name : $this->username;
 		return $this->get($url, $args);
 	}
 
