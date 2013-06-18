@@ -1,5 +1,7 @@
 <?php
 
+include_once('../lib/config.php');
+
 function expandRedirect($shorturl, &$hops) {
 	if (count($hops) >= 10) {
 		return false;
@@ -17,6 +19,11 @@ function expandRedirect($shorturl, &$hops) {
 		$prevhop = $redir;
 	}
 	return expandRedirect($redir, $hops);
+}
+
+if (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) != parse_url(BASE_URL, PHP_URL_HOST)) {
+	echo '{"error":"Invalid referer."}';
+	exit();
 }
 
 $url = isset($_GET['url']) ? $_GET['url'] : false;
