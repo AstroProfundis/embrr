@@ -53,6 +53,7 @@ header {margin:1em auto;text-align:right;width:600px}
 .status_body {display:block;font-size:2em;line-height:30px;margin-left:58px;overflow:hidden;position:relative}
 .timeline li {cursor:default;margin:0px;overflow:hidden;padding:10px;position:relative}
 .status_author, .rank_img {left:10px;position:absolute;top:15px;width:50px}
+.retweet_info {color:#999;display:block;font-size:11px;margin:0;text-align:left;width:100%}
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.3.min.js"></script>
 <script src="js/jquery.js"></script>
@@ -96,6 +97,13 @@ header {margin:1em auto;text-align:right;width:600px}
 										<span class="source">from <?php echo $status->source ?></span>
 										<span class="date"><a href="status.php?id=<?php echo $statusid ?>" id="<?php echo $date?>" target="_blank"><?php echo date('Y-m-d H:i:s', $date); ?></a></span>
 							</span>
+				<?php if ($status->retweet_count>0) { ?>
+				<span class="retweet_info">Retweeted by</span>
+				<?php 
+				include ('lib/timeline_format.php');
+				echo getRetweeters($status->id_str, 100);
+				}
+				?>
 						</span>
 				</li>
 		</ol>

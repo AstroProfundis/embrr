@@ -55,6 +55,8 @@
 			</span>
 			<span class="status_info">via '.$status->source.'
 			<span class="date"><a href="status.php?id='.$status->id_str.'" id="'.$date.'" target="_blank">'.date('Y-m-d H:i:s', $date).'</a></span>
+			retweeted by '.$status->retweet_count.
+			(($status->retweet_count>1)?' persons':' person').'
 			</span>
 			</span>';
 		$html .= $status->favorited ? '<i class="faved"></i>' : '';
@@ -64,10 +66,10 @@
 
 	function getRetweeters($id, $count = 20){
 		$t = getTwitter();
-		$retweeters = $t->getRetweeters($id);
+		$retweets = $t->retweets($id, $count);
 		$html = '<span class="vcard">';
-		foreach($retweeters as $retweeter){
-			$user = $retweeter->user;
+		foreach($retweets as $retweet){
+			$user = $retweet->user;
 			$html .= '<a class="url" title="'.$user->name.'" rel="contact" href="../user.php?id='.$user->screen_name.'">
 				<img class="photo fn" width="24" height="24" src="'.getAvatar($user->profile_image_url).'" alt="'.$user->name.'" />
 				</a>';
