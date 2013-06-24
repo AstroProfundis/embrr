@@ -19,17 +19,11 @@
 			header('location: error.php');exit();
 		} 
 		
-		$isFollower = false;
-		//$isFollower = $t->isFollowedList($id);
-		$empty = count($statuses) == 0? true: false;
-		if ($empty) {
-			echo "<div id=\"empty\">No Tweet To Display</div>";
-		} else {
+		$isFollower = $t->isFollowedList($id);
 	?>
-	
-		
+
 	<div id="info_head">
-		<a href="https://twitter.com/<?php echo $userid ?>"><img id="info_headimg" src="<?php echo getAvatar($listInfo->user->profile_image_url); ?>" /></a>
+		<a href="user.php?id=<?php echo $listInfo->user->screen_name ?>"><img id="info_headimg" src="<?php echo getAvatar($listInfo->user->profile_image_url); ?>" /></a>
 		<div id="info_name"><?php echo $id?></div>
 		<div id="info_relation">
 		<?php if ($isFollower) {?>
@@ -43,9 +37,12 @@
 		</div>
 	</div>
 	<div class="clear"></div>
-	
+
 	<?php 
-		
+		$empty = count($statuses) == 0? true: false;
+		if ($empty) {
+			echo "<div id=\"empty\">No Tweet To Display</div>";
+		} else {
 			$output = '<ol class="timeline" id="allTimeline">';
 			include('lib/timeline_format.php');
 			$firstid = false;
