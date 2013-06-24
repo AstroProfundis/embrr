@@ -502,28 +502,18 @@ class TwitterOAuth {
 	}
 
 	/* ---------- Retweet ---------- */
-	function getRetweeters($id, $count = false){
-		$url = "/statuses/retweets/$id";
-		if($count != false){
-			$url .= "?count=$count";
-		}
-		return $this->get($url);
-	}
-
 	function retweet($id){
 		$url = "/statuses/retweet/$id";
 		return $this->post($url);
 	}
 
-	function retweets($id, $count = 20, $include_entities = true){
+	function retweets($id, $count = 20){
 		if($count > 100){
 			$count = 100;
 		}
 		$url = "/statuses/retweets/$id";
 		$args = array();
 		$args['count'] = $count;
-		if($include_entities)
-			$args['include_entities'] = $include_entities;
 		return $this->get($url,$args);
 	}
 
