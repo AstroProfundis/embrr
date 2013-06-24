@@ -707,14 +707,6 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 	/* ---------- Misc. ---------- */
-	function twitterAvailable(){
-		$url = "/help/test";
-		if($this->get($url) == 'ok'){
-			return true;
-		}
-		return false;
-	}
-
 	function veverify($skip_status = false){
 		$url = '/account/verify_credentials';
 		$args = array('skip_status' => $skip_status);
