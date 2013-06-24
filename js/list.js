@@ -72,7 +72,7 @@ $(function(){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();
-		updateSentTip("Unfollowing list " + id + "...");
+		updateSentTip("Unfollowing list " + id + "...", 5000, "ing");
 		$.ajax({
 			url: "ajax/list.php",
 			type: "POST",
@@ -80,7 +80,7 @@ $(function(){
 			success: function(msg) {
 				if (msg.indexOf("success") >= 0) {
 					updateSentTip("You have unfollowed list " + id + ".", 3000, "success");
-					$this.after('<a class="info_btn" id="list_follow_btn" href="javascript:void(0)">Unfollow</a>');
+					$this.after('<a class="info_btn" id="list_follow_btn" href="#">Follow</a>');
 					$this.remove();
 				} else {
 					updateSentTip("Failed to unfollow list " + id + ".", 3000, "failure");
