@@ -371,7 +371,7 @@ class TwitterOAuth {
 		$args['owner_screen_name'] = $arr[0];
 		$args['slug'] = $arr[1];
 		$args['screen_name'] = $this->username;
-		return $this->get($url, $args);
+		return isset($this->get($url, $args)->screen_name);
 	}
 
 	function listFollowers($id, $cursor = false, $skip_status = true){
