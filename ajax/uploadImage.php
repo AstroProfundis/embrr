@@ -33,7 +33,7 @@
 			$skip_status = $_POST['skip_status'];
 			$result = $t->updateProfileBackground($image,$skip_status);
 			if ($t->http_code == 200) {
-				echo '{"result": "success"}';
+				echo '{"result": "success", "url": "'. getAvatar($result->profile_background_image_url) .'"}';
 			} else {
 				echo '{"result": "error"}';
 			}
