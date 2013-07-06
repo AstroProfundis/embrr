@@ -26,6 +26,18 @@
 				echo '{"result": "error"}';
 			}
 			break;
+			case 'background':
+			$image = file_get_contents($_FILES['image']['tmp_name']);
+			$image = base64_encode($image);
+			$t = getTwitter();
+			$skip_status = $_POST['skip_status'];
+			$result = $t->updateProfileBackground($image,$skip_status);
+			if ($t->http_code == 200) {
+				echo '{"result": "success", "url": "'. getAvatar($result->profile_background_image_url) .'"}';
+			} else {
+				echo '{"result": "error"}';
+			}
+			break;
 		}
 	}
 ?>

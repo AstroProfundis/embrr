@@ -34,11 +34,21 @@
 				<fieldset class="settings">
 				<legend>Avatar</legend>
 				<ol>
-				<li style="display:inline-block"><img src="<?php echo isset($_COOKIE['imgurl']) ? $_COOKIE['imgurl'] : getAvatar($user->profile_image_url)?>"></img></li>
+				<li style="display:inline-block"><img src="<?php echo isset($_COOKIE['imgurl']) ? $_COOKIE['imgurl'] : getAvatar($user->profile_image_url)?>" id="avatarimg"></img></li>
 				<ol style="margin-left:29px">
 					<li><input type="file" name="image" id="profile_image"/></li>
 					<li><input type="submit" id="AvatarUpload" class="btn" value="Upload"/><small style="margin-left:10px;vertical-align: middle;">BMP,JPG or PNG accepted, less than 800K.</small></li>
 				</ol></ol>
+				</fieldset>
+			</form>
+			<form id="setting_form" action="ajax/uploadImage.php?do=background" method="post" enctype="multipart/form-data">
+				<fieldset class="settings">
+				<legend>Background</legend>
+				<ol>
+				<li style="display:inline-block"><img src="<?php echo getAvatar($user->profile_background_image_url)?>" id="backgroundimg" style="max-width: 460px;"></img></li>
+				<li><input type="file" name="image" id="profile_background"/></li>
+				<li><input type="submit" id="BackgroundUpload" class="btn" value="Upload"/><small style="margin-left:10px;vertical-align: middle;">BMP,JPG or PNG accepted, less than 800K.</small></li>
+				</ol>
 				</fieldset>
 			</form>
 			<form id="setting_form" action="ajax/updateProfile.php" method="post">

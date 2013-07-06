@@ -112,6 +112,10 @@ $(function(){
 		e.preventDefault();
 		ProfileImageUpload();
 	});
+	$("#BackgroundUpload").click(function (e) {
+		e.preventDefault();
+		ProfileBackgroundUpload();
+	});
 	$("#saveProfile").click(function(e){
 		e.preventDefault();
 		$.ajax({
@@ -180,10 +184,43 @@ function ProfileImageUpload() {
 						dataType: "json",
 						success: function(msg){
 							freshProfile();
-							$(".settings > img").attr("src",$.cookie("imgurl"));
+							$("#avatarimg").attr("src",$.cookie("imgurl"));
 						}
 					});
 					updateSentTip("Your profile image has been uploaded!", 3000, "success");
+				} else {
+					updateSentTip("Failed to upload, please try again.", 3000, "failure");
+				}
+			},
+			error: function (data, status, e) {
+				updateSentTip("Failed to upload, please try again.", 3000, "failure");
+			}
+		})
+	return false;
+}
+
+function ProfileBackgroundUpload() {
+	updateSentTip("Uploading your profile background...", 10000, "ing");
+	$.ajaxFileUpload({
+			url: 'ajax/uploadImage.php?do=background',
+			timeout: 60000,
+			secureuri: false,
+			fileElementId: 'profile_background',
+			dataType: 'json',
+			success: function (data, status) {
+				if (typeof(console) !== 'undefined' && console != null) {
+					console.info(data);
+				}
+				if (typeof(data.result) != 'undefined' && data.result == "success") {
+					if ($.cookie('twitterbg') === 'true') {
+						$.ajax({
+							url:'ajax/updateProfile.php?extra=bg',
+							dataType:'json',
+							success: function() { location.reload(); }
+						});
+					}
+					$("#backgroundimg").attr("src",data.url);
+					updateSentTip("Your profile background has been uploaded!", 3000, "success");
 				} else {
 					updateSentTip("Failed to upload, please try again.", 3000, "failure");
 				}
