@@ -276,4 +276,23 @@
 		}
 		return $result;
 	}
+
+	function expandRedirect($shorturl, &$hops) {
+		if (count($hops) >= 10) {
+			return false;
+		}
+		$head = array_change_key_case(get_headers($shorturl, TRUE), CASE_LOWER);
+		if (!isset($head['location']) || empty($head['location'])) {
+			return $shorturl;
+		}
+		$prevhop = $shorturl;
+		foreach((array)$head['location'] as $redir) {
+			if (substr($redir, 0, 1)=='/' || preg_match('/[\.\/]'.preg_quote(parse_url($prevhop, PHP_URL_HOST)).'$/', parse_url($redir, PHP_URL_HOST))) {
+				return $prevhop;
+			}
+			$hops[] = $prevhop;
+			$prevhop = $redir;
+		}
+		return expandRedirect($redir, $hops);
+	}
 ?>

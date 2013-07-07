@@ -749,13 +749,16 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 	
-	function updateProfileBackground($image, $skip_status = true) {
+	function updateProfileBackground($image, $tile = false, $skip_status = true) {
 		$url = '/account/update_profile_background_image';
 		$args = array();
 		if($image){
 			$args['image']=$image;
-			$args['skip_status']=$skip_status;
 		}
+		if($tile){
+			$args['tile']=($tile === 'true');
+		}
+		$args['skip_status']=$skip_status;
 		return $this->post($url, $args);
 	}
 	
