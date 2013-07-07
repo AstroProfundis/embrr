@@ -1,25 +1,7 @@
 <?php
 
 include_once('../lib/config.php');
-
-function expandRedirect($shorturl, &$hops) {
-	if (count($hops) >= 10) {
-		return false;
-	}
-	$head = get_headers($shorturl, TRUE);
-	if (!isset($head['Location']) || empty($head['Location'])) {
-		return $shorturl;
-	}
-	$prevhop = $shorturl;
-	foreach((array)$head['Location'] as $redir) {
-		if (substr($redir, 0, 1)=='/' || preg_match('/[\.\/]'.preg_quote(parse_url($prevhop, PHP_URL_HOST)).'$/', parse_url($redir, PHP_URL_HOST))) {
-			return $prevhop;
-		}
-		$hops[] = $prevhop;
-		$prevhop = $redir;
-	}
-	return expandRedirect($redir, $hops);
-}
+include_once('../lib/twitese.php');
 
 if (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) != parse_url(BASE_URL, PHP_URL_HOST)) {
 	echo '{"error":"Invalid referer."}';

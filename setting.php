@@ -48,6 +48,10 @@
 				<li style="display:inline-block"><img src="<?php echo getAvatar($user->profile_background_image_url)?>" id="backgroundimg" style="max-width: 460px;"></img></li>
 				<li><input type="file" name="image" id="profile_background"/></li>
 				<li><input type="submit" id="BackgroundUpload" class="btn" value="Upload"/><small style="margin-left:10px;vertical-align: middle;">BMP,JPG or PNG accepted, less than 800K.</small></li>
+				<li>
+				<input id="tile" type="checkbox" <?php echo $user->profile_background_tile ? 'checked="checked"' : '' ?> />
+				<label>Tile the profile background</label>
+				</li>
 				</ol>
 				</fieldset>
 			</form>
@@ -56,19 +60,27 @@
 				<legend>Literature</legend>
 				<table id="setting_table">
 				<tr>
-				<td class="setting_title">Name：</td>
+				<td class="setting_title">Name: </td>
 				<td><input class="setting_input" type="text" name="name" value="<?php echo isset($user->name) ? $user->name : ''?>" /></td>
 				</tr>
 				<tr>
-				<td class="setting_title">URL：</td>
-				<td><input class="setting_input" type="text" name="url" value="<?php echo isset($user->url) ? $user->url : '' ?>" /></td>
+				<td class="setting_title">URL: </td>
+				<td><input class="setting_input" type="text" name="url" value="<?php
+			if (!isset($user->url))
+				echo '';
+			else {
+				$hops = array();
+				$newurl = expandRedirect($user->url, $hops);
+				echo $newurl;
+			}
+		?>" /></td>
 				</tr>
 				<tr>
-				<td class="setting_title">Location：</td>
+				<td class="setting_title">Location: </td>
 				<td><input class="setting_input" type="text" name="location" value="<?php echo isset($user->location) ? $user->location : '' ?>" /></td>
 				</tr>
 				<tr>
-				<td class="setting_title">Bio：</td><td><small style="margin-left:5px;vertical-align: top;">*Max 160 chars</small></td>
+				<td class="setting_title">Bio: </td><td><small style="margin-left:5px;vertical-align: top;">*Max 160 chars</small></td>
 				</tr><tr>
 				<td></td>
 				<td><textarea id="setting_text" name="description"><?php echo isset($user->description) ? $user->description : '' ?></textarea></td>

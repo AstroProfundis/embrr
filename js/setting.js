@@ -141,6 +141,10 @@ $(function(){
 			}
 		});
 	});
+
+	$("#tile").click(function() {
+		ProfileBackgroundTile($(this).prop('checked'));
+	});
 });
 function checkbox(c,id,d,extra){
 	var $id = $(id);
@@ -227,6 +231,44 @@ function ProfileBackgroundUpload() {
 			},
 			error: function (data, status, e) {
 				updateSentTip("Failed to upload, please try again.", 3000, "failure");
+			}
+		})
+	return false;
+}
+
+function ProfileBackgroundTile(tile) {
+	updateSentTip("Updating your profile background tile...", 3000, "ing");
+	$.ajax({
+			url: 'ajax/uploadImage.php?do=background',
+			type: 'POST',
+			data: {'tile': tile},
+			dataType: 'json',
+			success: function (data, status) {
+				if (typeof(console) !== 'undefined' && console != null) {
+					console.info(data);
+				}
+				if (typeof(data.result) != 'undefined' && data.result == "success") {
+					if ($.cookie('twitterbg') === 'true') {
+						$.ajax({
+							url:'ajax/updateProfile.php?extra=bg',
+							dataType:'json',
+							success: function() { location.reload(); }
+						});
+					}
+					var isok = data.tile === 'true';
+					if (isok != $("#tile").prop('checked')) {
+						$("#tile").prop('checked', isok);
+						updateSentTip("Failed to update, please try again.", 3000, "failure");
+					}
+					else {
+						updateSentTip("Your profile background tile has been updated!", 3000, "success");
+					}
+				} else {
+					updateSentTip("Failed to update, please try again.", 3000, "failure");
+				}
+			},
+			error: function (data, status, e) {
+				updateSentTip("Failed to update, please try again.", 3000, "failure");
 			}
 		})
 	return false;
