@@ -21,11 +21,11 @@ $(function(){
 				e.preventDefault();
 				var replie_id = $this.parent().parent().find(".status_word").find(".user_name").attr("id");
 				if ($("#textbox").length > 0) {
-					onInfoReplie($this,e);
+					onReplie($this,e);
 				} else {
 					$("#info_head").after('<h2>In reply to ' + replie_id + '</h2>' + formHTML);
 					formFunc();
-					onInfoReplie($this,e);
+					onReplie($this,e);
 				}
 				break;
 			case 'favor_btn':
