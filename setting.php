@@ -133,8 +133,8 @@
 
 			<label>Home Page</label>
 			<select id="homeInterval" name="homeInterval" value="<?php echo getCookie('homeInterval')?>">
-				<option value="0.5">30 sec</option>
-				<option value="1" selected="selected">1 min(Default)</option>
+				<option value="1">1 min</option>
+				<option value="2" selected="selected">2 min (Default)</option>
 				<option value="3">3 min</option>
 				<option value="5">5 min</option>
 				<option value="10">10 min</option>
@@ -142,9 +142,9 @@
 			</select>
 			<label>Updates Page</label>
 			<select id="updatesInterval" name="updatesInterval" value="<?php echo getCookie('updatesInterval')?>">
-				<option value="0.5">30 sec</option>
 				<option value="1">1 min</option>
-				<option value="3" selected="selected">3 min(Default)</option>
+				<option value="2">2 min</option>
+				<option value="3" selected="selected">3 min (Default)</option>
 				<option value="5">5 min</option>
 				<option value="10">10 min</option>
 				<option value="0">Never</option>
