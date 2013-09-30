@@ -215,14 +215,6 @@ $(function(){
 	
 });
 
-function onInfoReplie($this) {
-	var replie_id = $("#info_name").text();
-	$("#textbox").val("@" + replie_id + " ");
-	$("#textbox").focus();
-	$("#in_reply_to").val($this.parent().parent().find(".status_id").text());
-	leaveWord();
-}
-
 function onInfoRT($this) {
 	var replie_id = $("#info_name").text();
 	var status_word = $this.parent().parent().find(".status_word").clone();
