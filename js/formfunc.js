@@ -114,6 +114,7 @@ $(function (){
 						updateSentTip("Your image has been uploaded!", 3e3, "success");
 						$("#photoArea").slideToggle(100);
 					}else{
+						console.log(data);
 						updateSentTip("Failed to upload, please try again.", 3e3, "failure");
 						$("#photoArea").slideToggle(100);
 					}
@@ -121,6 +122,7 @@ $(function (){
 				error: function (data, status, e){
 					updateSentTip("Failed to upload, please try again.", 3e3, "failure");
 					$("#photoArea").slideToggle(100);
+					console.log(data);
 				}
 			})
 		return false;
