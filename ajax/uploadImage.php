@@ -11,7 +11,7 @@
 			if (isset($result->url)) {
 				echo '{"result": "success" , "url" : "' . $result->url . '"}';
 			} else {
-				echo '{"result": "error"}';
+				echo '{"result": "'. $result .'"}';
 			}
 			break;
 			case 'profile':
@@ -21,7 +21,7 @@
 			if ($t->http_code == 200) {
 				echo '{"result": "success"}';
 			} else {
-				echo '{"result": "error"}';
+				echo '{"result": "'. $t->http_code .'"}';
 			}
 			break;
 		}

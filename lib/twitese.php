@@ -171,7 +171,7 @@
 
 	function imageUpload($image){
 		$t = getTwitter();
-		$signingurl = 'https://api.twitter.com/1/account/verify_credentials.json';
+		$signingurl = API_URL.'/account/verify_credentials.json';
 		$request = OAuthRequest::from_consumer_and_token($t->consumer, $t->token, 'GET', $signingurl, array());
 		$request->sign_request($t->sha1_method, $t->consumer, $t->token);
 		$r_header = $request->to_header("http://api.twitter.com/");
@@ -198,7 +198,7 @@
 		if ($response_info['http_code'] == 200) {
 			return objectifyJson($response);
 		} else {
-			return null;
+			return $response_info['http_code'];
 		}
 	}
 	
