@@ -229,7 +229,7 @@ function onInfoRT($this) {
 	status_word.find('.tweet a[rel=noreferrer]').each(function(){
 		$(this).text($(this).attr('href'));
 	});
-	$("#textbox").focus().val(" RT @" + replie_id + ":" + status_word.text().replace(replie_id, "")).caret(0);
+	$("#textbox").focus().val(" RT @" + replie_id + ":" + status_word.find('.tweet').text()).caret(0);
 	leaveWord();
 }
 function getCookie(name){
