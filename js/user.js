@@ -216,8 +216,8 @@ $(function(){
 });
 
 function onInfoRT($this) {
-	var replie_id = $("#info_name").text();
 	var status_word = $this.parent().parent().find(".status_word").clone();
+	var replie_id = status_word.find(".user_name").attr("id");
 	status_word.find('.tweet a[rel=noreferrer]').each(function(){
 		$(this).text($(this).attr('href'));
 	});
