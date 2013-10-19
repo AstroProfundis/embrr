@@ -34,7 +34,7 @@ embrr, 一个修改版的 embr
  * embrr 兼容 PHP 5.2 至 5.5 的版本，我们没有测试过 5.1 及之前版本
 
 ----
-As I'm not a expert of PHP nor twitter API, do expect bugs everywhere.
+As I'm not an expert of PHP nor twitter API, do expect bugs everywhere.
 
 All helps are welcomed!
 
