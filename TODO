@@ -5,3 +5,7 @@
 * Profile timeline needs to be AJAX updated after posting a new tweet
 
 * Clean up messed code.
+
+* Show different message for API outage and no tweets
+
+* Handle API outage on all the pages

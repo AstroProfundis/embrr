@@ -41,9 +41,23 @@
 		}
 		if ($messages === false) {
 			header('location: error.php');exit();
-		} 
-		$empty = count($messages) <= 1 ? true : false;
-		if ($empty) {
+		}
+
+        $count_t = count($messages);
+        if ($count_t > 1) {
+            $empty = 0;
+        } else if ($count_t < 1) {
+            $empty = 1;
+        } else {
+            $api_quota = get_object_vars($t->ratelimit("messages")->resources->messages);
+            if ($isSentPage){
+            	$empty = $api_quota['/direct_messages/sent']->remaining == 0 ? 2 : 0;
+            } else {
+                $empty = $api_quota['/direct_messages/show']->remaining == 0 ? 2 : 0;
+            }
+        }
+
+		if ($empty) { //TODO: show different message for API outage and no tweets
 			echo "<div id=\"empty\">No tweets to display.<br />Maybe you've used API quota out.</div>";
 		} else {
 			include ('lib/timeline_format.php');
