@@ -187,15 +187,6 @@ $(function(){
 				success: function(msg) {
 					if (msg.indexOf("success") >= 0) {
 						updateSentTip("You have reported " + id + " for spam!", 3000, "success");
-						/*
-						$this.after('<a class="btn" id="unblock_btn" href="javascript:void(0)">Unblock</a>');
-						$this.remove();
-						
-						if($('#info_block_btn') != null){
-							$('#info_block_btn').after('<a class="btn btn-green" id="info_follow_btn" href="javascript:void(0)">Follow</a>');
-							$('#info_block_btn').remove();
-						}
-						*/
 					} else {
 						updateSentTip("Failed to report " + id + " for spam, please try again.", 3000, "failure");
 					}
@@ -206,13 +197,6 @@ $(function(){
 			});
 		}
 	});
-	$("#tweeting_button").click(function (e) {
-		e.preventDefault();
-		if ($("#textbox").val().length >0 ) {
-			updateStatus();
-		}		
-	});
-	
 });
 
 function onInfoRT($this) {
