@@ -43,19 +43,19 @@
 			header('location: error.php');exit();
 		}
 
-        $count_t = count($messages);
-        if ($count_t > 1) {
-            $empty = 0;
-        } else if ($count_t < 1) {
-            $empty = 1;
-        } else {
-            $api_quota = get_object_vars($t->ratelimit("messages")->resources->messages);
-            if ($isSentPage){
-            	$empty = $api_quota['/direct_messages/sent']->remaining == 0 ? 2 : 0;
-            } else {
-                $empty = $api_quota['/direct_messages/show']->remaining == 0 ? 2 : 0;
-            }
-        }
+		$count_t = count($messages);
+		if ($count_t > 1) {
+			$empty = 0; // 0 for not empty
+		} else if ($count_t < 1) {
+			$empty = 1; // 1 for no tweet to display
+		} else {
+			$api_quota = get_object_vars($t->ratelimit("messages")->resources->messages);
+			if ($isSentPage){
+				$empty = $api_quota['/direct_messages/sent']->remaining == 0 ? 2 : 0;
+			} else {
+				$empty = $api_quota['/direct_messages/show']->remaining == 0 ? 2 : 0;
+			} // 2 for API outage
+		}
 
 		if ($empty) { //TODO: show different message for API outage and no tweets
 			echo "<div id=\"empty\">No tweets to display.<br />Maybe you've used API quota out.</div>";

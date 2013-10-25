@@ -21,14 +21,14 @@
 		} 
 
 		$count_t = count($messages);
-        if ($count_t > 1) {
-            $empty = 0;
-        } else if ($count_t < 1) {
-            $empty = 1;
-        } else {
-            $api_quota = get_object_vars($t->ratelimit()->resources->statuses);
-            $empty = $api_quota['/statuses/mentions_timeline']->remaining == 0 ? 2 : 0;
-        }
+		if ($count_t > 1) {
+			$empty = 0; // 0 for not empty
+		} else if ($count_t < 1) {
+			$empty = 1; // 1 for no tweets to display
+		} else {
+			$api_quota = get_object_vars($t->ratelimit()->resources->statuses);
+			$empty = $api_quota['/statuses/mentions_timeline']->remaining == 0 ? 2 : 0; // 2 for API outage
+		}
 		if ($empty) { //TODO: show different message for API outage and no tweets
 			echo "<div id=\"empty\">No tweet to display.<br />Check API quota to see if you used it out.</div>";
 		} else {
