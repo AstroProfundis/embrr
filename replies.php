@@ -20,7 +20,7 @@
 			header('location: error.php');exit();
 		} 
 
-		$count_t = count($messages);
+		$count_t = count($statuses);
 		if ($count_t > 1) {
 			$empty = 0; // 0 for not empty
 		} else if ($count_t < 1) {
