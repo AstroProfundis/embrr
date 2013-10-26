@@ -49,16 +49,13 @@
 		} else if ($count_t < 1) {
 			$empty = 1; // 1 for no tweet to display
 		} else {
-			$api_quota = get_object_vars($t->ratelimit("messages")->resources->messages);
-			if ($isSentPage){
-				$empty = $api_quota['/direct_messages/sent']->remaining == 0 ? 2 : 0;
-			} else {
-				$empty = $api_quota['/direct_messages/show']->remaining == 0 ? 2 : 0;
-			} // 2 for API outage
+			$empty = $t->http_code == 429 ? 2 : 0;
 		}
 
-		if ($empty) { //TODO: show different message for API outage and no tweets
-			echo "<div id=\"empty\">No tweets to display.<br />Maybe you've used API quota out.</div>";
+		if ($empty == 1) {
+			echo "<div id=\"empty\">No message to display.</div>";
+		} else if ($empty == 2) {
+			echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 		} else {
 			include ('lib/timeline_format.php');
 			$output = '<ol class="timeline" id="allMessage">';

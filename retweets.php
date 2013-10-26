@@ -22,7 +22,9 @@
 	$html .='<div class="clear"></div>';
 	$empty = count($retweets) == 0? true: false;
 	if ($empty) {
-		$html .= "<div id=\"empty\">No retweets to display.</div>";
+		$html .= "<div id=\"empty\">No retweet to display.</div>";
+	} else if ($t->http_code == 429) {
+		$html .= "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 	} else {
 		$html .= '<ol class="timeline" id="allTimeline">';
 		$firstid = false;
