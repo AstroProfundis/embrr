@@ -26,11 +26,12 @@
 		} else if ($count_t < 1) {
 			$empty = 1; // 1 for no tweets to display
 		} else {
-			$api_quota = get_object_vars($t->ratelimit()->resources->statuses);
-			$empty = $api_quota['/statuses/mentions_timeline']->remaining == 0 ? 2 : 0; // 2 for API outage
+			$empty = $t->http_code == 429 ? 2 : 0; // 2 for API outage
 		}
-		if ($empty) { //TODO: show different message for API outage and no tweets
-			echo "<div id=\"empty\">No tweet to display.<br />Check API quota to see if you used it out.</div>";
+		if ($empty == 1) {
+			echo "<div id=\"empty\">No tweet to display.</div>";
+		} else if ($empty == 2) {
+			echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 		} else {
 			$output = '<ol class="timeline" id="allTimeline">';
 			

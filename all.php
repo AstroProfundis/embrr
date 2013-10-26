@@ -24,6 +24,8 @@
 	$empty = count($statuses) == 0? true: false;
 	if ($empty) {
 		echo "<div id=\"empty\">No tweet to display</div>";
+	} else if ($t->http_code == 429) {
+		echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 	} else {
 		$output = '<ol class="timeline" id="allTimeline">';
 		foreach ($statuses as $status) {
@@ -46,6 +48,8 @@
 	$empty = count($statuses) == 0? true: false;
 	if ($empty) {
 		echo "<div id=\"empty\">No tweet to display</div>";
+	} else if ($t->http_code == 429) {
+		echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 	} else {
 		$output = '<ol class="timeline" id="allReplies">';
 
@@ -66,6 +70,8 @@
 	$empty = count($messages) == 0? true: false;
 	if ($empty) {
 		echo "<div id=\"empty\">No tweet to display</div>";
+	} else if ($t->http_code == 429) {
+		echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 	} else {
 		$output = '<ol class="timeline" id="allMessage">';
 

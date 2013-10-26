@@ -24,6 +24,8 @@
 	$empty = count($statuses) == 0 ? true : false;
 	if ($empty) {
 		echo "<div id=\"empty\">No tweet to display.</div>";
+	} else if ($t->http_code == 429) {
+		echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 	} else {
 		$output = '<ol class="timeline" id="allTimeline">';
 		include('lib/timeline_format.php');

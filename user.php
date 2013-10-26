@@ -27,6 +27,12 @@
 	if ($statuses === false) {
 		header('location: error.php');exit;
 	}
+	if ($t->http_code == 429) {
+		$apiout = true;
+	} else {
+		$aptout = false;
+	}
+
 	$user = $t->showUser($userid);
 	if (strcasecmp($userid,$t->username) == 0) {header('location: profile.php');exit();}
 
@@ -85,6 +91,8 @@
 		$empty = count($statuses) == 0? true: false;
 		if ($empty) {
 			echo "<div id=\"empty\">No tweet to display.</div>";
+		} else if ($apiout) {
+			echo "<div id=\"empty\">API quota is used out, please wait for a moment before next refresh.</div>";
 		} else {
 			$output = '<ol class="timeline" id="allTimeline">';
 			$firstid = false;
