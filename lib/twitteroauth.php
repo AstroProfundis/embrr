@@ -29,10 +29,6 @@ class TwitterOAuth {
 	public $connecttimeout = 30;
 	/* Verify SSL Cert */
 	public $ssl_verifypeer = FALSE;
-	/* Response type */
-	public $type = 'json';
-	/* Decode return json data */
-	public $decode_json = TRUE;
 
 	public $source = 'embr';
 
@@ -130,12 +126,7 @@ class TwitterOAuth {
 		if($response == false){
 			return false;
 		}
-		if ($this->type == 'json' && $this->decode_json) {
-			return json_decode($response);
-		}elseif($this->type == 'xml' && function_exists('simplexml_load_string')){
-			return simplexml_load_string($response);
-		}
-		return $response;
+		return json_decode($response);
 	}
 
 	/**
@@ -146,12 +137,7 @@ class TwitterOAuth {
 		if($response === false){
 			return false;
 		}
-		if ($this->type === 'json' && $this->decode_json) {
-			return json_decode($response);
-		}elseif($this->type == 'xml' && function_exists('simplexml_load_string')){
-			return simplexml_load_string($response);
-		}
-		return $response;
+		return json_decode($response);
 	}
 
 	/**
@@ -159,7 +145,7 @@ class TwitterOAuth {
 	 */
 	function oAuthRequest($url, $method, $parameters, $multipart=NULL) {
 		if ($url[0] == '/') { //non-twitter.com api shall offer the entire url.
-			$url = "{$this->host}{$url}.{$this->type}";
+			$url = "{$this->host}{$url}.json";
 		}
 		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
 		$request->sign_request($this->sha1_method, $this->consumer, $this->token);
