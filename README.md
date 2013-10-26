@@ -14,6 +14,23 @@ And here are some tips you may want to know:
  * while not necessarily required, `php-mcrypt` is recommended
  * embrr is compatible with PHP from version 5.2 to 5.5, we didn't test it on 5.1 or older versions
 
+Installing in sub-directory
+--------
+If you need to install embrr in a sub-directory of your website, say, in `/embrr`, you'll need to adjust the `.htaccess` file with `/embrr/user.php` and `/embrr/status.php` instead of `/user.php` and `/status.php`.
+
+nginx
+--------
+For nginx users, you'll need to add these lines to your nginx config file:
+
+    location / {
+        if (!-f $request_filename) {
+            rewrite ^/(\d+)$ /status.php?id=$1 last;
+            rewrite ^/(\w+)$ /user.php?id=$1 last;
+            break;
+        }
+    }
+And of course, adjust it if you are in a sub-directory.
+
 ----
 
 embrr, 一个修改版的 embr
@@ -32,6 +49,23 @@ embrr, 一个修改版的 embr
  * embrr 依赖于 `php-curl` 和 `php-bcmath` 组件
  * 虽然不是必需依赖，但建议安装 `php-mcrypt` 组件
  * embrr 兼容 PHP 5.2 至 5.5 的版本，我们没有测试过 5.1 及之前版本
+
+在二级目录中安装
+--------
+如果需要将 embrr 安装在二级目录中，例如安装在 `/embrr` 中，则需要修改 `.htaccess` 文件，使用 `/embrr/user.php` 与 `/embrr/status.php` 替换 `/user.php` 和 `/status.php`.
+
+nginx
+--------
+对于 nginx 用户，需要在配置文件中加入以下代码：
+
+    location / {
+        if (!-f $request_filename) {
+            rewrite ^/(\d+)$ /status.php?id=$1 last;
+            rewrite ^/(\w+)$ /user.php?id=$1 last;
+            break;
+        }
+    }
+同样，如果在二级目录中安装则需适当调整。
 
 ----
 As I'm not an expert of PHP nor twitter API, do expect bugs everywhere.

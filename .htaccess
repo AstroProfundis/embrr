@@ -1,3 +1,6 @@
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9_]+)$ user.php?id=$1 [L,QSA]
+RewriteRule ^(\d+)$ status.php?id=$1 [L,QSA]
 <IfModule mod_expires.c>
 ExpiresActive On
 ExpiresByType image/gif A2592000
