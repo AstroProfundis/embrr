@@ -557,7 +557,11 @@ function onRT($this){
 	scroll(0,0);
 	var status_word = $this.parent().parent().find(".status_word").clone();
 	status_word.find('.tweet a[rel=noreferrer]').each(function(){
-		$(this).text($(this).attr('href'));
+		var imgsrc = $(this).attr('href');
+		if (imgsrc.indexOf('img.php') > -1) {
+			imgsrc = imgsrc.substr(15);
+		}
+		$(this).text(imgsrc);
 	});
 	$("#textbox").focus().val(" RT @"+replie_id+":"+status_word.find('.tweet').text()).caret(0);
 	$("#full_status,#latest_meta,#full_meta,#currently .full-text,#latest_meta").hide();
