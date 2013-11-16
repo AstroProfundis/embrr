@@ -6,11 +6,11 @@ $(function(){
 			case 'rt_btn':
 				e.preventDefault();
 				if ($("#textbox").length > 0) {
-					onInfoRT($this);
+					onRT($this);
 				} else {
 					$("#info_head").after('<h2>What\'s happening?</h2>' + formHTML);
 					formFunc();
-					onInfoRT($this);
+					onRT($this);
 				}
 				break;
 			case 'retw_btn':
@@ -199,15 +199,6 @@ $(function(){
 	});
 });
 
-function onInfoRT($this) {
-	var status_word = $this.parent().parent().find(".status_word").clone();
-	var replie_id = status_word.find(".user_name").attr("id");
-	status_word.find('.tweet a[rel=noreferrer]').each(function(){
-		$(this).text($(this).attr('href'));
-	});
-	$("#textbox").focus().val(" RT @" + replie_id + ":" + status_word.find('.tweet').text()).caret(0);
-	leaveWord();
-}
 function getCookie(name){
 	var strCookie=document.cookie;
 	var arrCookie=strCookie.split("; ");
