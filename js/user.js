@@ -57,7 +57,7 @@ $(function(){
 			leaveWord();
 		}
 	});
-	if (getCookie("infoShow") == "hide") {
+	if ($.cookie("infoShow") == "hide") {
 		onHide();
 	}
 	$("#info_hide_btn").click(function(){
@@ -199,24 +199,6 @@ $(function(){
 	});
 });
 
-function getCookie(name){
-	var strCookie=document.cookie;
-	var arrCookie=strCookie.split("; ");
-	for(var i=0;i<arrCookie.length;i++){
-		var arr=arrCookie[i].split("=");
-		if(arr[0]==name)return unescape(arr[1]);
-	}
-return "";
-}
-function setCookie(name,value,expireHours){
-	var cookieString=name+"="+escape(value);
-	if(expireHours>0){
-		var date=new Date();
-		date.setTime(date.getTime+expireHours*3600*1000);
-		cookieString=cookieString+"; expire="+date.toGMTString();
-	}
-	document.cookie=cookieString;
-} 
 function onHide(){
 	$this = $("#info_hide_btn");
 	$this.after('<a class="btn" id="info_show_btn" href="javascript:void(0)">Show @</a>');
@@ -231,7 +213,7 @@ function onHide(){
 		$("#info_hide_btn").live("click", function(){
 			onHide();
 		});
-		setCookie("infoShow","show");
+		$.cookie("infoShow","show");
 	});
 
 	$(".timeline li").each(function(i,o) {
@@ -239,5 +221,5 @@ function onHide(){
 			$(this).hide();
 		}
 	});
-	setCookie("infoShow","hide");
+	$.cookie("infoShow","hide");
 }
