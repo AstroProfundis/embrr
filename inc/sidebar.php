@@ -48,7 +48,7 @@
 	$preset = array(
 		array(
 			'term' => 'Short&middot;cuts',
-			'def' => '<em>n.</em> Use shortcuts in Embr.',
+			'def' => '<em>n.</em> Use shortcuts in Embrr.',
 			'more' => '<strong>Shortcuts available now:</strong><br>
 			C / U - Update<br>
 			T - Go to top<br>
@@ -59,17 +59,12 @@
 		array(
 			'term' => 'User Di&middot;rect View',
 			'def' => '<em>n.</em> Now you can view the user page of your interested more incentively.',
-			'more' => 'take @'.SITE_OWNER.' for example, you can visit his/her page via '.BASE_URL.'/'.SITE_OWNER,
+			'more' => 'Take @'.SITE_OWNER.' for example, you can visit his/her page via '.BASE_URL.'/'.SITE_OWNER,
 		),
 		array(
 			'term' => 'Realtime Refresh',
 			'def' => '<em>v.</em> Now you can refresh your profile whenever you like!',
 			'more' => 'See the circle behind your username? Try to click it!'
-		),
-		array(
-			'term' => 'Custom&middot;Tips',
-			'def' => '<em>n.</em> Hate embr tips so much? Now you can edit me into your own tips!',
-			'more' => 'Your tips will be encrypted in your cookies all for your privacy!'
 		),
 	);
 		if(isset($_COOKIE['Tip_Title']) || isset($_COOKIE['Tip_Content']) || isset($_COOKIE['Tip_More'])){
@@ -80,7 +75,8 @@
 			);
 			initSidebarTip($raw);
 		} else {
-			initSidebarTip($preset[3]);
+			srand((double)microtime()*1000000);
+			initSidebarTip($preset[rand(0,2)]);
 		}
 	?>
 		</p>
@@ -103,6 +99,6 @@
 </table>
 <?php
 	function initSidebarTip($entity){
-		echo '<a class="definition"><strong contenteditable="true">'.$entity['term'].'</strong><span contenteditable="true">'.$entity['def'].'</span></a><br><br><span>Click for more details.<span id="indicator">[+]</span></span><span id="sidebarTip_more"><span contenteditable="true">'.$entity['more'].'</span><br><br><a href="#" id="tip_reset" title="You will lose all customized Tips!">Reset to default</a></span>';
+		echo '<a class="definition"><strong contenteditable="true">'.$entity['term'].'</strong><span contenteditable="true">'.$entity['def'].'</span></a><br><br><span>Click for more details.<span id="indicator">[+]</span></span><span id="sidebarTip_more"><span contenteditable="true"><br>'.$entity['more'].'</span><br><br><a href="#" id="tip_reset" title="You will lose all customized Tips!">Reset to default</a></span>';
 	}
 ?>
