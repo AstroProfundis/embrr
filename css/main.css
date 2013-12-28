@@ -229,6 +229,7 @@ h2.sidebar-subtitle{font-size:1.3em;font-weight:400;padding:.2em 14px}
 #side .stats td .label{font-size:.9em;text-transform:lowercase}
 #side .about li{padding-bottom:3px}
 #side .about li#bio{overflow:hidden;width:170px;word-wrap:break-word}
+#side .sidebarTipText{word-wrap:break-word;width:100%}
 ul#tabMenu li{border-top:1px solid #BDDCAD}
 ul#tabMenu a,#side .section h1{color:#4C4C4C;display:block;font-size:110%;font-weight:700;padding:13px;text-decoration:none}
 #side .section h1{padding:0 0 .25em}
