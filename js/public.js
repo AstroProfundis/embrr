@@ -523,19 +523,26 @@ function onReplie($this,e){
 	var mode = "In reply to ";
 	if (!e.ctrlKey && !e.metaKey){
 		var temp=[];
-		temp[text] = true;
 		var self = '@'+$("#side_name").text();
 		temp[self] = true;
-		var mentionArray = [text];
+		var mentionArray = [];
+		if (!(text in temp)){
+			temp[text] = true;
+			mentionArray.push(text);
+		}
+		else{
+			start = -1;
+		}
 		var mentions = $word.find('.tweet').find('a[href^="user.php"]');
 		$.each(mentions,function (){
 			var t = this.text;
 			if (!(t in temp)){
 				temp[t] = true;
+				if (start == -1) start = t.length+1;
 				mentionArray.push(t);
 			}
-			text = mentionArray.join(' ');
 		});
+		text = mentionArray.join(' ');
 		if (mentionArray.length > 1){
 			mode = "Reply to all: ";
 		}
@@ -546,7 +553,7 @@ function onReplie($this,e){
 	}
 	scroll(0,0);
 	var end = text.length;
-	$("#textbox").focus().val($("#textbox").val()+text+' ').caret(start,end);
+	$("#textbox").focus().val(text+' ').caret(start,end);
 	$("#in_reply_to").val(in_reply_id);
 	$("#full_status,#latest_meta,#full_meta,#currently .full-text,#latest_meta").hide();
 	$("#currently .status-text").html(mode+text);
