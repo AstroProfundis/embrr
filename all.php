@@ -19,7 +19,7 @@
 <?php
 	$statuses = $t->homeTimeline();
 	if ($statuses === false) {
-		header('location: error.php');exit();
+		header('location: error.php?code='.$t->http_code);exit();
 	}
 	$empty = count($statuses) == 0? true: false;
 	if ($empty) {
@@ -43,7 +43,7 @@
 
 	$statuses = $t->replies();
 	if ($statuses === false) {
-		header('location: error.php');exit();
+		header('location: error.php?code='.$t->http_code);exit();
 	}
 	$empty = count($statuses) == 0? true: false;
 	if ($empty) {
@@ -65,7 +65,7 @@
 
 	$messages = $t->directMessages();
 	if ($messages === false) {
-		header('location: error.php');exit();
+		header('location: error.php?code='.$t->http_code);exit();
 	}
 	$empty = count($messages) == 0? true: false;
 	if ($empty) {

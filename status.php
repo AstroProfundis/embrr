@@ -9,13 +9,13 @@
 		$statusid = $_GET['id'];
 		$status = $t->showStatus($statusid);
 		if (!$status) {
-			header('location: error.php');exit();
+			header('location: error.php?code='.$t->http_code);exit();
 		}
 		$user = $status->user;
 		$date = format_time($status->created_at);
 		$text = formatEntities($status->entities,$status->text);
 	} else {
-		header('location: error.php');exit();
+		header('location: error.php?code='.$t->http_code);exit();
 	}
 ?>
 

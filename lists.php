@@ -38,7 +38,7 @@
 		$prelist = $lists->previous_cursor;
 		$lists = $lists->lists; 
 		if ($lists === false) {
-			header('location: error.php');exit();
+			header('location: error.php?code='.$t->http_code);exit();
 		} 
 		
 		

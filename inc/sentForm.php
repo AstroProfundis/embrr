@@ -104,7 +104,7 @@
 		$t = getTwitter();
 		$user = $t->veverify();
 		if ($user === false) {
-			header('location: error.php');exit();
+			header('location: error.php?code='.$t->http_code);exit();
 		} 
 		$empty = count($user) == 0 || !isset($user->status) || $user->status->text == '';
 		if ($empty) {

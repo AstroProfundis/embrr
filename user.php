@@ -11,7 +11,7 @@
 <div id="statuses" class="column round-left">
 <?php 
 	if (!loginStatus() || !isset($_GET['id'])) {
-		header('location: error.php');exit();
+		header('location: error.php?code='.$t->http_code);exit();
 	}
 
 	$t = getTwitter();
@@ -25,7 +25,7 @@
 	}
 	
 	if ($statuses === false) {
-		header('location: error.php');exit;
+		header('location: error.php?code='.$t->http_code);exit;
 	}
 	if ($t->http_code == 429) {
 		$apiout = true;

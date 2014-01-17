@@ -19,7 +19,7 @@
 
 	$statuses = $t->getFavorites($user_id, $since_id, $max_id);
 	if ($statuses === false) {
-		header('location: error.php');exit();
+		header('location: error.php?code='.$t->http_code);exit();
 	} 
 	$empty = count($statuses) == 0 ? true : false;
 	if ($empty) {

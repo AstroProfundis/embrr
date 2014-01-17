@@ -16,7 +16,7 @@
 		$statuses = $t->listStatus($id, $since_id, $max_id);
 		$listInfo = $t->listInfo($id);
 		if ($statuses === false) {
-			header('location: error.php');exit();
+			header('location: error.php?code='.$t->http_code);exit();
 		} 
 		
 		$isFollower = $t->isFollowedList($id);
