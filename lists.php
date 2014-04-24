@@ -34,8 +34,8 @@
 			default:
 				$lists = false;
 		}
-		$nextlist = $lists->next_cursor;
-		$prelist = $lists->previous_cursor;
+		$nextlist = $lists->next_cursor_str;
+		$prelist = $lists->previous_cursor_str;
 		$lists = $lists->lists; 
 		if ($lists === false) {
 			header('location: error.php?code='.$t->http_code);exit();
@@ -67,7 +67,7 @@
 		
 		$empty = count($lists) == 0? true: false;
 		if ($empty) {
-			echo "<div id=\"empty\">No Tweet To Display</div>";
+			echo "<div id=\"empty\">No List To Display</div>";
 		} else {
 			$output = '<ol class="rank_list">';			
 			foreach ($lists as $list) {
