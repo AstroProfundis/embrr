@@ -235,6 +235,16 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
+	function newDirectMessage($id = false, $message = false){
+		$url = '/direct_messages/new';
+		$args = array();
+		if ($id)
+			$args['screen_name'] = $id;
+		if ($message)
+			$args['text'] = $message;
+		return $this->post($url, $args);
+	}
+
 	function sentDirectMessages($since_id = false, $max_id = false, $count = false, $include_entities = true){
 		$url = '/direct_messages/sent';
 		$args = array();
