@@ -235,7 +235,7 @@ class TwitterOAuth {
 		return $this->get($url, $args);
 	}
 
-	function newDirectMessage($id = false, $message = false){
+	function newDirectMessage($id = false, $message = false){ //TODO: Use this to send DMs
 		$url = '/direct_messages/new';
 		$args = array();
 		if ($id)

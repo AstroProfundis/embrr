@@ -31,8 +31,8 @@
 
 	<?php 
 		$t = getTwitter();
-                $since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
-                $max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
+		$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
+		$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 	
 		if ($isSentPage) {
 			$messages = $t->sentDirectMessages($since_id, $max_id);
