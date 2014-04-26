@@ -31,6 +31,12 @@ For nginx users, you'll need to add these lines to your nginx config file:
     }
 And of course, adjust it if you are in a sub-directory.
 
+Notes
+--------
+If you're having issues changing pages or sending DMs, try modify your `php.ini` as follows:
+
+    precision = 24 ;Use a value lager than 19 to replace the default 14
+
 ----
 
 embrr, 一个修改版的 embr
@@ -66,6 +72,12 @@ nginx
         }
     }
 同样，如果在二级目录中安装则需适当调整。
+
+附注
+--------
+如果翻页或者发送 DM 时遇到问题，尝试在 `php.ini` 中做如下修改：
+
+    precision = 24 ;使用大于 19 的值替换默认值 14
 
 ----
 As I'm not an expert of PHP nor twitter API, do expect bugs everywhere.
