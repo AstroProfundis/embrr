@@ -38,7 +38,7 @@ body {font-size:<?php echo $fontsize ?> !important;<?php
  ?>background-repeat:<?php echo $Bgrepeat ?>}
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.js"></script>
+<script src="js/jquery.embrr.utils.js"></script>
 <script src="js/mediaPreview.js"></script>
 <script src="js/public.js"></script>
 </head>

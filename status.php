@@ -56,7 +56,7 @@ header {margin:1em auto;text-align:right;width:600px}
 .retweet_info {color:#999;display:block;font-size:11px;margin:0;text-align:left;width:100%}
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.js"></script>
+<script src="js/jquery.embrr.utils.js"></script>
 <script src="js/mediaPreview.js"></script>
 <script src="js/public.js"></script>
 </head>
