@@ -116,7 +116,7 @@ function register() {
 </fieldset>
 </form>
 <div style="background: none repeat scroll 0% 0% transparent;" id="footer">
-<p>&copy; 2013 Contributors <?php if(isset($_COOKIE['twitese_name'])) echo 'and '.$_COOKIE['twitese_name'];?> &middot; <a href="https://github.com/AstroProfundis/embrr" target="_blank" title="Embrr Open Source">Open Source</a></p>
+<p>&copy; 2010-<?php echo date("Y") ?> Contributors <?php if(isset($_COOKIE['twitese_name'])) echo 'and '.$_COOKIE['twitese_name'];?> &middot; <a href="https://github.com/AstroProfundis/embrr" target="_blank" title="Embrr Open Source">Open Source</a></p>
 </div>
 </div>
 </body>
