@@ -1,10 +1,10 @@
 $(function(){
 	$(".delete_btn").hide();
-	$(".rank_list").find("li").live("mouseover", function(){
+	$(".rank_list").find("li").on("mouseover", function(){
 		$(this).find(".delete_btn").css("display", "inline-block");
 	});
 	
-	$(".rank_list").find("li").live("mouseout", function(){
+	$(".rank_list").find("li").on("mouseout", function(){
 		$(this).find(".delete_btn").hide();
 	});
 	

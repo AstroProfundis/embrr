@@ -45,7 +45,7 @@ $(function(){
 		type: "GET",
 		success: function(msg) {
 			searches = eval("("+msg+")");
-			$(".ss_delete_btn").live("click",function(e){
+			$(".ss_delete_btn").on("click",function(e){
 				e.preventDefault();
 				$("#query").val("");
 				if (theAC != null && searches != null) {

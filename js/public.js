@@ -257,20 +257,23 @@ function shortenTweet(){
 	}
 }
 $(function (){
-	$("#latest_status").toggle(
-		function (){
+	$("#latest_status").on("click",function (){
+		if ($(this).data("show_full")=="no"){
 			$("#currently .status-text,#latest_meta").css("display","none");
 			$("#currently .full-text,#full_meta").css("display","inline");
-		},function (){
+			$(this).data("show_full","yes");
+		} else {
 			$("#currently .status-text,#latest_meta").css("display","inline");
 			$("#currently .full-text,#full_meta").css("display","none");
-		});
+			$(this).data("show_full","no");
+		}
+	});
 	$("#full_meta a,.full-text a").click(function (e){
 		e.stopPropagation();
 	});
 	var $temp = $("#currently .status-text");
 	$temp.text(limitation($temp.text()));
-	$("#translateMy").live("click",function(){
+	$("#translateMy").on("click",function(){
 		var orig = $("#textbox").val();
 			ORIG_TEXT = orig;
 		var lang = $.cookie('myLangs')
@@ -739,7 +742,7 @@ function onDeleteMsg($this){
 	}
 }
 $(function (){
-	$("#statuses .trans_close").live('click',function(e){
+	$("#statuses .trans_close").on('click',function(e){
 		e.preventDefault();
 		$(e.target).parent().parent().parent().parent().find(".translated").remove();
 	});
@@ -750,7 +753,7 @@ $(function (){
 	});
 var translate = function(text,context,lang,callback){
 	
-	var a = "http://www.google.com/uds/Gtranslate";
+	var a = "https://www.google.com/uds/Gtranslate";
 	a += "?callback="+callback;
 	a += "&context="+context;
 	a += "&q="+encodeURIComponent(text);
@@ -943,15 +946,18 @@ $(function (){
 			},
 		});
 	}
-	$("#indicator").toggle(
-		function (){
+	$("#indicator").on("click",function (){
+		if ($(this).data("show_tip"=="no")){
 			$('#sidebarTip_more').slideDown('fast');
 			$('#indicator').html('[-]');
-		},function (){
+			$(this).data("show_tip","yes");
+		} else {
 			$('#sidebarTip_more').slideUp('fast');
 			$('#indicator').html('[+]');
-		});
-	$("#sidebarTip [contenteditable]").live('focusout',function(){
+			$(this).data("show_tip","no");
+		}
+	});
+	$("#sidebarTip [contenteditable]").on('focusout',function(){
 		var $this = $("#sidebarTip [contenteditable]");
 		$.post(
 			'ajax/setTip.php',
@@ -967,7 +973,7 @@ $(function (){
 			}
 		);
 	});
-	$("#sidebarTip #tip_reset").live('click',function(e){
+	$("#sidebarTip #tip_reset").on('click',function(e){
 		e.preventDefault();
 		if(window.confirm('Are you sure to restore to default tips?')){
 			$.post(
@@ -1015,35 +1021,44 @@ $(function (){
 
 // sidepost function
 $(function (){
-	$("#trends_title").toggle(
-		function (){
+	$("#trends_title").on("click",function (){
+		if ($(this).data("show_trends"=="no")){
 			$("#trends_title").removeClass().addClass("loading");
 			updateTrends();
-		},function (){
+			$(this).data("show_trends","yes");
+		} else {
 			$("#trends_title").removeClass();
 			$("#trend_entries").slideUp("fast");
 			sidebarscroll();
-		});
-	$("#following_title").toggle(
-		function (){
+			$(this).data("show_trends","no");
+		}
+	});
+	$("#following_title").on("click",function (){
+		if ($(this).data("show_flw"=="no")){
 			$("#following_title").removeClass().addClass("loading");
 			sidebarscroll('pause');
+			$(this).data("show_flw","yes");
 			updateFollowing();
-		},function (){
+		} else {
 			$("#following_title").removeClass();
 			$("#following_list").slideUp("fast");
 			sidebarscroll();
-		});
-	$("#apiquota_title").toggle(
-		function (){
+			$(this).data("show_flw","no");
+		}
+	});
+	$("#apiquota_title").on("click",function (){
+		if ($(this).data("show_api"=="no")){
 			$("#apiquota_title").removeClass().addClass("loading");
 			sidebarscroll('pause');
+			$(this).data("show_api","yes");
 			updateAPIQuota();
-		},function (){
+		} else {
 			$("#apiquota_title").removeClass();
 			$("#apiquota_list").slideUp("fast");
 			sidebarscroll();
-		});
+			$(this).data("show_api","no");
+		}
+	});
 });
 function updateTrends(){
 	sidebarscroll('pause');
@@ -1201,7 +1216,7 @@ $(window).load(function(){
 	$('#symbols span').tipsy({
 		gravity: $.fn.tipsy.autoNS
 	});
-	$("#statuses .mine").live("mouseout",function (e){
+	$("#statuses .mine").on("mouseout",function (e){
 		$(e.target).removeClass("mine").addClass("myTweet");
 	});
 });

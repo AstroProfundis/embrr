@@ -33,7 +33,7 @@ table tr td{padding:5px 0}
 .round{-moz-border-radius:8px;border-radius:8px}
 #shareBtn{color:#666;display:block;height:45px;margin:0 auto;text-shadow:0 1px 0 #FFF;vertical-align:top;width:300px;line-height:1em}
 </style>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.3.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.1.min.js"></script>
 <script src="js/jquery.embrr.utils.js"></script>
 <script>
 $(function(){leaveWord();
