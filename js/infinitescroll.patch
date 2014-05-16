@@ -1,0 +1,27 @@
+diff --git a/js/jquery.embrr.utils.js b/js/jquery.embrr.utils.js
+index 1ee4786..ff41d14 100644
+--- a/js/jquery.embrr.utils.js
++++ b/js/jquery.embrr.utils.js
+@@ -729,6 +729,12 @@ jQuery.cookie = function (name, value, options) {
+ 						return this._error('end');
+ 					}
+ 
++                    // added by esmizzle 2012-01-26 - update the path to the link for the next set of elements
++                    var nexturl = $(data).find(opts.nextSelector).attr('href');
++                    this._debug('nexturl: '+ nexturl)
++                    this.options.path[0] = nexturl;
++                    this.options.path[1] = '#pathcomplete';
++
+ 					// use a documentFragment because it works when content is going into a table or UL
+ 					frag = document.createDocumentFragment();
+ 					while (box[0].firstChild) {
+@@ -920,7 +926,8 @@ jQuery.cookie = function (name, value, options) {
+ 			// if we're dealing with a table we can't use DIVs
+ 			box = $(opts.contentSelector).is('table, tbody') ? $('<tbody/>') : $('<div/>');
+ 
+-			desturl = (typeof path === 'function') ? path(opts.state.currPage) : path.join(opts.state.currPage);
++			desturl = (path[1] == '#pathcomplete') ? path[0] : path.join(opts.state.currPage); // only throw the currPage in there if we need it
++            instance._debug('desturl: '+desturl);
+ 			instance._debug('heading into ajax', desturl);
+ 
+ 			method = (opts.dataType === 'html' || opts.dataType === 'json' ) ? opts.dataType : 'html+callback';
