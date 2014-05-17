@@ -947,7 +947,7 @@ $(function (){
 		});
 	}
 	$("#indicator").on("click",function (){
-		if ($(this).data("show_tip"=="no")){
+		if ($(this).data("show_tip")=="no"){
 			$('#sidebarTip_more').slideDown('fast');
 			$('#indicator').html('[-]');
 			$(this).data("show_tip","yes");
@@ -1022,7 +1022,7 @@ $(function (){
 // sidepost function
 $(function (){
 	$("#trends_title").on("click",function (){
-		if ($(this).data("show_trends"=="no")){
+		if ($(this).data("show_trends")=="no"){
 			$("#trends_title").removeClass().addClass("loading");
 			updateTrends();
 			$(this).data("show_trends","yes");
@@ -1034,7 +1034,7 @@ $(function (){
 		}
 	});
 	$("#following_title").on("click",function (){
-		if ($(this).data("show_flw"=="no")){
+		if ($(this).data("show_flw")=="no"){
 			$("#following_title").removeClass().addClass("loading");
 			sidebarscroll('pause');
 			$(this).data("show_flw","yes");
@@ -1047,7 +1047,7 @@ $(function (){
 		}
 	});
 	$("#apiquota_title").on("click",function (){
-		if ($(this).data("show_api"=="no")){
+		if ($(this).data("show_api")=="no"){
 			$("#apiquota_title").removeClass().addClass("loading");
 			sidebarscroll('pause');
 			$(this).data("show_api","yes");
