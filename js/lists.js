@@ -1,18 +1,20 @@
 $(function(){
-	$(".rt_btn").on("click", function(e){
+	$(document).on("click", ".rt_btn", function(e){
 		e.preventDefault();
 		onRT($(this));
 	});
 	
-	$(".replie_btn").on("click", function(e){
+	$(document).on("click", ".replie_btn", function(e){
 		e.preventDefault();
 		onReplie($(this),e);
 	});
-	$(".favor_btn").on("click", function(e){
+
+	$(document).on("click", ".favor_btn", function(e){
 		e.preventDefault();
 		onFavor($(this));
 	});
-	$(".unfollow_list").on("click",function(e){
+
+	$(document).on("click", ".unfollow_list", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $this.parent().parent().find(".rank_name").text().substr(1);
@@ -36,7 +38,7 @@ $(function(){
 		
 	});
 
-	$(".delete_list").on("click", function(e){
+	$(document).on("click", ".delete_list", function(e){
 		e.preventDefault();
 		var $this = $(this);  
 		var list_slug = $this.parent().parent().find(".rank_name").text().split("/")[1];
@@ -62,7 +64,7 @@ $(function(){
 		}
 	});
 	
-	$("#list_create_btn").on("click", function(e){
+	$("#list_create_btn").click(function(e){
 		e.preventDefault();
 		$("#list_form").toggle("fast");
 		$("#list_name").focus().val("");
@@ -74,7 +76,7 @@ $(function(){
 		$("#list_submit").val("Create");
 	});
 	
-	$(".edit_list").on("click", function(e){
+	$(document).on("click", ".edit_list", function(e){
 		e.preventDefault();
 		var parent = $(this).parent().parent();
 		var list_name = parent.find(".rank_name").text().split("/")[1];
@@ -95,7 +97,7 @@ $(function(){
 		$("#pre_list_name").val(list_name);
 	})
 	
-	$("#list_submit").on("click", function(e){
+	$("#list_submit").click(function(e){
 		e.preventDefault();
 		var list_name = $("#list_name").val();
 		if (list_name.length == 0) {
@@ -153,7 +155,7 @@ $(function(){
 		});
 	});
 	
-	$(".add_member").on("click", function(e){
+	$(document).on("click", ".add_member", function(e){
 		e.preventDefault();
 		$("#member_form").remove();
 		var position = $(this).position();

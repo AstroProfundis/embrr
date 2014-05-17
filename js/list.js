@@ -9,15 +9,15 @@ $(function(){
 			onRT($(this));
 		}
 	});
-	$(".retw_btn").on("click", function(e){
+	$(document).on("click", ".retw_btn", function(e){
 			e.preventDefault();
 			onNwRT($(this));
 	});
-	$(".rt_undo").on("click", function(e){
+	$(document).on("click", ".rt_undo", function(e){
 		e.preventDefault();
 		onUndoRt($(this));
 	});
-	$(".replie_btn").on("click", function(e){
+	$(document).on("click", ".replie_btn", function(e){
 		e.preventDefault();
 		var replie_id = $(this).parent().parent().find(".status_word").find(".user_name").attr("id");
 		if ($("#textbox").length > 0) {
@@ -37,12 +37,12 @@ $(function(){
 		}
 	});
 	
-	$(".favor_btn").on("click", function(e){
+	$(document).on("click", ".favor_btn", function(e){
 		e.preventDefault();
 		onFavor($(this));
 	});
 
-	$("#list_follow_btn").on("click", function(e){
+	$(document).on("click", "#list_follow_btn", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();
@@ -68,7 +68,7 @@ $(function(){
 	});
 	
 	
-	$("#list_block_btn").on("click", function(e){
+	$(document).on("click", "#list_block_btn", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();

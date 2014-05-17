@@ -1402,13 +1402,13 @@ jQuery.cookie = function (name, value, options) {
         };
         var l = a.Autocompleter.Select(c, b, n, k);
         var m;
-        a.browser.opera && a(b.form).bind("submit.autocomplete", function () {
+        a(b.form).bind("submit.autocomplete", function () {
             if (m) {
                 m = false;
                 return false
             }
         });
-        e.bind((a.browser.opera ? "keypress" : "keydown") + ".autocomplete", function (b) {
+        e.bind("input.autocomplete", function (b) {
             j = b.keyCode;
             switch (b.keyCode) {
             case d.UP:
@@ -1759,17 +1759,6 @@ jQuery.cookie = function (name, value, options) {
                         maxHeight: b.scrollHeight,
                         overflow: "auto"
                     });
-                    if (a.browser.msie && typeof document.body.style.maxHeight === "undefined") {
-                        var e = 0;
-                        g.each(function () {
-                            e += this.offsetHeight
-                        });
-                        var f = e > b.scrollHeight;
-                        m.css("height", f ? b.scrollHeight : e);
-                        if (!f) {
-                            g.width(m.width() - parseInt(g.css("padding-left")) - parseInt(g.css("padding-right")))
-                        }
-                    }
                 }
             },
             selected: function () {

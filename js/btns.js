@@ -1,6 +1,6 @@
 $(function(){
 		formFunc();
-		$("ol.timeline").on("click", function(e) {
+		$(document).on("click", "ol.timeline", function(e) {
 			var $this = $(e.target);
 			var type = $this.attr('class');
 			switch(type) {
