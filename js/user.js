@@ -210,7 +210,7 @@ function onHide(){
 		});
 		$(this).after('<a class="btn" id="info_hide_btn" href="javascript:void(0)">Hide @</a>');
 		$(this).remove();
-		$("#info_hide_btn").live("click", function(){
+		$("#info_hide_btn").on("click", function(){
 			onHide();
 		});
 		$.cookie("infoShow","show");

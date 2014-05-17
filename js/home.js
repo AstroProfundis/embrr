@@ -41,7 +41,7 @@ $(function () {
 		e.preventDefault();
 		updateStatus();
 	});
-	$("body").live("click", function (e) {
+	$("body").on("click", function (e) {
 		document.title = document.title.replace(/(\([0-9]+\))/g, "");
 		$(".new").remove();
 	});

@@ -9,15 +9,15 @@ $(function(){
 			onRT($(this));
 		}
 	});
-	$(".retw_btn").live("click", function(e){
+	$(".retw_btn").on("click", function(e){
 			e.preventDefault();
 			onNwRT($(this));
 	});
-	$(".rt_undo").live("click", function(e){
+	$(".rt_undo").on("click", function(e){
 		e.preventDefault();
 		onUndoRt($(this));
 	});
-	$(".replie_btn").live("click", function(e){
+	$(".replie_btn").on("click", function(e){
 		e.preventDefault();
 		var replie_id = $(this).parent().parent().find(".status_word").find(".user_name").attr("id");
 		if ($("#textbox").length > 0) {
@@ -37,12 +37,12 @@ $(function(){
 		}
 	});
 	
-	$(".favor_btn").live("click", function(e){
+	$(".favor_btn").on("click", function(e){
 		e.preventDefault();
 		onFavor($(this));
 	});
 
-	$("#list_follow_btn").live("click", function(e){
+	$("#list_follow_btn").on("click", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();
@@ -68,7 +68,7 @@ $(function(){
 	});
 	
 	
-	$("#list_block_btn").live("click", function(e){
+	$("#list_block_btn").on("click", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();

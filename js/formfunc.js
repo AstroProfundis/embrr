@@ -78,15 +78,17 @@ $(function (){
 				updateSentTip("Filtered tweets have been restored!", 5e3, "success");
 				$('#statuses .filter').slideDown("fast");
 			});
-		$("#filterHide").toggle(
-
-			function (){
+		$("#filterHide").on("click",function (){
+			if ($(this).data("show_mentions")=="no"){
 				$('#statuses .reply').slideUp("fast");
 				$('#filterHide').val("Show @");
-			}, function (){
+				$(this).data("show_mentions","yes");
+			} else {
 				$('#statuses .reply').slideDown("fast");
 				$('#filterHide').val("Hide @");
-			});
+				$(this).data("show_mentions","no");
+			}
+		});
 		$("#clearBtn").click(function(e){
 				e.preventDefault();
 				if (confirm("This will sweep your timeline and remove excess tweets, are you sure?")){
