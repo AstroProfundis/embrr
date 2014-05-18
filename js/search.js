@@ -147,5 +147,6 @@ $(function(){
 		updateStatus();
 		e.preventDefault();
 	});
+	sidebarscroll('pause');
 	updateTrends();
 });
