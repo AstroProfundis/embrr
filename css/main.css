@@ -168,7 +168,7 @@ h3{font-size:14px;margin:14px 0 0 14px}
 #indicator{cursor:pointer}
 #tip_reset{text-decoration:underline;cursor:pointer}
 #tip_reset:hover{color:red}
-#sidebarTip_more{display:none}
+#sidebarTip_more{display:none;width:100%}
 #side .notice{background-color:#FFF;margin:.5em auto 1em;padding:10px;text-align:center}
 #side div.section{padding:13px}
 #side div#profile.section{margin-bottom:0;padding:.2em}

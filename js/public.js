@@ -942,14 +942,14 @@ $(function (){
 		});
 	}
 	$("#indicator").click(function (){
-		if ($(this).data("show_tip")=="no"){
-			$('#sidebarTip_more').slideDown('fast');
-			$('#indicator').html('[-]');
-			$(this).data("show_tip","yes");
-		} else {
+		if ($(this).data("show_tip")=="yes"){
 			$('#sidebarTip_more').slideUp('fast');
 			$('#indicator').html('[+]');
 			$(this).data("show_tip","no");
+		} else {
+			$('#sidebarTip_more').slideDown('fast');
+			$('#indicator').html('[-]');
+			$(this).data("show_tip","yes");
 		}
 	});
 	$(document).on("focusout", "#sidebarTip [contenteditable]", function(){
