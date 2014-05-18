@@ -46,7 +46,7 @@ body {font-size:<?php echo $fontsize ?> !important;<?php
 <div id="shortcutTip" style="display:none"></div>
 	<header>
 		<div class="wrapper">
-		<div id="sentTip" style="display:none"></div>
+		<div id="sentTip"></div>
 			<a href="index.php"><img id="logo" style="float:left" width="155" height="49" src="img/logo.png" /></a>
 			<nav class="round">
 			<ul>

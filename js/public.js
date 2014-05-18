@@ -5,14 +5,9 @@ var PAUSE_TIMELINE = false;
 function updateSentTip(message,duration,className){
 	var sentTip = $("#sentTip");
 	var bgColor = $("body").css("background-color");
-	sentTip.html(message).removeClass().addClass(className)
-		.css({
-			"border-style": "solid",
-			"border-width": "1px",
-			"border-color": "transparent"
-		}).slideDown("fast");
+	sentTip.html(message).removeClass().addClass("shown " + className);
 	setTimeout(function (){
-			sentTip.slideUp('fast');
+		sentTip.removeClass();
 		},duration);
 	return sentTip;
 };
