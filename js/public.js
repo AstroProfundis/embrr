@@ -742,7 +742,7 @@ function onDeleteMsg($this){
 	}
 }
 $(function (){
-	$("#statuses .trans_close").on('click',function(e){
+	$(document).on("click", "#statuses .trans_close", function(e){
 		e.preventDefault();
 		$(e.target).parent().parent().parent().parent().find(".translated").remove();
 	});
@@ -946,7 +946,7 @@ $(function (){
 			},
 		});
 	}
-	$("#indicator").on("click",function (){
+	$("#indicator").click(function (){
 		if ($(this).data("show_tip")=="no"){
 			$('#sidebarTip_more').slideDown('fast');
 			$('#indicator').html('[-]');
@@ -957,7 +957,7 @@ $(function (){
 			$(this).data("show_tip","no");
 		}
 	});
-	$("#sidebarTip [contenteditable]").on('focusout',function(){
+	$(document).on("focusout", "#sidebarTip [contenteditable]", function(){
 		var $this = $("#sidebarTip [contenteditable]");
 		$.post(
 			'ajax/setTip.php',
@@ -973,7 +973,7 @@ $(function (){
 			}
 		);
 	});
-	$("#sidebarTip #tip_reset").on('click',function(e){
+	$(document).on("click", "#sidebarTip #tip_reset", function(e){
 		e.preventDefault();
 		if(window.confirm('Are you sure to restore to default tips?')){
 			$.post(
@@ -1216,7 +1216,7 @@ $(window).load(function(){
 	$('#symbols span').tipsy({
 		gravity: $.fn.tipsy.autoNS
 	});
-	$("#statuses .mine").on("mouseout",function (e){
+	$(document).on("mouseout", "#statuses .mine", function (e){
 		$(e.target).removeClass("mine").addClass("myTweet");
 	});
 });

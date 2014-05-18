@@ -55,7 +55,7 @@ header {margin:1em auto;text-align:right;width:600px}
 .status_author, .rank_img {left:10px;position:absolute;top:15px;width:50px}
 .retweet_info {color:#999;display:block;font-size:11px;margin:0;text-align:left;width:100%}
 </style>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
 <script src="js/jquery.embrr.utils.js"></script>
 <script src="js/mediaPreview.js"></script>
 <script src="js/public.js"></script>
