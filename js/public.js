@@ -253,14 +253,14 @@ function shortenTweet(){
 }
 $(function (){
 	$("#latest_status").on("click",function (){
-		if ($(this).data("show_full")=="no"){
-			$("#currently .status-text,#latest_meta").css("display","none");
-			$("#currently .full-text,#full_meta").css("display","inline");
-			$(this).data("show_full","yes");
-		} else {
+		if ($(this).data("show_full")=="yes"){
 			$("#currently .status-text,#latest_meta").css("display","inline");
 			$("#currently .full-text,#full_meta").css("display","none");
 			$(this).data("show_full","no");
+		} else {
+			$("#currently .status-text,#latest_meta").css("display","none");
+			$("#currently .full-text,#full_meta").css("display","inline");
+			$(this).data("show_full","yes");
 		}
 	});
 	$("#full_meta a,.full-text a").click(function (e){
@@ -942,14 +942,14 @@ $(function (){
 		});
 	}
 	$("#indicator").click(function (){
-		if ($(this).data("show_tip")=="no"){
-			$('#sidebarTip_more').slideDown('fast');
-			$('#indicator').html('[-]');
-			$(this).data("show_tip","yes");
-		} else {
+		if ($(this).data("show_tip")=="yes"){
 			$('#sidebarTip_more').slideUp('fast');
 			$('#indicator').html('[+]');
 			$(this).data("show_tip","no");
+		} else {
+			$('#sidebarTip_more').slideDown('fast');
+			$('#indicator').html('[-]');
+			$(this).data("show_tip","yes");
 		}
 	});
 	$(document).on("focusout", "#sidebarTip [contenteditable]", function(){
@@ -1017,46 +1017,46 @@ $(function (){
 // sidepost function
 $(function (){
 	$("#trends_title").on("click",function (){
-		if ($(this).data("show_trends")=="no"){
-			$("#trends_title").removeClass().addClass("loading");
-			updateTrends();
-			$(this).data("show_trends","yes");
-		} else {
+		if ($(this).data("show_trends")=="yes"){
 			$("#trends_title").removeClass();
 			$("#trend_entries").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_trends","no");
+		} else {
+			$("#trends_title").removeClass().addClass("loading");
+			sidebarscroll('pause');
+			$(this).data("show_trends","yes");
+			updateTrends();
 		}
 	});
 	$("#following_title").on("click",function (){
-		if ($(this).data("show_flw")=="no"){
-			$("#following_title").removeClass().addClass("loading");
-			sidebarscroll('pause');
-			$(this).data("show_flw","yes");
-			updateFollowing();
-		} else {
+		if ($(this).data("show_flw")=="yes"){
 			$("#following_title").removeClass();
 			$("#following_list").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_flw","no");
+		} else {
+			$("#following_title").removeClass().addClass("loading");
+			sidebarscroll('pause');
+			$(this).data("show_flw","yes");
+			updateFollowing();
 		}
 	});
 	$("#apiquota_title").on("click",function (){
-		if ($(this).data("show_api")=="no"){
-			$("#apiquota_title").removeClass().addClass("loading");
-			sidebarscroll('pause');
-			$(this).data("show_api","yes");
-			updateAPIQuota();
-		} else {
+		if ($(this).data("show_api")=="yes"){
 			$("#apiquota_title").removeClass();
 			$("#apiquota_list").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_api","no");
+		} else {
+			$("#apiquota_title").removeClass().addClass("loading");
+			sidebarscroll('pause');
+			$(this).data("show_api","yes");
+			updateAPIQuota();
 		}
 	});
 });
 function updateTrends(){
-	sidebarscroll('pause');
 	if (navigator.geolocation) {
 		if ($.cookie('woeid') == undefined) {
 			navigator.geolocation.getCurrentPosition(function (pos, error) {

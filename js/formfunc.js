@@ -78,15 +78,16 @@ $(function (){
 				updateSentTip("Filtered tweets have been restored!", 5e3, "success");
 				$('#statuses .filter').slideDown("fast");
 			});
-		$("#filterHide").on("click",function (){
-			if ($(this).data("show_mentions")=="no"){
-				$('#statuses .reply').slideUp("fast");
-				$('#filterHide').val("Show @");
-				$(this).data("show_mentions","yes");
-			} else {
+		$("#filterHide").on("click",function (e){
+			e.preventDefault();
+			if ($(this).data("show_mentions")=="yes"){
 				$('#statuses .reply').slideDown("fast");
 				$('#filterHide').val("Hide @");
 				$(this).data("show_mentions","no");
+			} else {
+				$('#statuses .reply').slideUp("fast");
+				$('#filterHide').val("Show @");
+				$(this).data("show_mentions","yes");
 			}
 		});
 		$("#clearBtn").click(function(e){
