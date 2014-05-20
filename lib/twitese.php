@@ -50,7 +50,9 @@
 
 		//添加标签链接
 		$tagReg = "/\B(\#{1}([\w]*[\pN\pC\pL]+[\w]*))([\s]*)/u";
-		$text = preg_replace($tagReg, '<a target="_blank" href="search.php?q=%23\2">#<span class="hashtag">\2</span></a>\3', $text);
+		$text = preg_replace_callback($tagReg, function($matches) {
+			return '<a target="_blank" href="search.php?q=%23'.rawurlencode($matches[2]).'">#<span class="hashtag">'.$matches[2].'</span></a>'.$matches[3];
+		}, $text);
 
 		$text = formatTweetID($text);
 
@@ -70,7 +72,7 @@
 		if(count($hashtags) > 0) {
 			foreach($hashtags as $hashtag) {
 				$text = $hashtag->text;
-				$html = str_replace("#$text","<a target=\"_blank\" href=\"search.php?q=%23$text\">#<span class=\"hashtag\">$text</span></a>",$html);
+				$html = str_replace("#$text","<a target=\"_blank\" href=\"search.php?q=%23".rawurlencode($text)."\">#<span class=\"hashtag\">$text</span></a>",$html);
 			}	
 		}
 		if(count($urls) > 0) {

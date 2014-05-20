@@ -25,7 +25,7 @@
 		foreach ($trends as $trend) {
 			$li = '
 				<li>
-				<a href="search.php?q='.$trend->query.'">'.$trend->name.'</a>
+				<a href="search.php?q='.$trend->query.'" target="_blank">'.$trend->name.'</a>
 				</li>
 				';
 			$html .= $li;
