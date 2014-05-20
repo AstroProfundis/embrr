@@ -89,7 +89,7 @@
 <a class="close" title="Close" onclick="$('#transArea').slideToggle(300)" href="#"></a>
 </form>
 
-<form action="index.php" method="post">
+<form>
 <a id="transRecover">Restore</a>
 <textarea name="status" id="textbox"><?php if (isset($_sentText)) echo $_sentText ?></textarea>
 <input type="hidden" id="in_reply_to" name="in_reply_to" value="<?php echo isset($_sentInReplyTo) ? $_sentInReplyTo : 0 ?>" />
@@ -175,4 +175,4 @@
 	<a id="refreshBtn" title="Refresh the timeline" class="func_btn" style="background-position: -62px -80px;">Refresh</a>
 	</div>
 	</form>
-	<div class="clear"></div>   
+	<div class="clear"></div>

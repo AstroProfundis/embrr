@@ -4,27 +4,6 @@
 	include ('inc/header.php');
 
 	if (!loginStatus()) header('location: login.php'); 
-	$t = getTwitter();
-	if (isset($_POST['status']) && isset($_POST['in_reply_to'])) {
-		if (trim($_POST['status']) !== '')
-		{
-			$result = $t->update($_POST['status'], $_POST['in_reply_to']);
-			if ($result)
-			{
-				$user = $result->user;
-				$time = $_SERVER['REQUEST_TIME']+3600*24*365;
-				if ($user)
-				{
-					setcookie('friends_count', $user->friends_count, $time, '/');
-					setcookie('statuses_count', $user->statuses_count, $time, '/');
-					setcookie('followers_count', $user->followers_count, $time, '/');
-					setcookie('imgurl', getAvatar($user->profile_image_url), $time, '/');
-					setcookie('name', $user->name, $time, '/');
-				}
-			}
-		}
-		header('location: index.php');
-	}
 ?>
 <script src="js/home.js"></script>
 <div id="statuses" class="column round-left">
@@ -34,6 +13,7 @@
 	$since_id = isset($_GET['since_id']) ? $_GET['since_id'] : false;
 	$max_id = isset($_GET['max_id']) ? $_GET['max_id'] : false;
 
+	$t = getTwitter();
 	$statuses = $t->homeTimeline($since_id, $max_id);
 	if ($statuses == false)
 	{
