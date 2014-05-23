@@ -315,6 +315,7 @@ function ajax_reply($this){
 //tweet function
 
 function rminit($this){
+	$('ul.right_menu').fadeOut('fast');
 	var $that = $this.parent().parent().parent();
 	var $rm = $that.find(".right_menu");
 	if($rm.length > 0){

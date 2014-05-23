@@ -13,11 +13,7 @@
 ?>
 <div id="statuses" class="column round-left">
 
-	<?php if ( isset($_GET['id']) ) { ?>
-	<h2>To <input type="text" style="border: 1px solid rgb(167, 166, 170); margin: 0px 0px 6px; padding: 2px; height: 14px; width: 120px; font-size: 13px;" name="sent_id" id="sent_id" value="<?php echo $_GET['id'] ?>"/></h2>
-	<?php	} else { ?>
-	<h2>To <input type="text" style="border: 1px solid rgb(167, 166, 170); margin: 0px 0px 6px; padding: 2px; height: 14px; width: 120px; font-size: 13px;" name="sent_id" id="sent_id" /></h2>
-	<?php	} ?>
+	<h2>To <input type="text" style="border: 1px solid rgb(167, 166, 170); margin: 0px 0px 6px; padding: 2px; height: 14px; width: 120px; font-size: 13px;" name="sent_id" id="sent_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>"/></h2>
 	
 	<?php include('inc/sentForm.php')?>
 	

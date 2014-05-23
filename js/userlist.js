@@ -6,6 +6,7 @@ $(function () {
 			case 'avatar':
 				e.preventDefault();
 				ulinit($this);
+				e.stopPropagation();
 			break;
 		}
 		switch(e.target.className) {
@@ -42,6 +43,7 @@ $(function () {
 	});
 })
 function ulinit($this) {
+	$('ul.right_menu').fadeOut('fast');
 	var $that = $this.parent().parent();
 	var ul = $that.find(".right_menu");
 	if (ul.length>0) {
@@ -83,32 +85,36 @@ function ulinit($this) {
 	}
 }
 function ulmention($this, e) {
-	var replie_id = getid($this.parent());;
+	var text = "@" + getid($this.parent()) + ' ';
 	if ($("#textbox").length > 0) {
-		var text = "@" + replie_id;
-		scroll(0, 0);
-		$("#textbox").focus().val($("#textbox").val() + text + ' ');
-		leaveWord();
+		var sentIdBox = $("#sent_id");
+		if (sentIdBox.length > 0) {
+			$('#statuses h2:first-of-type').html("Mention");
+		}
 	} else {
 		$("#statuses h2").before('<h2>Mention</h2>' + formHTML);
 		formFunc();
-		var text = "@" + replie_id;
-		scroll(0, 0);
-		$("#textbox").focus().val($("#textbox").val() + text + ' ');
-		leaveWord();
 	}
+	scroll(0, 0);
+	$("#textbox").focus().val(text);
+	leaveWord();
 }
 function uldm($this, e) {
 	var replie_id = getid($this.parent());
+	var dmTitle = 'Send direct message to <input type="text" style="border: 1px solid rgb(167, 166, 170); margin: 0px 0px 6px; padding: 2px; height: 14px; width: 120px; font-size: 13px;" name="sent_id" id="sent_id" value="' + replie_id + '">';
 	if ($("#textbox").length > 0) {
-		var text = "D " + replie_id;
+		var sentIdBox = $("#sent_id");
+		if (sentIdBox.length == 0) {
+			$("#statuses h2:first-of-type").html(dmTitle);
+		} else {
+			$("#sent_id").val(replie_id);
+		}
 	} else {
-		$("#statuses h2").before('<h2>Send direct message</h2>' + formHTML);
+		$("#statuses h2").before('<h2>' + dmTitle + '</h2>' + formHTML);
 		formFunc();
-		var text = "D " + replie_id;
 	}
 	scroll(0, 0);
-	$("#textbox").focus().val($("#textbox").val() + text + ' ');
+	$("#textbox").focus().val('');
 	leaveWord();
 }
 function ulfollow($this) {
