@@ -33,14 +33,6 @@ $(function(){
 					e.preventDefault();
 					onUndoRt($this);
 					break;
-				case 'msg_replie_btn':
-					e.preventDefault();
-					onReplieDM($this);
-					break;
-				case 'msg_delete_btn':
-					e.preventDefault();
-					onDeleteMsg($this);
-					break;
 			}
 		});
 		$("#submit_btn").click(function(e){

@@ -178,9 +178,6 @@ function ProfileImageUpload() {
 			fileElementId: 'profile_image',
 			dataType: 'json',
 			success: function (data, status) {
-				if (typeof(console) !== 'undefined' && console != null) {
-					console.info(data);
-				}
 				if (typeof(data.result) != 'undefined' && data.result == "success") {
 					$.ajax({
 						url: '../ajax/updateProfile.php',
@@ -212,9 +209,6 @@ function ProfileBackgroundUpload() {
 			fileElementId: 'profile_background',
 			dataType: 'json',
 			success: function (data, status) {
-				if (typeof(console) !== 'undefined' && console != null) {
-					console.info(data);
-				}
 				if (typeof(data.result) != 'undefined' && data.result == "success") {
 					if ($.cookie('twitterbg') === 'true') {
 						$.ajax({
@@ -244,9 +238,6 @@ function ProfileBackgroundTile(tile) {
 			data: {'tile': tile},
 			dataType: 'json',
 			success: function (data, status) {
-				if (typeof(console) !== 'undefined' && console != null) {
-					console.info(data);
-				}
 				if (typeof(data.result) != 'undefined' && data.result == "success") {
 					if ($.cookie('twitterbg') === 'true') {
 						$.ajax({
