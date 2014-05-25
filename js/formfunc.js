@@ -19,7 +19,7 @@ $(function (){
 			});
 		$("#symbols span").click(function (){
 	      var obj = document.getElementById('textbox'); 
-	      var str = $(this).html();
+	      var str = $(this).text();
 	      if(document.selection){  
 	         obj.focus();  
 	         var sel=document.selection.createRange();  
