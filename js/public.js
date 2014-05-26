@@ -38,7 +38,7 @@ function leaveWord(num){
 	}else{
 		$tb.css("color","#C00");
 	}
-	if(leave === num){
+	if(leave === 140){
 		$("#in_reply_to").val("");
 		$("#tweeting_button").addClass('btn-disabled');
 	}
