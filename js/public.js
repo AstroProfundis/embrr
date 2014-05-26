@@ -21,23 +21,24 @@ function leaveWord(num){
 	if (sent_id){
 		leave -= sent_id.length+3;
 	}
+	$tb.text(leave);
 	if (leave < 0){
-		$tb.text(leave).css("color","#C00");
 		$("#tweeting_button").addClass('btn-disabled');
 	}else{
-		$tb.text(leave);
 		$("#tweeting_button").removeClass('btn-disabled');
-		if (leave > 40){
-			$tb.css("color","#CCC");
-		}else if(leave > 20){
-			$tb.css("color","#CAA");
-		}else if(leave > 10){
-			$tb.css("color","#C88");
-		}else{
-			$tb.css("color","#C44");
-		}
 	}
-	if(leave === 140){
+	if (leave > 40){
+		$tb.css("color","#CCC");
+	}else if(leave > 20){
+		$tb.css("color","#CAA");
+	}else if(leave > 10){
+		$tb.css("color","#C88");
+	}else if(leave >= 0){
+		$tb.css("color","#C44");
+	}else{
+		$tb.css("color","#C00");
+	}
+	if(leave === num){
 		$("#in_reply_to").val("");
 		$("#tweeting_button").addClass('btn-disabled');
 	}
@@ -93,7 +94,7 @@ var formFunc = function(){
 		}
 	});		
 };
-	var updateStatus = function(){
+var updateStatus = function(){
 	PAUSE_UPDATE = true;
 	var text = $("#textbox").val();
 	var sent_id = $("#sent_id").val();

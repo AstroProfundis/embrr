@@ -37,10 +37,6 @@ $(function () {
 		}
 	});
 	markReply($("#allTimeline > li"));
-	$("#submit_btn").click(function (e) {
-		e.preventDefault();
-		updateStatus();
-	});
 	$("body").on("click", function (e) {
 		document.title = document.title.replace(/(\([0-9]+\))/g, "");
 		$(".new").remove();

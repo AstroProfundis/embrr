@@ -48,8 +48,8 @@ header {margin:1em auto;text-align:right;width:600px}
 .wrapper {margin:1em auto;position:relative;width:600px}
 #statuses{background-color:#FFFFFF;float:left;padding:10px;width:580px}
 .timeline li:hover, .rank_list li:hover {background-color:transparent !important}
-.timeline, .ajax_timeline {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
-.timeline li, .ajax_timeline li {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
+.timeline {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
+.timeline li {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
 .status_body {display:block;font-size:2em;line-height:30px;margin-left:58px;overflow:hidden;position:relative}
 .timeline li {cursor:default;margin:0px;overflow:hidden;padding:10px;position:relative}
 .status_author, .rank_img {left:10px;position:absolute;top:15px;width:50px}

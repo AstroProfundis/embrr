@@ -143,10 +143,6 @@ $(function(){
 				break;
 		}
 	});
-	$("#submit_btn").click(function(e){
-		updateStatus();
-		e.preventDefault();
-	});
 	sidebarscroll('pause');
 	updateTrends();
 });

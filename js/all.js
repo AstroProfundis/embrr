@@ -44,10 +44,6 @@ $(function () {
 			}
 		});
 		markReply($("#allTimeline > li"));
-		$("#submit_btn").click(function (e) {
-				updateStatus();
-				e.preventDefault();
-			});
 		document.onclick = function () {
 			document.title = document.title.replace(/(\([0-9]+\))/g, "");
 			$(".allHighLight").text($(".allHighLight").text().replace(/(\([0-9]+\))/g, ""));
