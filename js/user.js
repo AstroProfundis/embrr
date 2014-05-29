@@ -45,17 +45,13 @@ $(function(){
 
 	$("#info_reply_btn").click(function(){
 		var replie_id = $("#info_name").text();
-		if ($("#textbox").length > 0) {
-			$("#textbox").val($("#textbox").val() + "@" + replie_id + " ");
-			$("#textbox").focus();
-			leaveWord();
-		} else {
+		if ($("#textbox").length == 0) {
 			$("#info_head").after('<h2>In reply to ' + replie_id + '</h2>' + formHTML);
 			formFunc();
-			$("#textbox").val($("#textbox").val() + "@" + replie_id + " ");
-			$("#textbox").focus();
-			leaveWord();
 		}
+		$("#textbox").val($("#textbox").val() + "@" + replie_id + " ");
+		$("#textbox").focus();
+		leaveWord();
 	});
 	if ($.cookie("infoShow") == "hide") {
 		onHide();
