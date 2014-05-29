@@ -58,9 +58,7 @@ textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-s
 #func_set{clear:left;display:block;float:left;left:217px;position:absolute;top:33px}
 .func_btn{background-image:url("../img/ui_icons.png");background-color:#FFF;border-radius:3px;border:1px solid #ADADAD;color:#75715E;display:block;float:left;font-size:11px;margin:0 -5px 0 10px;text-align:center;text-decoration:none;text-indent:-9999em;height:16px;width:20px;cursor:pointer}
 .func_btn:hover{background-color:#F2F2F2;text-decoration:none}
-#transRecover{border-radius:0 0 0 3px;display:none;background-color:#FFF;background-image:url("../img/ui_icons.png");border:1px solid #ADADAD;color:#75715E;cursor:pointer;float:left;font-size:11px;height:16px;margin:0 -5px 0 10px;text-align:center;text-decoration:none;text-indent:-9999em;background-position:-32px -64px;bottom:58px;left:515px;position:absolute;top:58px;width:15px}
-#transRecover:hover{background-color:#F2F2F2;text-decoration:none}
-#photoArea,#transArea,#filterArea,#symArea{border-radius:3px;background:#F5F5F5 none repeat scroll 0 0;border:1px solid #A7A6AA;clear:both;display:none;height:20px;left:20px;padding:10px 10px 60px;position:absolute;top:58px;width:500px}
+#photoArea,#filterArea,#symArea{border-radius:3px;background:#F5F5F5 none repeat scroll 0 0;border:1px solid #A7A6AA;clear:both;display:none;height:20px;left:20px;padding:10px 10px 60px;position:absolute;top:58px;width:500px}
 #symArea{overflow-x:hidden;overflow-y:auto}
 #symArea span{border-radius:3px;background-color:#EEE;border:1px solid transparent;color:#000;display:block;float:left;font-size:12px;line-height:18px;margin:0 10px 5px 0;min-width:60px;padding:1px 2px;text-align:center;white-space:nowrap}
 #symArea span:hover{border:1px solid #666;cursor:pointer}
@@ -306,7 +304,7 @@ footer li img{border:0 none;margin:-3px;padding:0}
 
 /*actions button*/
 .actions{border-width:0;bottom:8px;line-height:1.25em;position:absolute;right:0;display:none;z-index:9}
-.rt_btn,.replie_btn,.favor_btn,.delete_btn,.msg_replie_btn,.msg_delete_btn,.retw_btn,.trans_btn,.unfav_btn,.unrt_btn{display:inline-block;height:16px;width:21px;margin:-7px 0;overflow:hidden;text-indent:-9999em}
+.rt_btn,.replie_btn,.favor_btn,.delete_btn,.msg_replie_btn,.msg_delete_btn,.retw_btn,.unfav_btn,.unrt_btn{display:inline-block;height:16px;width:21px;margin:-7px 0;overflow:hidden;text-indent:-9999em}
 .ss_delete_btn{display:inline-block;height:16px;width:21px;overflow:hidden;text-indent:-9999em;float:right}
 .replie_btn,.msg_replie_btn{background:url("../img/sprite_icons.png") no-repeat scroll 4px 1px transparent}
 .replie_btn:hover,.msg_replie_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -17px 1px transparent}
@@ -318,11 +316,7 @@ footer li img{border:0 none;margin:-3px;padding:0}
 .ss_delete_btn:hover,.delete_btn:hover,.msg_delete_btn:hover{background:transparent url(../img/sprite_icons.png) no-repeat scroll -21px -47px}
 .rt_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -63px transparent}
 .rt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -21px -63px transparent}
-.trans_btn{background:url("../img/sprite_icons.png") no-repeat scroll -2px -79px transparent}
-.trans_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -23px -79px transparent}
-.trans_header{border-top:1px solid #AAA;color:#AAA;display:block;margin-top:5px;padding-top:5px}
-.trans_body{display:block}
-.trans_close{color:#AAA;display:block;float:right;font-size:12px;margin-top:7px;text-decoration:none}
+
 /*search*/
 #block{font-size:12px;margin:20px}
 #search_form{font-size:12px;margin:15px;padding:0 0 10px;text-align:center}
