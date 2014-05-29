@@ -269,16 +269,6 @@ $(function (){
 	});
 	var $temp = $("#currently .status-text");
 	$temp.text(limitation($temp.text()));
-	$("#translateMy").on("click",function(){
-		var orig = $("#textbox").val();
-			ORIG_TEXT = orig;
-		var lang = $.cookie('myLangs')
-		if(lang === null){
-			lang = 'en';
-		}
-		$('#tip').addClass('loading');
-		translate(orig,'',lang,'transMyCallback');
-	});
 });
 var limitation = function (text){
 	if (text.length > 60){
@@ -738,59 +728,6 @@ function onDeleteMsg($this){
 		});
 	}
 }
-$(function (){
-	$(document).on("click", "#statuses .trans_close", function(e){
-		e.preventDefault();
-		$(e.target).parent().parent().parent().parent().find(".translated").remove();
-	});
-	$("#transRecover").click(function(e){
-		$("#textbox").val(ORIG_TEXT);
-		$(e.target).fadeOut('fast');
-		});
-	});
-var translate = function(text,context,lang,callback){
-	
-	var a = "https://www.google.com/uds/Gtranslate";
-	a += "?callback="+callback;
-	a += "&context="+context;
-	a += "&q="+encodeURIComponent(text);
-	a += "&key=notsupplied&v=1.0&nocache=1240207680396&langpair=%7C";
-	a += lang;
-	$.getScript(a);
-};
-var transMyCallback = function(content,translation){
-	if(translation.translatedText !== null){
-		$('#tip').removeClass('loading');
-		$("#transArea").hide();
-		$("#textbox").val(translation.translatedText);
-		$("#transRecover").fadeIn('fast');
-	}
-};
-var transCallback = function(content,translation){
-	if(translation.translatedText !== null){
-		var lang = $.cookie('transLang')
-		if(lang === null){
-			lang = 'zh';
-		}
-		var langTxt = $.cookie('fullLang');
-		if(langTxt === null){
-			langTxt = $('#transArea select[name=langs] option[value='+lang+']').text();
-		}
-		var html = '<div class="translated"><a href="#" title="Hide Translation" class="trans_close">(Hide)</a><span class="trans_header"><strong>Translation <small>(from '+translation.detectedSourceLanguage;
-		html += ' to '+langTxt+')</small> : </strong></span>';
-		html += '<span class="trans_body">'+translation.translatedText+'</span></div>';
-		var li,target;
-		if(typeof INTERVAL_COOKIE !== 'undefined'){
-			li = $("#statuses ol:visible li:has(.status_id)").filter(":contains("+content+")");
-			target = li.find(".status_word").filter(":first");
-		}else{
-			li = $("#statuses li:has(.status_id)").filter(":contains("+content+")");
-			target = li.find(".status_word").filter(":first");
-		}
-		$(html).appendTo(target);
-		li.removeClass("loading");
-	}
-};
 
 $(function (){
 	$('body').click(function (){
@@ -840,22 +777,6 @@ $(function (){
 			case 'rm_spam':
 				e.preventDefault();
 				rmspam($this);
-			break;
-			//translate
-			case 'trans_btn':
-				e.preventDefault();
-				var tBody = $this.parent().parent();
-				if(tBody.find(".trans_body").length !== 0){
-					return;
-				}
-				var id = $.trim(tBody.find('.status_id').text());
-				var text = $.trim(tBody.find('.tweet').text());
-				var lang = $.cookie('transLang');
-				if(lang === null){
-					lang = 'zh';
-				}
-				tBody.parent().addClass('loading');
-				translate(text,id,lang,'transCallback');
 			break;
 			// unshorturl 
 			case 'tweet_url':

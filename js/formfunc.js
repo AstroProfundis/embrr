@@ -55,9 +55,6 @@ $(function (){
 				update();
 				updateSentTip("Retrieving new tweets...", 3e3, "ing");
 			});
-		$("#transBtn").click(function (){
-				$("#transArea").slideToggle(100);
-			});
 		$("#filterSubmit").click(function (e){
 				e.preventDefault();
 				if ($.trim($('#iptFilter').val()).length == 0){
@@ -191,39 +188,4 @@ function setFilterCookie(){
 var option ={ expire: 30 };
 $(document).ready(function (){
 		enableFilter();
-		if($.cookie('transLang') === null){
-			$.cookie('transLang', 'en', option);
-		}
-		if($.cookie('myLangs') === null){
-			$.cookie('myLangs', 'en', option);
-		}
-		var select = $('#transArea select[name=langs]');
-		select.change(function(){
-				var val = $(this).val();
-				$.cookie('transLang', val, option);
-				$.cookie('fullLang', $(this).find('option[value=' + val + ']').text(), option);
-			})
-			.find('option').each(function(){
-				var lang = $.cookie('transLang')
-				if(lang === null){
-					lang = 'en';
-				}
-				if($(this).val() === lang){
-					$(this).attr('selected', 'selected');
-				}
-			});
-		var mylang = $('#transArea select[name=myLangs]');
-		mylang.change(function(){
-				var val = $(this).val();
-				$.cookie('myLangs', val, option);
-			})
-			.find('option').each(function(){
-				var lang = $.cookie('myLangs')
-				if(lang === null){
-					lang = 'en';
-				}
-				if($(this).val() === lang){
-					$(this).attr('selected', 'selected');
-				}
-			});
-	});
+});

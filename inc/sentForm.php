@@ -30,67 +30,7 @@
 <a class="close" title="Close" onclick="$('#symArea').slideToggle(300)" href="#"></a>
 </form>
 
-<form id="transArea">
-<span style="font-weight: bold; display: block; margin-bottom: 5px;">Translation Settings</span>
-<p>Translate tweets into
-<select name="langs" style="border: 1px solid rgb(170, 170, 170); padding: 1px 2px;">
-<option value="ar">Arabic</option>
-<option value="zh-CN">简体中文</option>
-<option value="zh-TW">繁體中文</option>
-<option value="da">Danish</option>
-<option value="nl">Dutch</option>
-<option value="en">English</option>
-<option value="fi">Finnish</option>
-<option value="fr">French</option>
-<option value="de">German</option>
-<option value="el">Greek</option>
-<option value="hu">Hungarian</option>
-<option value="is">Icelandic</option>
-<option value="it">Italian</option>
-<option value="ja">Japanese</option>
-<option value="ko">Korean</option>
-<option value="lt">Lithuanian</option>
-<option value="no">Norwegian</option>
-<option value="pl">Polish</option>
-<option value="pt">Portuguese</option>
-<option value="ru">Russian</option>
-<option value="es">Spanish</option>
-<option value="sv">Swedish</option>
-<option value="th">Thai</option>
-</select>
-</p>
-<p>Translate my tweets into <select name="myLangs" style="border: 1px solid rgb(170, 170, 170); margin-top: 5px; padding: 1px 2px;">
-<option value="ar">Arabic</option>
-<option value="zh-CN">简体中文</option>
-<option value="zh-TW">繁體中文</option>
-<option value="da">Danish</option>
-<option value="nl">Dutch</option>
-<option value="en">English</option>
-<option value="fi">Finnish</option>
-<option value="fr">French</option>
-<option value="de">German</option>
-<option value="el">Greek</option>
-<option value="hu">Hungarian</option>
-<option value="is">Icelandic</option>
-<option value="it">Italian</option>
-<option value="ja">Japanese</option>
-<option value="ko">Korean</option>
-<option value="lt">Lithuanian</option>
-<option value="no">Norwegian</option>
-<option value="pl">Polish</option>
-<option value="pt">Portuguese</option>
-<option value="ru">Russian</option>
-<option value="es">Spanish</option>
-<option value="sv">Swedish</option>
-<option value="th">Thai</option>
-</select>
-<input type="button" value="Translate" class="btn" id="translateMy" style="vertical-align: middle; padding: 3px 8px; margin-top: -3px;">
-</p>
-<a class="close" title="Close" onclick="$('#transArea').slideToggle(300)" href="#"></a>
-</form>
-
 <form>
-<a id="transRecover">Restore</a>
 <textarea name="status" id="textbox"><?php if (isset($_sentText)) echo $_sentText ?></textarea>
 <input type="hidden" id="in_reply_to" name="in_reply_to" value="<?php echo isset($_sentInReplyTo) ? $_sentInReplyTo : 0 ?>" />
 <?php
@@ -155,8 +95,6 @@
 	<a class="func_btn" href="javascript:shortUrlDisplay();" title="Shorten URL" style="background-position:-238px -113px">Shorten URL</a>
 	
 	<a class="func_btn" href="javascript:shortenTweet();" title="Shorten Tweet" style="background-position:-222px -48px;">Shorten Tweet</a>
-	
-	<a id="transBtn" title="Translation Settings" class="func_btn" style="background-position:-110px -80px;">Translate</a>
 	
 	<a title="Upload Image" id="photoBtn" class="func_btn" style="background-position: -207px -128px;">Image</a>
 	

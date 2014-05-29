@@ -22,7 +22,6 @@
 			$html .= '<a class="unrt_btn" title="UndoRT" href="#">UndoRT</a>';
 		}
 		$html .= $status->favorited ? '<a class="unfav_btn" title="UnFav" href="#">UnFav</a>' : '<a class="favor_btn" title="Fav" href="#">Fav</a>';
-		$html .= '<a class="trans_btn" title="Translate" href="#">Translate</a>';
 		if($retweetByMe == true){
 			$html .= '<span class="rt_id" style="display:none">'.$status->id_str.'</span>';
 		}
@@ -51,8 +50,7 @@
 			<a class="replie_btn" title="Reply" href="#">Reply</a>
 			<a class="rt_btn" title="Retweet" href="#">Retweet</a>';
 		$html .= $status->favorited ? '<a class="unfav_btn" title="UnFav" href="#">UnFav</a>' : '<a class="favor_btn" title="Fav" href="#">Fav</a>';
-		$html .= '<a class="trans_btn" title="Translate" href="#">Translate</a>
-			</span>
+		$html .= '</span>
 			<span class="status_info">via '.$status->source.'
 			<span class="date"><a href="status.php?id='.$status->id_str.'" id="'.$date.'" target="_blank">'.date('Y-m-d H:i:s', $date).'</a></span>
 			retweeted by '.$status->retweet_count.
@@ -104,7 +102,6 @@
 			$output .= "<a class=\"retw_btn\" title=\"New Retweet\" href=\"#\">New Retweet</a>";
 		}
 		$output .= $status->favorited == true ? "<a class=\"unfav_btn\" title=\"UnFav\" href=\"#\">UnFav</a>" : "<a class=\"favor_btn\" title=\"Fav\" href=\"#\">Fav</a>";
-		$output .= "<a class=\"trans_btn\" title=\"Translate\" href=\"#\">Translate</a>";
 		if ($user->screen_name == $screen_name) $output .= "<a class=\"delete_btn\" title=\"Delete\" href=\"#\">Delete</a>";
 		$output .= "</span><span class=\"status_info\">";
 		if ($status->in_reply_to_status_id) $output .= "<span class=\"in_reply_to\"> <a class=\"ajax_reply\" href=\"ajax/status.php?id=$status->in_reply_to_status_id_str&uid=$user->id \">to $status->in_reply_to_screen_name</a> </span>";
