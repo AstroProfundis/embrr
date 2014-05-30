@@ -226,32 +226,6 @@ function getShortUrl(res){
 	}
 }
 
-function shortenTweet(){
-	var tweet = $.trim($("#textbox").val());
-	if (tweet.length === 0){
-		updateSentTip("There's nothing to shorten!",3e3,"failure");
-	}else{
-		$('#tip').addClass('loading');
-		$.ajax({
-			url: "ajax/shortenTweet.php",
-			type: "POST",
-			data: "text="+tweet,
-			success: function(msg){
-				if(msg !== 'error'){
-					$("#textbox").val(msg);
-					leaveWord();
-					$('#tip').removeClass('loading');
-					updateSentTip("Your tweet has been shortened!",5e3,"success");
-				}else{
-					updateSentTip("Failed to shorten your tweet.",5e3,"failure");
-				}
-			},
-			error: function(msg){
-				updateSentTip("Failed to shorten your tweet.",5e3,"failure");
-			}
-		});
-	}
-}
 $(function (){
 	$("#latest_status").on("click",function (){
 		if ($(this).data("show_full")=="yes"){

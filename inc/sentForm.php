@@ -94,13 +94,9 @@
 	
 	<a class="func_btn" href="javascript:shortUrlDisplay();" title="Shorten URL" style="background-position:-238px -113px">Shorten URL</a>
 	
-	<a class="func_btn" href="javascript:shortenTweet();" title="Shorten Tweet" style="background-position:-222px -48px;">Shorten Tweet</a>
-	
 	<a title="Upload Image" id="photoBtn" class="func_btn" style="background-position: -207px -128px;">Image</a>
 	
 	<a id="filterBtn" title="Filter Timeline" class="func_btn" style="background-position:-174px -112px;">Filter</a>
-	
-	<a title="Sogou Cloud IME" href="javascript:void((function(){var%20n=navigator.userAgent.toLowerCase();ie=n.indexOf('msie')!=-1?1:0;if(document.documentMode)ie=0;charset='';if(ie)charset=document.charset;src=ie&amp;&amp;charset=='utf-8'?'http://web.pinyin.sogou.com/web_ime/init2_utf8.php':'http://web.pinyin.sogou.com/web_ime/init2.php';element=document.createElement('script');element.setAttribute('src',src);document.body.appendChild(element);})())" onclick="updateSentTip('Loading...', 5000, 'ing')" class="func_btn" style="background-position: -62px -112px;">Sogou</a>
 	
 	<a id="symbolBtn" title="Symbols and smileys" class="func_btn" style="background-position: -206px -113px;">Symbols</a>
 
