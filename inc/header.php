@@ -13,7 +13,7 @@
 <meta name="author" content="Contributors" />
 <link rel="icon" href="img/favicon.ico" />
 <link id="css" href="css/main.css" rel="stylesheet" />
-<link href="//cdn.jsdelivr.net/fontawesome/4.1.0/css/font-awesome.css" rel="stylesheet" />
+<link href="//cdn.jsdelivr.net/fontawesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 <title>Embr / <?php echo $title ?></title>
 <?php 
 	$myCSS = getDefCookie("myCSS");
