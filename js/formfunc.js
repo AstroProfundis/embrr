@@ -40,13 +40,13 @@ $(function (){
 				updateSentTip("Your previous tweet has been restored!", 3e3, "success");
 			});
 		$("#autoBtn").click(function(){
-				if ($("#autoBtn").hasClass("pause")){
+				if ($("#autoBtn").hasClass("fa-pause")){
 					clearInterval(UPDATE_INTERVAL);
-					$("#autoBtn").removeClass("pause").addClass("start");
+					$("#autoBtn").removeClass("fa-pause").addClass("fa-play");
 					updateSentTip("Auto refresh deactivated!", 3e3, "success");
 				}else{
 					setUpdateInterval();
-					$("#autoBtn").removeClass("start").addClass("pause");
+					$("#autoBtn").removeClass("fa-play").addClass("fa-pause");
 					updateSentTip("Auto refresh activated!", 3e3, "success");
 					update();
 				}
