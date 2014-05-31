@@ -56,7 +56,7 @@ a.a-btn:active{background-image:none;outline:medium none}
 textarea#textbox:focus{outline:none;border:1px solid rgba(82,168,236,.75)!important;box-shadow:0 0 8px rgba(82,168,236,.5)!important;-webkit-box-shadow:0 0 8px rgba(82,168,236,.5)!important}
 textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-shadow:0 0 5px rgba(167,166,170,.5);-webkit-box-shadow:0 0 8px rgba(167,166,170,.5)}
 #func_set{clear:left;display:block;float:left;position:absolute;top:33px}
-.func_btn{background-color:#FFF;border-radius:3px;border:1px solid #ADADAD;color:#ADADAD;padding-top:1px;float:left;margin:0 -5px 0 10px;text-align:center;text-decoration:none;height:14px;width:20px;cursor:pointer}
+.func_btn{background-color:#FFF;border-radius:3px;border:1px solid #ADADAD;color:#ADADAD;padding-top:2px;float:left;margin:0 -5px 0 10px;text-align:center;text-decoration:none;height:13px;width:20px;cursor:pointer;font-size:12px}
 .func_btn:hover{background-color:#F2F2F2;text-decoration:none}
 #photoArea,#filterArea,#symArea{border-radius:3px;background:#F5F5F5 none repeat scroll 0 0;border:1px solid #A7A6AA;clear:both;display:none;height:20px;left:20px;padding:10px 10px 60px;position:absolute;top:58px;width:500px}
 #symArea{overflow-x:hidden;overflow-y:auto}
