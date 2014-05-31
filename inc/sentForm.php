@@ -90,23 +90,25 @@
 		</span></a>
 	</div>
 	
-	<div id="func_set">
+	<div id="func_set" style="left:<?php echo ($title == 'Updates' || $title == 'Home') ? '271' : '298'; ?>px">
 	
-	<a class="func_btn" href="javascript:shortUrlDisplay();" title="Shorten URL" style="background-position:-238px -113px">Shorten URL</a>
+	<a class="func_btn fa fa-link" href="javascript:shortUrlDisplay();" title="Shorten URL"></a>
 	
-	<a title="Upload Image" id="photoBtn" class="func_btn" style="background-position: -207px -128px;">Image</a>
+	<a class="func_btn fa fa-image" title="Upload Image" id="photoBtn"></a>
 	
-	<a id="filterBtn" title="Filter Timeline" class="func_btn" style="background-position:-174px -112px;">Filter</a>
+	<a class="func_btn fa fa-filter" id="filterBtn" title="Filter Timeline"></a>
 	
-	<a id="symbolBtn" title="Symbols and smileys" class="func_btn" style="background-position: -206px -113px;">Symbols</a>
+	<a class="func_btn fa fa-heart" id="symbolBtn" title="Symbols and smileys"></a>
 
-	<a id="restoreBtn" style="background-position: 2px -64px;" class="func_btn" title="Restore previous tweet">Restore</a>
+	<a class="func_btn fa fa-reply" id="restoreBtn" title="Restore previous tweet"></a>
 	
-	<a id="autoBtn" title="Auto refresh control" class="func_btn pause">Pause</a>
+	<?php if($title == 'Updates' || $title == 'Home') { ?>
+	<a class="func_btn fa fa-pause" id="autoBtn" title="Auto refresh control"></a>
+	<?php } ?>
 	
-	<a id="clearBtn" style="background-position: 3px -176px;" class="func_btn" title="Sweep Timeline" class="func_btn">Sweep</a>
+	<a class="func_btn fa fa-power-off" id="clearBtn" title="Sweep Timeline"></a>
 
-	<a id="refreshBtn" title="Refresh the timeline" class="func_btn" style="background-position: -62px -80px;">Refresh</a>
+	<a class="func_btn fa fa-refresh" id="refreshBtn" title="Refresh the timeline"></a>
 	</div>
 	</form>
 	<div class="clear"></div>

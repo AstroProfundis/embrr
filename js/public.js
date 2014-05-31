@@ -885,8 +885,8 @@ $(function (){
 	$("#profileRefresh").click(function(e){
 		e.preventDefault();
 		var that = $(this);
-		if (!that.hasClass('refreshing')){
-			that.addClass('refreshing');
+		if (!that.hasClass('fa-spinner')){
+			that.addClass('fa-spinner fa-spin');
 			$.ajax({
 				url: "ajax/updateProfile.php",
 				type: "GET",
@@ -904,7 +904,7 @@ $(function (){
 					updateSentTip("Failed to update your profile!",3e3,"failure");
 				},
 				complete: function(){
-					that.removeClass('refreshing');
+					that.removeClass('fa-spinner fa-spin');
 				}
 			});
 		}

@@ -5,7 +5,7 @@
 <div id="side" class="round-right">
 	<div id="sideinfo">
 		<a href="profile.php"><img id="sideimg" src="<?php echo getCookie("imgurl")?>" /></a>
-		<span id="sideid"><span id="side_name"><?php echo getEncryptCookie('twitese_name')?></span><a href="#" id="profileRefresh" title="refresh your profile"><i></i></a></span>
+		<span id="sideid"><span id="side_name"><?php echo getEncryptCookie('twitese_name')?></span><a href="#" id="profileRefresh" title="refresh your profile" class="fa fa-repeat"></a></span>
 		<a href="profile.php"><span id="me_tweets"><span id="update_count"><?php echo getCookie('statuses_count')?></span> tweets</span></a>
 	</div>
 	<?php if (strrpos($_SERVER['PHP_SELF'], 'profile')) {
