@@ -51,7 +51,6 @@ a.a-btn:active{background-image:none;outline:medium none}
 #statuses,#ajax_statuses{background-color:#FFF;float:left;padding:10px;width:544px}
 #statuses form{margin-bottom:10px}
 #tip{color:#CCC;float:right;font-size:24px;margin:5px 10px 0 0;font-family:'Helvetica Neue','Helvetica','Arial',sans-serif}
-#tip.loading{background:url("../img/spinner.gif") no-repeat scroll center center transparent!important;color:transparent!important}
 #textbox{border-radius:3px;border:1px solid #A7A6AA;font-size:14px;height:80px;margin:2px 0 5px 10px;overflow-x:hidden;overflow-y:auto;padding:5px;width:510px;-webkit-transition:all .5s ease-out;-moz-transition:all .5s ease-out;-ms-transition:all .5s ease-out}
 textarea#textbox:focus{outline:none;border:1px solid rgba(82,168,236,.75)!important;box-shadow:0 0 8px rgba(82,168,236,.5)!important;-webkit-box-shadow:0 0 8px rgba(82,168,236,.5)!important}
 textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-shadow:0 0 5px rgba(167,166,170,.5);-webkit-box-shadow:0 0 8px rgba(167,166,170,.5)}
@@ -139,6 +138,7 @@ li.loading #avatar{opacity:0.2}
 #sideid{display:block;padding:10px 0 0 18px;margin-bottom:5px}
 #side_name{font:bold 1.3em/1.3em Helvetica Neue,Helvetica,sans-serif;color:#2276BB;margin-right:1px}
 #profileRefresh{color:#ADADAD;font-size:11px;text-decoration:none}
+#profileRefresh:hover{color:#333}
 #me_tweets{font-family:Helvetica,Arial,sans-serif;font-size:90%}
 #update_count{font-weight:700}
 #user_stats{clear:both;padding:0 0 0 10px}
@@ -202,11 +202,6 @@ ul.sidebar-menu li.active a,a.active{background-color:#EDFEFF;color:#333;font-we
 #side span.view-all{display:inline;margin:0}
 #side span.pipe{border-left:1px solid #C0DEED;padding-left:4px;padding-right:4px}
 #side #following span.xref{display:block;margin-top:-5px;padding:0 14px 5px}
-h2.sidebar-title{font-size:1.05em;font-weight:400;padding:.2em 14px}
-h2.sidebar-subtitle{font-size:1.3em;font-weight:400;padding:.2em 14px}
-#side .collapsible h2.sidebar-title{background:transparent url(../img/toggle_up_dark.png) no-repeat scroll right center;width:157px}
-#side .collapsible.collapsed h2.sidebar-title{background:transparent url(../img/toggle_down_dark.png) no-repeat scroll right center}
-#side div.collapsible.loading h2.sidebar-title{background-clip:border!important;-moz-background-inline-policy:continuous!important;background-origin:padding!important;background:transparent url(../img/spinner.gif) no-repeat scroll right center!important}
 #side .actions{border:1px solid #87BC44;margin:10px -3px}
 #side .actions small{font-size:.9em}
 #side .actions a{padding-left:7px}
@@ -237,10 +232,10 @@ td.column,#side .stats td{padding:0;vertical-align:top}
 #trend_entries, #apiquota_list{display:none;width:177px;float:left;margin-top:5px!important}
 #trend_entries li{word-break:break-all}
 #trends, #following, #apiquota, #version{margin-left:-2px}
-#trends_title, #following_title, #apiquota_title,#version_title{background:transparent url(../img/toggle_down_dark.png) no-repeat scroll right center;font-weight:400;font-size:110%;padding-left:3px;margin-bottom:0;margin-top:0;width:177px;cursor:pointer}
-#version_title{background:none!important}
-#trends_title.loading, #following_title.loading, #apiquota_title.loading{background:transparent url(../img/spinner.gif) no-repeat scroll right center!important}
-#trends_title.open, #following_title.open, #apiquota_title.open{background:transparent url(../img/toggle_up_dark.png) no-repeat scroll right center!important}
+#trends_title, #following_title, #apiquota_title,#version_title{font-weight:400;font-size:110%;padding-left:3px;margin-bottom:0;margin-top:0;width:177px;cursor:pointer}
+.side_expandable h2 span.fa{display:none;float:right;color:#ADADAD}
+.side_expandable h2:hover span.fa{color:#333}
+.side_expandable h2.closed span.fa.fa-chevron-circle-down,.side_expandable h2.loading span.fa.fa-spinner,.side_expandable h2.open span.fa.fa-chevron-circle-up{display:inline-block}
 #following_list{display:none;float:left;padding:10px 10px 0}
 #following_list span{float:left;padding:0 3px 2px 2px}
 #following_list img{padding:0}
@@ -264,6 +259,8 @@ footer li img{border:0 none;margin:-3px;padding:0}
 /*ranking*/
 .rank_list{font-size:12px;margin:0 5px 5px 0}
 .rank_list li{border-bottom:1px solid #CCC;margin:0 10px;overflow:visible;padding:10px;position:relative}
+.rank_list li .list_delete_btn{display:none}
+.rank_list li:hover .list_delete_btn{display:inline-block}
 .rank_content{display:block;line-height:20px;margin-left:63px;min-height:50px;overflow:hidden;position:relative}
 .rank_content span{margin:0;color:#666}
 .rank_count{color:#333!important;display:block;font-size:12px;font-weight:700;margin:4px 0;width:400px}
@@ -300,19 +297,12 @@ footer li img{border:0 none;margin:-3px;padding:0}
 .subnavLink:hover,.ac_over:hover{background-color:#E6E6E6;text-decoration:none}
 
 /*actions button*/
-.actions{border-width:0;bottom:8px;line-height:1.25em;position:absolute;right:0;display:none;z-index:9}
-.rt_btn,.replie_btn,.favor_btn,.delete_btn,.msg_replie_btn,.msg_delete_btn,.retw_btn,.unfav_btn,.unrt_btn{display:inline-block;height:16px;width:21px;margin:-7px 0;overflow:hidden;text-indent:-9999em}
-.ss_delete_btn{display:inline-block;height:16px;width:21px;overflow:hidden;text-indent:-9999em;float:right}
-.replie_btn,.msg_replie_btn{background:url("../img/sprite_icons.png") no-repeat scroll 4px 1px transparent}
-.replie_btn:hover,.msg_replie_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -17px 1px transparent}
-.retw_btn,.unrt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll 0 -15px transparent}
-.retw_btn:hover,.unrt_btn{background:url("../img/sprite_icons.png") no-repeat scroll -21px -15px transparent}
-.favor_btn,.unfav_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll 2px -32px transparent}
-.favor_btn:hover,.unfav_btn{background:url("../img/sprite_icons.png") no-repeat scroll -19px -32px transparent}
-.ss_delete_btn,.delete_btn,.msg_delete_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -47px transparent}
-.ss_delete_btn:hover,.delete_btn:hover,.msg_delete_btn:hover{background:transparent url(../img/sprite_icons.png) no-repeat scroll -21px -47px}
-.rt_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -63px transparent}
-.rt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -21px -63px transparent}
+.actions{border-width:0;bottom:3px;line-height:1.25em;position:absolute;right:0;display:none;z-index:9}
+.ss_delete_btn,.list_delete_btn,.actions a{height:16px;width:21px;color:#ADADAD}
+.list_delete_btn,.actions a{margin:-7px 0}
+.ss_delete_btn:hover,.list_delete_btn:hover,.actions a:hover{text-decoration:none!important;color:#333}
+.actions a.unrt_btn:hover,.actions a.unfav_btn:hover{color:#ADADAD}
+.actions a.unrt_btn,.actions a.unfav_btn{color:#333}
 
 /*search*/
 #block{font-size:12px;margin:20px}
@@ -326,6 +316,8 @@ background:url("../img/nav_search_submit.png") repeat scroll -2px 0 transparent!
 background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -25px!important;outline:none}
 #header_search_submit:focus, #header_search_submit:active{
 background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -50px!important;outline:none}
+.ac_results .ss_delete_btn{float:right;display:none}
+.ac_odd:hover .ss_delete_btn,.ac_even:hover .ss_delete_btn{display:inline-block}
 
 /* =setting
 ----------------------------------------*/
@@ -379,7 +371,6 @@ fieldset.settings .btn{padding: 4px 8px}
 #member_form span{display:block;font-size:12px;margin:5px;text-align:center}
 #list_members{font-size:12px;height:70px;padding:3px;width:266px}
 #member_submit,#list_submit,#member_cancel{padding:2px 4px}
-.list_delete_btn{margin-top:5px}
 
 /*fieldsets*/
 fieldset.common-form{border:0 none;margin:0}

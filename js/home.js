@@ -4,7 +4,8 @@ $(function () {
 	formFunc();
 	$("#allTimeline").click(function(e) {
 		var $this = $(e.target);
-		var type = $this.attr('class');
+		var matches = ($this.attr('class') || '').match(/\w+_btn/);
+		var type = matches ? matches[0] : '';
 		switch(type) {
 			case 'rt_btn':
 				e.preventDefault();
@@ -30,7 +31,7 @@ $(function () {
 				e.preventDefault();
 				onDelete($this);
 				break;
-			case 'rt_undo':
+			case 'unrt_btn':
 				e.preventDefault();
 				onUndoRt($this);
 				break;

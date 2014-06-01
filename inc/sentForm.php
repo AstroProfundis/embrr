@@ -3,7 +3,7 @@
 	if ($title != 'Direct Messages') {
 	echo "<h2>What's happening?</h2>" ;
 	} ?> 
-<span id="tip"><b>140</b></span>
+<span id="tip"><span class="fa fa-spinner fa-spin" style="display:none"></span><b>140</b></span>
 <?php } ?>
 <form id="photoArea">
 <span style="font-weight: bold;">Upload Image</span>

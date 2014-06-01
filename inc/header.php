@@ -17,7 +17,6 @@
 <title>Embr / <?php echo $title ?></title>
 <?php 
 	$myCSS = getDefCookie("myCSS");
-	$theme = getDefCookie("theme");
 	$old_css = "ul.sidebar-menu li.active a";
 	$new_css = "ul.sidebar-menu a.active";
 	$myCSS = str_replace($old_css,$new_css,$myCSS);
@@ -31,7 +30,7 @@
 	}
 ?>
 <style type="text/css">
-<?php echo $theme;echo $myCSS ?>
+<?php echo $myCSS ?>
 a:active,a:focus {outline:none}
 body {font-size:<?php echo $fontsize ?> !important;<?php 
 	if ($Bgcolor != "") echo 'background-color:'.$Bgcolor.';';

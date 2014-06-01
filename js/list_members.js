@@ -1,13 +1,4 @@
 $(function(){
-	$(".delete_btn").hide();
-	$(document).on("mouseover", ".rank_list > li", function(){
-		$(this).find(".delete_btn").css("display", "inline-block");
-	});
-	
-	$(document).on("mouseout", ".rank_list > li", function(){
-		$(this).find(".delete_btn").hide();
-	});
-	
 	$(".list_delete_btn").click(function(e){
 		e.preventDefault();
 		var $this = $(this);  

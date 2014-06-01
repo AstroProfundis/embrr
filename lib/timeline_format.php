@@ -14,14 +14,14 @@
 			<span class="status_id">'.$status->id_str.'</span>
 			<span class="status_word"><a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a> <span class="tweet">&nbsp;'.$text.'</span></span>
 			<span class="actions">
-			<a class="replie_btn" title="Reply" href="#">Reply</a>
-			<a class="rt_btn" title="Retweet" href="#">Retweet</a>';
+			<a class="replie_btn fa fa-reply" title="Reply" href="#"></a>
+			<a class="rt_btn fa fa-share" title="Quote" href="#"></a>';
 		if($retweetByMe != true){
-			$html .= '<a class="retw_btn" title="New Retweet" href="#">New Retweet</a>';
+			$html .= '<a class="retw_btn fa fa-retweet" title="New Retweet" href="#"></a>';
 		} else {
-			$html .= '<a class="unrt_btn" title="UndoRT" href="#">UndoRT</a>';
+			$html .= '<a class="unrt_btn fa fa-retweet" title="Undo Retweet" href="#"></a>';
 		}
-		$html .= $status->favorited ? '<a class="unfav_btn" title="UnFav" href="#">UnFav</a>' : '<a class="favor_btn" title="Fav" href="#">Fav</a>';
+		$html .= $status->favorited ? '<a class="unfav_btn fa fa-star-o" title="UnFav" href="#"></a>' : '<a class="favor_btn fa fa-star-o" title="Fav" href="#"></a>';
 		if($retweetByMe == true){
 			$html .= '<span class="rt_id" style="display:none">'.$status->id_str.'</span>';
 		}
@@ -47,9 +47,9 @@
 			<span class="status_word">
 			<a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a><span class="tweet">&nbsp;'.$text.'</span></span>
 			<span class="actions">
-			<a class="replie_btn" title="Reply" href="#">Reply</a>
+			<a class="replie_btn fa fa-reply" title="Reply" href="#"></a>
 			<a class="rt_btn" title="Retweet" href="#">Retweet</a>';
-		$html .= $status->favorited ? '<a class="unfav_btn" title="UnFav" href="#">UnFav</a>' : '<a class="favor_btn" title="Fav" href="#">Fav</a>';
+		$html .= $status->favorited ? '<a class="unfav_btn fa fa-star-o" title="UnFav" href="#"></a>' : '<a class="favor_btn fa fa-star-o" title="Fav" href="#"></a>';
 		$html .= '</span>
 			<span class="status_info">via '.$status->source.'
 			<span class="date"><a href="status.php?id='.$status->id_str.'" id="'.$date.'" target="_blank">'.date('Y-m-d H:i:s', $date).'</a></span>
@@ -95,14 +95,14 @@
 		<span class="status_id">'.$status->id_str.'</span>
 		<span class="status_word"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">&nbsp;'.$text.'</span></span>';
 		$output .= "<span class=\"actions\">
-			<a class=\"replie_btn\" title=\"Reply\" href=\"#\">Reply</a>
-			<a class=\"rt_btn\" title=\"Retweet\" href=\"#\">Retweet</a>
+			<a class=\"replie_btn fa fa-reply\" title=\"Reply\" href=\"#\"></a>
+			<a class=\"rt_btn fa fa-share\" title=\"Quote\" href=\"#\"></a>
 			";
 		if($user->screen_name != $screen_name){
-			$output .= "<a class=\"retw_btn\" title=\"New Retweet\" href=\"#\">New Retweet</a>";
+			$output .= "<a class=\"retw_btn fa fa-retweet\" title=\"New Retweet\" href=\"#\"></a>";
 		}
-		$output .= $status->favorited == true ? "<a class=\"unfav_btn\" title=\"UnFav\" href=\"#\">UnFav</a>" : "<a class=\"favor_btn\" title=\"Fav\" href=\"#\">Fav</a>";
-		if ($user->screen_name == $screen_name) $output .= "<a class=\"delete_btn\" title=\"Delete\" href=\"#\">Delete</a>";
+		$output .= $status->favorited == true ? "<a class=\"unfav_btn fa fa-star-o\" title=\"UnFav\" href=\"#\"></a>" : "<a class=\"favor_btn fa fa-star-o\" title=\"Fav\" href=\"#\"></a>";
+		if ($user->screen_name == $screen_name) $output .= "<a class=\"delete_btn fa fa-trash-o\" title=\"Delete\" href=\"#\"></a>";
 		$output .= "</span><span class=\"status_info\">";
 		if ($status->in_reply_to_status_id) $output .= "<span class=\"in_reply_to\"> <a class=\"ajax_reply\" href=\"ajax/status.php?id=$status->in_reply_to_status_id_str&uid=$user->id \">to $status->in_reply_to_screen_name</a> </span>";
 		$output .= "<span class=\"source\">via $status->source</span>
@@ -141,9 +141,9 @@
 		";
 		
 		if ($isSentPage) {
-			$output .= "<a class=\"msg_delete_btn\" href=\"#\">delete</a>";
+			$output .= "<a class=\"msg_delete_btn fa fa-trash-o\" href=\"#\" title=\"Delete\"></a>";
 		} else {
-			$output .= "<a class=\"msg_replie_btn\" href=\"#\">reply</a><a class=\"msg_delete_btn\" href=\"#\">delete</a>";
+			$output .= "<a class=\"msg_replie_btn fa fa-reply\" href=\"#\" title=\"Reply\"></a><a class=\"msg_delete_btn fa fa-trash-o\" href=\"#\" title=\"Delete\"></a>";
 		}
 		$output .="</span><span class=\"status_info\"><span class=\"date\" id=\"$date\">".date('Y-m-d H:i:s', $date)."</span></span></span></li>";
 		return $output;

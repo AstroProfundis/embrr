@@ -10,25 +10,34 @@
 	</li>
 </ul>
 <hr />
-<div id="trends">
-<h2 id="trends_title">
+<div id="trends" class="side_expandable">
+<h2 id="trends_title" class="closed">
 <span>Trending Topics</span>
+<span class="fa fa-chevron-circle-down"></span>
+<span class="fa fa-chevron-circle-up"></span>
+<span class="fa fa-spinner fa-spin"></span>
 </h2>
 <ul id="trend_entries" class="sidebar-menu">
 </ul>
 </div>
 <hr />
-<div id="following">
-<h2 id="following_title">
+<div id="following" class="side_expandable">
+<h2 id="following_title" class="closed">
 <span>Following</span>
+<span class="fa fa-chevron-circle-down"></span>
+<span class="fa fa-chevron-circle-up"></span>
+<span class="fa fa-spinner fa-spin"></span>
 </h2>
 <div id="following_list">
 </div>
 </div>
 <hr />
-<div id="apiquota">
-<h2 id="apiquota_title">
+<div id="apiquota" class="side_expandable">
+<h2 id="apiquota_title" class="closed">
 <span>API Quota</span>
+<span class="fa fa-chevron-circle-down"></span>
+<span class="fa fa-chevron-circle-up"></span>
+<span class="fa fa-spinner fa-spin"></span>
 </h2>
 <ul id="apiquota_list" class="sidebar-menu">
 </ul>
@@ -37,14 +46,6 @@
 <div id="version">
 <h2 id="version_title"><span>Version: 0.6.2 (f-99)</span></h2>
 </div>
-<!--Preload Start-->
-<div class="preload" style="position: absolute; left: -9999em; top: -9999em;">
-<img src="img/spinner.gif" width="14" height="14"/>
-<img src="img/toggle_up_dark.png" width="13" height="13"/>
-<img src="img/sprite-icons.png" width="288" height="96"/>
-<img src="img/square.gif" width="16" height="11"/>
-</div>
-<!--Preload End-->
 </td>
 </tr>
 </table>
