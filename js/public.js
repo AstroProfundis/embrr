@@ -468,7 +468,7 @@ function onFavor($this){
 			if (msg.indexOf("success") >= 0){
 				updateSentTip("Favorite added successfully.",3e3,"success");
 				$this.parent().parent().parent().append('<i class="faved"></i>');
-				$this.removeClass().addClass("unfav_btn").attr("title","UnFav").text("UnFav");
+				$this.removeClass("favor_btn").addClass("unfav_btn").attr("title","UnFav");
 			}else{
 				updateSentTip("Add failed. Please try again.",3e3,"failure");
 			}
@@ -560,22 +560,22 @@ function onNwRT($this){
 			type: "post",
 			data: "status_id="+status_id,
 			success: function (msg){
-				if (msg.length >= 0){
+				if (msg === "duplicated"){
+					updateSentTip("You have retweeted this tweet!",3e3,"failure");
+				} else if (msg === "empty" || msg === "error"){
+					updateSentTip("Failed to retweet!",3e3,"failure");
+				} else if (msg.length >= 0){
 					statusBody.parent().addClass("retweet");
 					statusBody.find(".source").hide();
 					statusBody.find(".status_info").append("<span class=\"rt_source\">Retweeted by you.").fadeIn("fast");
 					statusBody.find(".date").hide();
-					statusBody.find(".status_info").append("<span class=\"rt_undos\" title=\"Your followers will no longer see the tweet as retweeted by you.\">&nbsp;<a class=\"rt_undo\" href=\"#\">(Undo)</a><span class=\"rt_id\" style=\"display: none;\">"+msg+"</span></span>").fadeIn("fast");
+					statusBody.find(".status_info").append("<a class=\"rt_undos unrt_btn\" title=\"Your followers will no longer see the tweet as retweeted by you.\" href=\"#\">&nbsp;(Undo)</a>").fadeIn("fast");
+					statusBody.find(".retw_btn").removeClass("retw_btn").addClass("unrt_btn");
+					statusBody.find(".actions").append("<span class=\"rt_id\" style=\"display:none\">" + msg + "</span>");
 					updateSentTip("This tweet has been retweeted!",3e3,"success");
 					$(".rt_undos").tipsy({
 							gravity: 's'
 						});
-				}else{
-					if (msg === "duplicated"){
-						updateSentTip("You have retweeted this tweet!",3e3,"failure");
-					}else{
-						updateSentTip("Failed to retweet!",3e3,"failure");
-					}
 				}
 			},
 			error: function (msg){
@@ -600,7 +600,7 @@ function UnFavor($this){
 						$that.parent().fadeOut("fast");
 					}else{
 						$that.parent().find(".faved").fadeOut("fast");
-						$this.removeClass().addClass("favor_btn").attr("title","Fav").text("Fav");
+						$this.removeClass("unfav_btn").addClass("favor_btn").attr("title","Fav");
 					}
 					updateSentTip("This tweet has been unfavored!",3e3,"success");
 				}else{
@@ -643,8 +643,8 @@ function onDelete($this){
 }
 function onUndoRt($this){
 	if (window.confirm("Are you sure to undo this retweet?")){
-		var status_id = $.trim($this.parent().find(".rt_id").text());
-		var statusBody = $this.parent().parent().parent();
+		var statusBody = $this.parent().parent();
+		var status_id = $.trim(statusBody.find(".rt_id").text());
 		statusBody.css("background-color","#FF3300");
 		updateSentTip("Undoing retweet...",5e3,"ing");
 		$.ajax({
@@ -653,15 +653,16 @@ function onUndoRt($this){
 			data: "status_id="+status_id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
-					statusInfo = $this.parent().parent();
+					statusInfo = statusBody.find(".status_info");
 					if (statusInfo.find(".rt_source").size() === 1){
 						statusInfo.find(".source").show().find(".date").show();
 						statusInfo.find(".rt_source").remove()
 						statusInfo.find(".rt_undos").remove();
 						statusBody.removeClass("retweet");
 					}else{
-						statusBody.fadeOut("fast");
+						statusBody.parent().fadeOut("fast");
 					}
+					statusBody.find(".unrt_btn").removeClass("unrt_btn").addClass("retw_btn");
 					updateSentTip("Your retweet has been undo!",3e3,"success");
 				}else{
 					updateSentTip("Undo failed. Please try again.",3e3,"failure");

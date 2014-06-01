@@ -264,6 +264,8 @@ footer li img{border:0 none;margin:-3px;padding:0}
 /*ranking*/
 .rank_list{font-size:12px;margin:0 5px 5px 0}
 .rank_list li{border-bottom:1px solid #CCC;margin:0 10px;overflow:visible;padding:10px;position:relative}
+.rank_list li .list_delete_btn{display:none}
+.rank_list li:hover .list_delete_btn{display:inline-block}
 .rank_content{display:block;line-height:20px;margin-left:63px;min-height:50px;overflow:hidden;position:relative}
 .rank_content span{margin:0;color:#666}
 .rank_count{color:#333!important;display:block;font-size:12px;font-weight:700;margin:4px 0;width:400px}
@@ -300,19 +302,12 @@ footer li img{border:0 none;margin:-3px;padding:0}
 .subnavLink:hover,.ac_over:hover{background-color:#E6E6E6;text-decoration:none}
 
 /*actions button*/
-.actions{border-width:0;bottom:8px;line-height:1.25em;position:absolute;right:0;display:none;z-index:9}
-.rt_btn,.replie_btn,.favor_btn,.delete_btn,.msg_replie_btn,.msg_delete_btn,.retw_btn,.unfav_btn,.unrt_btn{display:inline-block;height:16px;width:21px;margin:-7px 0;overflow:hidden;text-indent:-9999em}
-.ss_delete_btn{display:inline-block;height:16px;width:21px;overflow:hidden;text-indent:-9999em;float:right}
-.replie_btn,.msg_replie_btn{background:url("../img/sprite_icons.png") no-repeat scroll 4px 1px transparent}
-.replie_btn:hover,.msg_replie_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -17px 1px transparent}
-.retw_btn,.unrt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll 0 -15px transparent}
-.retw_btn:hover,.unrt_btn{background:url("../img/sprite_icons.png") no-repeat scroll -21px -15px transparent}
-.favor_btn,.unfav_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll 2px -32px transparent}
-.favor_btn:hover,.unfav_btn{background:url("../img/sprite_icons.png") no-repeat scroll -19px -32px transparent}
-.ss_delete_btn,.delete_btn,.msg_delete_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -47px transparent}
-.ss_delete_btn:hover,.delete_btn:hover,.msg_delete_btn:hover{background:transparent url(../img/sprite_icons.png) no-repeat scroll -21px -47px}
-.rt_btn{background:url("../img/sprite_icons.png") no-repeat scroll 0 -63px transparent}
-.rt_btn:hover{background:url("../img/sprite_icons.png") no-repeat scroll -21px -63px transparent}
+.actions{border-width:0;bottom:3px;line-height:1.25em;position:absolute;right:0;display:none;z-index:9}
+.ss_delete_btn,.list_delete_btn,.actions a{height:16px;width:21px;color:#ADADAD}
+.list_delete_btn,.actions a{margin:-7px 0}
+.ss_delete_btn:hover,.list_delete_btn:hover,.actions a:hover{text-decoration:none!important;color:#333}
+.actions a.unrt_btn:hover,.actions a.unfav_btn:hover{color:#ADADAD}
+.actions a.unrt_btn,.actions a.unfav_btn{color:#333}
 
 /*search*/
 #block{font-size:12px;margin:20px}
@@ -326,6 +321,8 @@ background:url("../img/nav_search_submit.png") repeat scroll -2px 0 transparent!
 background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -25px!important;outline:none}
 #header_search_submit:focus, #header_search_submit:active{
 background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -50px!important;outline:none}
+.ac_results .ss_delete_btn{float:right;display:none}
+.ac_odd:hover .ss_delete_btn,.ac_even:hover .ss_delete_btn{display:inline-block}
 
 /* =setting
 ----------------------------------------*/
@@ -379,7 +376,6 @@ fieldset.settings .btn{padding: 4px 8px}
 #member_form span{display:block;font-size:12px;margin:5px;text-align:center}
 #list_members{font-size:12px;height:70px;padding:3px;width:266px}
 #member_submit,#list_submit,#member_cancel{padding:2px 4px}
-.list_delete_btn{margin-top:5px}
 
 /*fieldsets*/
 fieldset.common-form{border:0 none;margin:0}

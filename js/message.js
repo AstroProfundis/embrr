@@ -13,7 +13,8 @@ $(function () {
 	$("#sent_id").autocomplete(auto);
 	$("#allMessage").click(function(e) {
 		var $this = $(e.target);
-		var type = $this.attr('class');
+		var matches = ($this.attr('class') || '').match(/\w+_btn/);
+		var type = matches ? matches[0] : '';
 		switch(type) {
 			case 'msg_replie_btn':
 				e.preventDefault();

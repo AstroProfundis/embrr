@@ -86,9 +86,6 @@
 					<span class='subnavLink'><a href='list.php?id=$id'>Go back to the list</a></span>
 					</div>";
 				break;
-			case 'browse':
-				echo "<div id='subnav'><span class='subnavNormal'>See what people are saying about…</span></div>";
-				break;
 		}
 	}
 
@@ -124,9 +121,6 @@
 			$prelist = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
-		case 'browse':
-			$userlist = $t->followers($id, $p);
-			break;
 	}
 	$empty = count($userlist) == 0 ? true : false;
 	if ($empty) {
@@ -145,7 +139,7 @@
 				";
 			if ($user->description) $output .= "<span class=\"rank_description\"><b>Bio:</b> $user->description</span>";
 			$list_id = explode("/",$id);
-			if ($type == 'list_members' &&  $list_id[0] == $t->username) $output .= "<span class=\"status_info\"><a class=\"delete_btn list_delete_btn\" href=\"#\">delete</a></span>";
+			if ($type == 'list_members' &&  $list_id[0] == $t->username) $output .= "<span class=\"status_info\"><a class=\"list_delete_btn fa fa-trash-o\" href=\"#\" title=\"Delete member\"></a></span>";
 			$output .= "
 				</div>
 				</li>
