@@ -922,7 +922,7 @@ $(function (){
 $(function (){
 	$("#trends_title").on("click",function (){
 		if ($(this).data("show_trends")=="yes"){
-			$("#trends_title").removeClass();
+			$("#trends_title").removeClass().addClass("closed");
 			$("#trend_entries").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_trends","no");
@@ -935,7 +935,7 @@ $(function (){
 	});
 	$("#following_title").on("click",function (){
 		if ($(this).data("show_flw")=="yes"){
-			$("#following_title").removeClass();
+			$("#following_title").removeClass().addClass("closed");
 			$("#following_list").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_flw","no");
@@ -948,7 +948,7 @@ $(function (){
 	});
 	$("#apiquota_title").on("click",function (){
 		if ($(this).data("show_api")=="yes"){
-			$("#apiquota_title").removeClass();
+			$("#apiquota_title").removeClass().addClass("closed");
 			$("#apiquota_list").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_api","no");

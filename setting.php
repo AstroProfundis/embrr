@@ -164,12 +164,6 @@
 			<label>Use nickname instead of username</label>
 
 			<br /><br />
-			
-			<label>Custom Themes</label>
-			<select id="styleSelect"></select>
-			<small>(We have awesome themes for you!)</small>
-
-			<br /><br />
 
 			<label>Background Color</label>
 			<input class="bg_input" type="text" id="bodyBg" name="bodyBg" value="<?php echo getDefCookie("Bgcolor","") ?>" />

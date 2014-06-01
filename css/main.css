@@ -138,6 +138,7 @@ li.loading #avatar{opacity:0.2}
 #sideid{display:block;padding:10px 0 0 18px;margin-bottom:5px}
 #side_name{font:bold 1.3em/1.3em Helvetica Neue,Helvetica,sans-serif;color:#2276BB;margin-right:1px}
 #profileRefresh{color:#ADADAD;font-size:11px;text-decoration:none}
+#profileRefresh:hover{color:#333}
 #me_tweets{font-family:Helvetica,Arial,sans-serif;font-size:90%}
 #update_count{font-weight:700}
 #user_stats{clear:both;padding:0 0 0 10px}
@@ -201,11 +202,6 @@ ul.sidebar-menu li.active a,a.active{background-color:#EDFEFF;color:#333;font-we
 #side span.view-all{display:inline;margin:0}
 #side span.pipe{border-left:1px solid #C0DEED;padding-left:4px;padding-right:4px}
 #side #following span.xref{display:block;margin-top:-5px;padding:0 14px 5px}
-h2.sidebar-title{font-size:1.05em;font-weight:400;padding:.2em 14px}
-h2.sidebar-subtitle{font-size:1.3em;font-weight:400;padding:.2em 14px}
-#side .collapsible h2.sidebar-title{background:transparent url(../img/toggle_up_dark.png) no-repeat scroll right center;width:157px}
-#side .collapsible.collapsed h2.sidebar-title{background:transparent url(../img/toggle_down_dark.png) no-repeat scroll right center}
-#side div.collapsible.loading h2.sidebar-title{background-clip:border!important;-moz-background-inline-policy:continuous!important;background-origin:padding!important;background:transparent url(../img/spinner.gif) no-repeat scroll right center!important}
 #side .actions{border:1px solid #87BC44;margin:10px -3px}
 #side .actions small{font-size:.9em}
 #side .actions a{padding-left:7px}
@@ -236,10 +232,10 @@ td.column,#side .stats td{padding:0;vertical-align:top}
 #trend_entries, #apiquota_list{display:none;width:177px;float:left;margin-top:5px!important}
 #trend_entries li{word-break:break-all}
 #trends, #following, #apiquota, #version{margin-left:-2px}
-#trends_title, #following_title, #apiquota_title,#version_title{background:transparent url(../img/toggle_down_dark.png) no-repeat scroll right center;font-weight:400;font-size:110%;padding-left:3px;margin-bottom:0;margin-top:0;width:177px;cursor:pointer}
-#version_title{background:none!important}
-#trends_title.loading, #following_title.loading, #apiquota_title.loading{background:transparent url(../img/spinner.gif) no-repeat scroll right center!important}
-#trends_title.open, #following_title.open, #apiquota_title.open{background:transparent url(../img/toggle_up_dark.png) no-repeat scroll right center!important}
+#trends_title, #following_title, #apiquota_title,#version_title{font-weight:400;font-size:110%;padding-left:3px;margin-bottom:0;margin-top:0;width:177px;cursor:pointer}
+.side_expandable h2 span.fa{display:none;float:right;color:#ADADAD}
+.side_expandable h2:hover span.fa{color:#333}
+.side_expandable h2.closed span.fa.fa-chevron-circle-down,.side_expandable h2.loading span.fa.fa-spinner,.side_expandable h2.open span.fa.fa-chevron-circle-up{display:inline-block}
 #following_list{display:none;float:left;padding:10px 10px 0}
 #following_list span{float:left;padding:0 3px 2px 2px}
 #following_list img{padding:0}
