@@ -112,7 +112,8 @@ var updateStatus = function(){
 		updateSentTip("Your cannot send an empty tweet!",3e3,"failure");
 		return false;
 	}else{
-		$('#tip').addClass('loading').find('b').css('color','transparent');
+		$('#tip span').show();
+		$('#tip b').hide();
 		$.cookie('recover',text,{'expire': 30});
 		$.ajax({
 			url: "ajax/update.php",
@@ -123,7 +124,8 @@ var updateStatus = function(){
 			},
 			success: function (msg){
 				if ($.trim(msg).indexOf("</li>") > 0){
-					$('#tip').removeClass('loading').find("b").text("140").show();
+					$('#tip span').hide();
+					$('#tip b').show();
 					if ( (text.substring(0,2)).toUpperCase() == "D "){ //exclude the DMs. the exam of user_name is omitted.
 						updateSentTip("Your DM has been sent!",3e3,"success");
 						$("#sent_id,#textbox").val("");
@@ -151,7 +153,8 @@ var updateStatus = function(){
 						}
 					}
 				}else{
-					$('#tip').removeClass('loading');
+					$('#tip span').hide();
+					$('#tip b').show();
 					leaveWord();
 					updateSentTip("Update failed. Please try again.",3e3,"failure");
 					$('#tweeting_button').removeClass('btn-disabled');
@@ -159,7 +162,8 @@ var updateStatus = function(){
 				PAUSE_UPDATE = false;
 			},
 			error: function (msg){
-				$('#tip').removeClass('loading');
+				$('#tip span').hide();
+				$('#tip b').show();
 				leaveWord();
 				updateSentTip("Update failed. Please try again.",3e3,"failure");
 				$('#tweeting_button').removeClass('btn-disabled');
@@ -191,7 +195,8 @@ function shortUrlDisplay(){
 				updateSentTip(unshorten+" URL(s) are maintained!",3e3,"failure");
 			}
 			if (l_urls != ""){
-				$('#tip').addClass('loading').find('b').css('color','transparent');
+				$('#tip span').show();
+				$('#tip b').hide();
 				$.post("ajax/shorturl.php",{
 					long_urls: l_urls
 					},function (data){
@@ -215,7 +220,8 @@ function getShortUrl(res){
 		if (s_url){
 			$textbox.val($textbox.val().replace(l_url,s_url)+"");
 			leaveWord();
-			$('#tip').removeClass('loading');
+			$('#tip span').hide();
+			$('#tip b').show();
 			updateSentTip("Successfully shortened your URLs!",3e3,"success");
 		}	else{
 			err_cnt++;
