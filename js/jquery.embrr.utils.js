@@ -237,6 +237,7 @@ jQuery.cookie = function (name, value, options) {
                 setTimeout(function () {
                     if (a.data(this, "cancel.tipsy")) return;
                     var d = a.data(b, "active.tipsy");
+		    if (!d) return;
                     if (c.fade) {
                         d.stop().fadeOut(function () {
                             a(this).remove()
