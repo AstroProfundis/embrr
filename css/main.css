@@ -41,11 +41,15 @@ nav a:hover{background-color:#DDEEF6;text-decoration:none}
 #tweeting_controls{float:right;padding:5px 12px 0 5px}
 #tweeting_controls a{line-height:13px}
 a.a-btn, a.a-btn:visited{color:#333!important}
-a.a-btn{border-radius:4px;background:url("../img/bg-btn.gif") repeat-x scroll 0 0 #DDD;border-color:#DDD #DDD #CCC!important;border-style:solid;border-width:1px!important;cursor:pointer;display:inline-block;font-family:"lucida grande",helvetica,tahoma,arial;font-size:11px;line-height:14px;padding:4px 8px 5px;text-decoration:none;text-shadow:1px 1px 0 #FFF!important;-moz-transition:all .5s ease-out;-webkit-transition:all .5s ease-out;-ms-transition:all .5s ease-out}
-a.btn-disabled{background-image:none;opacity:0.6;cursor:default}
-a.a-btn-m{border-radius:5px;background-position:0 -200px;font-family:"helvetica neue",arial,sans-serif;font-size:15px;line-height:20px;padding:5px 15px 6px}
+a.a-btn{border-radius:5px;
+background:-webkit-linear-gradient(white,#DDD);
+background:-o-linear-gradient(white,#DDD);
+background:-moz-linear-gradient(white,#DDD);
+background:linear-gradient(white,#DDD);
+border-color:#DDD #DDD #CCC!important;border-style:solid;border-width:1px!important;cursor:pointer;display:inline-block;font-family:"helvetica neue",arial,sans-serif;font-size:15px;line-height:20px;padding:5px 15px 6px;text-decoration:none;text-shadow:1px 1px 0 #FFF!important;-moz-transition:all .5s ease-out;-webkit-transition:all .5s ease-out;-ms-transition:all .5s ease-out}
+a.btn-disabled{opacity:0.6;cursor:default;background:#DDD}
 a.a-btn:hover, a.a-btn:focus{border-color:#999 #999 #888!important;color:#000;outline:medium none;text-decoration:none}
-a.a-btn:active{background-image:none;outline:medium none}
+a.a-btn:active{outline:medium none}
 
 /*legacy below*/
 #statuses,#ajax_statuses{background-color:#FFF;float:left;padding:10px;width:544px}
@@ -243,11 +247,14 @@ td.column,#side .stats td{padding:0;vertical-align:top}
 /* =buttons
 ----------------------------------------*/
 .btn::-moz-focus-inner{border:0 none}
-.btn,input.btn[type=submit],input.btn[type=button]{border-radius:4px;background:#DDD url(../img/bg-btn.gif) repeat-x scroll 0 0;border-color:#DDD #DDD #CCC;border-style:solid;border-width:1px;color:#333;font-size-adjust:none;font-stretch:normal;font-style:normal;font-variant:normal;margin:0;overflow:visible;padding:4px 8px 5px;text-shadow:1px 1px 0 #FFF;width:auto;font:400 11px/14px "tahoma";cursor:pointer}
-#btn{border-radius:4px;background:#DDD url(../img/bg-btn.gif) repeat-x scroll 0 0;border-color:#DDD #DDD #CCC;border-style:solid;border-width:1px;color:#333;font-size-adjust:none;font-stretch:normal;font-style:normal;font-variant:normal;margin:0;overflow:visible;padding:4px 5px 5px;text-shadow:1px 1px 0 #FFF;width:auto;font:400 11px/14px "tahoma"}
-.btn:hover,.btn:focus,input.btn[type=submit]:hover,input.btn[type=submit]:focus,input.btn[type=button]:hover,input.btn[type=button]:focus,button.btn:hover,button.btn:focus{background-position:0 -6px;border-color:#999 #999 #888;color:#000}
-.btn:active,.btn:active,input.btn[type=submit]:active,input.btn[type=button]:active,button.btn:active{background-image:none!important;outline:medium none!important;text-shadow:none!important}
-#btn:hover,#btn:focus{background-position:0 -6px;border-color:#999 #999 #888;color:#000}
+.btn,input.btn[type=submit],input.btn[type=button]{border-radius:4px;
+background:-webkit-linear-gradient(white,#DDD);
+background:-o-linear-gradient(white,#DDD);
+background:-moz-linear-gradient(white,#DDD);
+background:linear-gradient(white,#DDD);
+border-color:#DDD #DDD #CCC;border-style:solid;border-width:1px;color:#333;font-size-adjust:none;font-stretch:normal;font-style:normal;font-variant:normal;margin:0;overflow:visible;padding:4px 8px 5px;text-shadow:1px 1px 0 #FFF;width:auto;font:400 11px/14px "tahoma";cursor:pointer}
+.btn:hover,.btn:focus,input.btn[type=submit]:hover,input.btn[type=submit]:focus,input.btn[type=button]:hover,input.btn[type=button]:focus,button.btn:hover,button.btn:focus{border-color:#999 #999 #888;color:#000}
+.btn:active,.btn:active,input.btn[type=submit]:active,input.btn[type=button]:active,button.btn:active{background:#DDD;outline:medium none;text-shadow:none}
 
 /*footer*/
 footer ul,footer li{overflow:visible}
@@ -440,8 +447,18 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .right_menu .rm_spam:hover i, .right_menu .ul_spam:hover i{background-position:-256px -32px}
 
 /*Twitter Buttons*/
-.btn-green{background-color:#272!important;background-image:url("../img/bg-btn-green.gif")!important;border-color:#272 #272 #161!important;color:#fff!important;text-shadow:-1px -1px 0 #272!important}
-.btn-red{background-color:#a22!important;background-image:url("../img/bg-btn-red.gif")!important;background-position:0 0;border-color:#a22 #a22 #911!important;text-shadow:-1px -1px 0 #a22!important;color:#fff!important}
-.btn:hover,.btn:focus,input[type=submit].btn:hover,input[type=submit].btn:focus,button.btn:hover,button.btn:focus{border-color:#999 #999 #888;background-position:0 -6px;color:#000}
-.btn-green:hover,.btn-green:focus,input[type=submit].btn-green:hover,input[type=submit].btn-green:focus,button.btn-green:hover,button.btn-green:focus{background-color:#272!important;border-color:#050 #050 #040!important;color:#fff}
-.btn-red:hover,.btn-red:focus,input[type=submit].btn-red:hover,input[type=submit].btn-red:focus,button.btn-red:hover,button.btn-red:focus{background-color:#a22!important;border-color:#611 #611 #500!important;color:#fff}
+.btn.btn-green{border-color:#272 #272 #161;color:#fff;text-shadow:-1px -1px 0 #272;
+background:-webkit-linear-gradient(#6b6,#161);
+background:-o-linear-gradient(#6b6,#161);
+background:-moz-linear-gradient(#6b6,#161);
+background:linear-gradient(#6b6,#161);
+}
+.btn.btn-red{border-color:#a22 #a22 #911;text-shadow:-1px -1px 0 #a22;color:#fff;
+background:-webkit-linear-gradient(#f66,#911);
+background:-o-linear-gradient(#f66,#911);
+background:-moz-linear-gradient(#f66,#911);
+background:linear-gradient(#f66,#911);
+}
+.btn.btn-green:active,input[type=submit].btn-green:active,button.btn-green:active{background:#272}
+.btn.btn-red:active,input[type=submit].btn-red:active,button.btn-red:active{background:#a22}
+span.is-following{color:green;background-color:#DDD;border-style:solid;border-radius:3px;border-width:0 0 1px;border-color:white;font-size:smaller;padding:2px}
