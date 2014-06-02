@@ -81,14 +81,8 @@
 	}
 ?>
 <div id="tweeting_controls">
-	<a class="a-btn a-btn-m btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span>
-		<?php if($title == 'Direct Messages') {
-			echo 'Send';
-			} else {
-				echo 'Tweet';
-			} ?>
-		</span></a>
-	</div>
+	<a class="a-btn a-btn-m btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span class="fa fa-send-o"></span></a>
+</div>
 	
 	<div id="func_set" style="left:<?php echo ($title == 'Updates' || $title == 'Home') ? '271' : '298'; ?>px">
 	

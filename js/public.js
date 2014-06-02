@@ -43,7 +43,7 @@ function leaveWord(num){
 		$("#tweeting_button").addClass('btn-disabled');
 	}
 }
-var formHTML = '<span id="tip"><b>140</b></span><form><textarea name="status" id="textbox"></textarea><input type="hidden" id="in_reply_to" name="in_reply_to" value="0" /><div id="tweeting_controls"><a class="a-btn a-btn-m btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span>Send</span></a></div></form>';
+var formHTML = '<span id="tip"><b>140</b></span><form><textarea name="status" id="textbox"></textarea><input type="hidden" id="in_reply_to" name="in_reply_to" value="0" /><div id="tweeting_controls"><a class="a-btn a-btn-m btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span class="fa fa-send-o"></span></a></div></form>';
 
 var embrTweet=function(objs){
 	if(typeof objs === 'undefined'){
