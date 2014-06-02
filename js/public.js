@@ -67,20 +67,12 @@ var formFunc = function(){
 			leaveWord();
 			$(e.target).unbind('keydown');
 			if ((e.ctrlKey || e.metaKey) && e.which == 13){
-				if (PAUSE_UPDATE !== true){
-					updateStatus();
-				}else{
-					return 0;
-				}
+				updateStatus();
 			}else{
 				if($.inArray(e.which,[91,93,224,17]) > -1){
 					$(e.target).keydown(function(e){
 						if(e.which == 13){
-							if (PAUSE_UPDATE !== true){
-								updateStatus();
-							}else{
-								return 0;
-							}
+							updateStatus();
 							e.stopPropagation();
 						}
 					});
@@ -89,14 +81,13 @@ var formFunc = function(){
 		});
 	$("#tweeting_button").click(function (e){
 		e.preventDefault();
-		if ($("#textbox").val().length >0 ){
-			updateStatus();
-		}
+		updateStatus();
 	});		
 };
 var updateStatus = function(){
-	PAUSE_UPDATE = true;
+	if (PAUSE_UPDATE) return false;
 	var text = $("#textbox").val();
+	if ($.trim(text).length == 0) return false;
 	var sent_id = $("#sent_id").val();
 	if(sent_id){
 		text = "D "+sent_id+' '+text; 
@@ -106,71 +97,68 @@ var updateStatus = function(){
 		$.cookie('recover',text,{'expire': 30});
 		if(window.confirm("Your tweet is longer than 140 words! truncated? (you can restore later using restore button.)")){
 			text = text.substr(0,137)+'...' ;
+			$("#textbox").val(text);
+			leaveWord();
 		}
-	}
-	if (wordsCount == 0 || $.trim(text).length == 0){
-		updateSentTip("Your cannot send an empty tweet!",3e3,"failure");
 		return false;
-	}else{
-		$('#tip span').show();
-		$('#tip b').hide();
-		$.cookie('recover',text,{'expire': 30});
-		$.ajax({
-			url: "ajax/update.php",
-			type: "POST",
-			data:{
-				"status": text,
-				"in_reply_to": $("#in_reply_to").val()
-			},
-			success: function (msg){
-				if ($.trim(msg).indexOf("</li>") > 0){
-					$('#tip span').hide();
-					$('#tip b').show();
-					if ( (text.substring(0,2)).toUpperCase() == "D "){ //exclude the DMs. the exam of user_name is omitted.
-						updateSentTip("Your DM has been sent!",3e3,"success");
-						$("#sent_id,#textbox").val("");
-						leaveWord();
-					}else{
-						updateSentTip("Your status has been updated!",3e3,"success");
-						$("#textbox").val("");
-						leaveWord();
-						if(typeof INTERVAL_COOKIE !== 'undefined'){
-							var source = $(msg).prependTo($("#allTimeline"));
-							source.hide().slideDown('fast');
-							var statusid = $.trim($(msg).find('.status_id').text());
-							var statusText = $.trim($(msg).find('.tweet').html());
-							var statusDate = $.trim($(msg).find('span.date a').attr('id'));
-							embrTweet(source);
-							$(".mine").slideDown("fast");
-							$("#full_status").fadeIn("fast");
-							$("#currently .status-text").hide().text(limitation(text)).fadeIn("fast");
-							$("#latest_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>").fadeIn("fast");
-							$("#currently .full-text").hide().html(statusText);
-							$("#full_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>");
-							$("#full_meta a,.full-text a").click(function (e){e.stopPropagation();});
-							previewMedia(source);
-							freshProfile();
-						}
-					}
-				}else{
-					$('#tip span').hide();
-					$('#tip b').show();
+	}
+	PAUSE_UPDATE = true;
+	$('#tip span').show();
+	$('#tip b').hide();
+	$.cookie('recover',text,{'expire': 30});
+	$.ajax({
+		url: "ajax/update.php",
+		type: "POST",
+		data:{
+			"status": text,
+			"in_reply_to": $("#in_reply_to").val()
+		},
+		success: function (msg){
+			if ($.trim(msg).indexOf("</li>") > 0){
+				$('#tip span').hide();
+				$('#tip b').show();
+				if ( (text.substring(0,2)).toUpperCase() == "D "){ //exclude the DMs. the exam of user_name is omitted.
+					updateSentTip("Your DM has been sent!",3e3,"success");
+					$("#sent_id,#textbox").val("");
 					leaveWord();
-					updateSentTip("Update failed. Please try again.",3e3,"failure");
-					$('#tweeting_button').removeClass('btn-disabled');
+				}else{
+					updateSentTip("Your status has been updated!",3e3,"success");
+					$("#textbox").val("");
+					leaveWord();
+					if(typeof INTERVAL_COOKIE !== 'undefined'){
+						var source = $(msg).prependTo($("#allTimeline"));
+						source.hide().slideDown('fast');
+						var statusid = $.trim($(msg).find('.status_id').text());
+						var statusText = $.trim($(msg).find('.tweet').html());
+						var statusDate = $.trim($(msg).find('span.date a').attr('id'));
+						embrTweet(source);
+						$(".mine").slideDown("fast");
+						$("#full_status").fadeIn("fast");
+						$("#currently .status-text").hide().text(limitation(text)).fadeIn("fast");
+						$("#latest_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>").fadeIn("fast");
+						$("#currently .full-text").hide().html(statusText);
+						$("#full_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>");
+						$("#full_meta a,.full-text a").click(function (e){e.stopPropagation();});
+						previewMedia(source);
+						freshProfile();
+					}
 				}
-				PAUSE_UPDATE = false;
-			},
-			error: function (msg){
+			}else{
 				$('#tip span').hide();
 				$('#tip b').show();
 				leaveWord();
 				updateSentTip("Update failed. Please try again.",3e3,"failure");
-				$('#tweeting_button').removeClass('btn-disabled');
-				PAUSE_UPDATE = false;
 			}
-		});
-	}
+			PAUSE_UPDATE = false;
+		},
+		error: function (msg){
+			$('#tip span').hide();
+			$('#tip b').show();
+			leaveWord();
+			updateSentTip("Update failed. Please try again.",3e3,"failure");
+			PAUSE_UPDATE = false;
+		}
+	});
 };
 function shortUrlDisplay(){
 	var stringVar = $("#textbox").val();

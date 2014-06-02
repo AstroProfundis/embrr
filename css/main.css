@@ -42,7 +42,7 @@ nav a:hover{background-color:#DDEEF6;text-decoration:none}
 #tweeting_controls a{line-height:13px}
 a.a-btn, a.a-btn:visited{color:#333!important}
 a.a-btn{border-radius:4px;background:url("../img/bg-btn.gif") repeat-x scroll 0 0 #DDD;border-color:#DDD #DDD #CCC!important;border-style:solid;border-width:1px!important;cursor:pointer;display:inline-block;font-family:"lucida grande",helvetica,tahoma,arial;font-size:11px;line-height:14px;padding:4px 8px 5px;text-decoration:none;text-shadow:1px 1px 0 #FFF!important;-moz-transition:all .5s ease-out;-webkit-transition:all .5s ease-out;-ms-transition:all .5s ease-out}
-a.btn-disabled{background-image:none;opacity:0.6}
+a.btn-disabled{background-image:none;opacity:0.6;cursor:default}
 a.a-btn-m{border-radius:5px;background-position:0 -200px;font-family:"helvetica neue",arial,sans-serif;font-size:15px;line-height:20px;padding:5px 15px 6px}
 a.a-btn:hover, a.a-btn:focus{border-color:#999 #999 #888!important;color:#000;outline:medium none;text-decoration:none}
 a.a-btn:active{background-image:none;outline:medium none}
