@@ -85,8 +85,8 @@
 						<span class=\"rank_count\">Followers: {$list->subscriber_count}&nbsp;&nbsp;Members: {$list->member_count}&nbsp;&nbsp;$mode</span> 
 				";
 				if ($list->description != '') $output .= "<span class=\"rank_description\">Description: $list->description</span>";
-				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"unfollow_list\">Unfollow</a></span>";
-				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"javascript:void()\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"javascript:void()\" class=\"add_member\">Add Members</a></span>";
+				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"#\" class=\"unfollow_list\">Unfollow</a></span>";
+				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a href=\"#\" class=\"edit_list btn\">Edit</a> <a href=\"#\" class=\"delete_list btn\">Delete</a> <a href=\"#\" class=\"add_member btn\">Add Members</a></span>";
 				$output .= "
 					</div>
 				</li>

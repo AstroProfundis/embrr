@@ -63,7 +63,10 @@
 		<a href="https://twitter.com/<?php echo $userid ?>"><img id="info_headimg" src="<?php echo $userinfo['image_url'] ?>" /></a>
 		<div id="info_name" style="display:inline-block"><?php echo $userid ?></div>
 		<?php if ($isFollower) {?>
-		<span id="following_me" style="display:inline!important"><img style="" src="img/yes.gif" alt="" class="icon"/><span>Following me</span></span>
+		<span id="following_me" style="display:inline!important">
+			<span class="fa fa-check is-following"></span>
+			<span>Following me</span>
+		</span>
 <?php 
 		}
 ?>
