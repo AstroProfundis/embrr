@@ -567,9 +567,6 @@ function onNwRT($this){
 					statusBody.find(".retw_btn").removeClass("retw_btn").addClass("unrt_btn");
 					statusBody.find(".actions").append("<span class=\"rt_id\" style=\"display:none\">" + msg + "</span>");
 					updateSentTip("This tweet has been retweeted!",3e3,"success");
-					$(".rt_undos").tipsy({
-							gravity: 's'
-						});
 				}
 			},
 			error: function (msg){
@@ -1096,12 +1093,6 @@ $(window).load(function(){
 				hotkeyHandler(e.keyCode);
 			}
 		}
-	});
-	$("#statuses .big-retweet-icon,#func_set .func_btn,#profileRefresh").tipsy({
-		gravity: 's'
-	});
-	$('#symbols span').tipsy({
-		gravity: $.fn.tipsy.autoNS
 	});
 	$(document).on("mouseout", "#statuses .mine", function (e){
 		$(e.target).removeClass("mine").addClass("myTweet");

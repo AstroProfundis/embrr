@@ -126,14 +126,8 @@ li.loading #avatar{opacity:0.2}
 .ajax_form li .status_body{display:block;line-height:22px;margin-left:50px;margin-right:5px;overflow:hidden;position:relative}
 /*pagination*/
 #pagination{margin:5px}
-#pagination p.no-more-tweets{font-size:1.1em;text-align:center}
-.more{background-color:#FFF;background-image:url(../img/more.gif);background-position:left top;background-repeat:repeat-x;border-color:#DDD #AAA #AAA #DDD;border-style:solid;border-width:1px;display:block;font-size:14px;font-weight:700;height:22px;line-height:1.5em;margin-bottom:6px;outline-color:0;outline-style:none;outline-width:medium;padding:6px 0;text-align:center;text-shadow:1px 1px 1px #FFF;width:45%}
-.more:hover{background-position:left -78px;border:1px solid #bbb;text-decoration:none}
-.more:active{background-position:left -38px;color:#666}
-.more.loading{background-color:#fff;background-image:url(../img/ajax.gif);background-position:50% 50%;background-repeat:no-repeat;border:1px solid #eee;cursor:default!important}
-.more::-moz-focus-inner{border:0}
-#pagination.pagination{height:1.5em}
-#pagination.pagination a,#pagination.pagination .link-like{border:1px solid #cecece;float:right;margin:0 0 0 10px;padding:.25em 1em}
+#pagination a{margin:20px auto 6px;width:25%;text-align:center}
+#pagination a:hover{text-decoration:none}
 
 /*sidebar*/
 #side_base{border-radius:0 5px 5px 0;background-color:#DDEEF6;border-left:1px solid #C0DEED;line-height:1.2;vertical-align:top;width:198px}
@@ -373,7 +367,9 @@ fieldset.settings .btn{padding: 4px 8px}
 #list_protect{width:16px}
 #list_submit{margin-left:220px;width:60px}
 #list_form{border-radius:8px;background-color:#F5F5F5;border:3px solid #CCC;display:none;margin:0 auto;padding:10px 10px 0;width:390px}
-#list_create_btn{display:block;margin-bottom:10px;text-align:center}
+#mylists_btns{text-align:center;display:block}
+#mylists_btns a{display:inline-block;margin:20px auto 10px}
+#mylists_btns a:hover{text-decoration:none}
 #member_form{border-radius:8px;background-color:#F5F5F5;border:4px solid #CCC;font-size:12px;padding:5px;position:absolute}
 #member_form span{display:block;font-size:12px;margin:5px;text-align:center}
 #list_members{font-size:12px;height:70px;padding:3px;width:266px}
@@ -408,16 +404,6 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .ac_loading{background:#FFF url(img/ajax.gif) right center no-repeat}
 .ac_odd{background-color:#eee}
 .ac_even{background-color:#fff}
-
-/*Tipsy*/
-.tipsy{color:#333;cursor:default;font-size:11px;line-height:18px;position:absolute;background:url("../img/tipsy.gif") no-repeat;opacity:0.8;padding:5px;display:none}
-.tipsy-inner{border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.5);-webkit-box-shadow:0 1px 2px rgba(0,0,0,.5);background-color:#000;color:#DDD;max-width:200px;padding:8px;text-align:left}
-.tipsy-inner span{border-radius:3px;background-color:#333;font-size:12px;padding:2px 4px}
-.tipsy-inner strong{font-size:12px}
-.tipsy-north{background-position:center top}
-.tipsy-south{background-position:center bottom}
-.tipsy-east{background-position:right center}
-.tipsy-west{background-position:left center}
 
 /*Avatar Menu*/
 .right_menu .menu button.clicked{background-image:none}
@@ -459,6 +445,7 @@ background:-o-linear-gradient(#f66,#911);
 background:-moz-linear-gradient(#f66,#911);
 background:linear-gradient(#f66,#911);
 }
+span.is-following{color:green;background-color:#DDD;border-style:solid;border-radius:3px;border-width:0 0 1px;border-color:white;font-size:smaller;padding:2px}
 .btn.btn-green:active,input[type=submit].btn-green:active,button.btn-green:active{background:#272}
 .btn.btn-red:active,input[type=submit].btn-red:active,button.btn-red:active{background:#a22}
-span.is-following{color:green;background-color:#DDD;border-style:solid;border-radius:3px;border-width:0 0 1px;border-color:white;font-size:smaller;padding:2px}
+a.btn.btn-white,input.btn.btn-white{font-size:14px;font-family:tahoma;font-weight:700;padding:9px 11px}

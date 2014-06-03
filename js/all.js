@@ -178,9 +178,6 @@ function updateFunc(type, name, pw) {
 					$("div.new").filter(":first").remove();
 					$("span.tweetcount").filter(":last").text(navNum + len);
 				}
-				$("span.big-retweet-icon").tipsy({
-						gravity: 's'
-					});
 				previewMedia(source);
 			}
 			PAUSE_TIMELINE = false;

@@ -147,19 +147,19 @@
 		}
 		$output .= "</ol><div id=\"pagination\">";
 		if ($type == 'list_members' || $type == 'list_followers' || $type == 'blocks') {
-			if ($prelist != 0) $output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"list_members.php?id=$id&c=$prelist\">Back</a>";
-			if ($nextlist != 0) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"list_members.php?id=$id&c=$nextlist\">Next</a>";
+			if ($prelist != 0) $output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"list_members.php?id=$id&c=$prelist\">Back</a>";
+			if ($nextlist != 0) $output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"list_members.php?id=$id&c=$nextlist\">Next</a>";
 		} else {
 			if ($id) {
 				if ($previous_page !== "0")
-					$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"$type.php?id=$id&p=" . $previous_page . "\">Back</a>";
+					$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"$type.php?id=$id&p=" . $previous_page . "\">Back</a>";
 				if ($next_page !== "0")
-					$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"$type.php?id=$id&p=" . $next_page . "\">Next</a>";
+					$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"$type.php?id=$id&p=" . $next_page . "\">Next</a>";
 			} else {
 				if ($previous_page !== "0")
-					$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"$type.php?p=" . $previous_page . "\">Back</a>";
+					$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"$type.php?p=" . $previous_page . "\">Back</a>";
 				if ($next_page !== "0")
-					$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"$type.php?p=" . $next_page . "\">Next</a>";
+					$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"$type.php?p=" . $next_page . "\">Next</a>";
 			}
 		}
 		$output .= "</div>";

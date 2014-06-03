@@ -93,9 +93,6 @@ function update() {
 						$("div.new").filter(":first").remove();
 						$("span.tweetcount").filter(":last").text(num + $(msg).length - 1);
 					}
-					$("span.big-retweet-icon").tipsy({
-						gravity: 's'
-					});
 					previewMedia(source);
 				} else {
 					updateSentTip('No new tweets', 3000, 'failure');

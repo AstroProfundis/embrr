@@ -50,8 +50,8 @@
 		$time = $_SERVER['REQUEST_TIME']+3600;
 		setcookie('maxid',$statuses[$count-1]->id_str,$time,'/');
 
-		$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"index.php?since_id=" . $firstid . "\">Back</a>";
-		$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"index.php?max_id=" . $lastid . "\">Next</a>";
+		$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"index.php?since_id=" . $firstid . "\">Back</a>";
+		$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"index.php?max_id=" . $lastid . "\">Next</a>";
 		$output .= "</div>";
 		echo $output;
 	}

@@ -101,7 +101,9 @@
 	?>
 	
 	<?php if ($isSelf && $type == 1) {?>
-	    <a href="#" class="more round" id="list_create_btn" style="margin: 20px auto;">Create a new list</a>
+	    <div id="mylists_btns">
+	    	<a href="#" class="btn btn-white" id="list_create_btn">Create a new list</a>
+	    </div>
 	    <form method="POST" action="./lists.php?t=1" id="list_form">
 	    	<input type="hidden" name="list_spanid" value="" id="list_spanid" />
 	    	<input type="hidden" name="pre_list_name" value="" id="pre_list_name" />
@@ -123,11 +125,11 @@
 	<?php 
 	    if ($type == 0 || $type == 2) {
 	    	if ($isSelf) {
-				if ($prelist != 0) echo "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"lists.php?t=$type&c=$prelist\">Back</a>";
-				if ($nextlist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"lists.php?t=$type&c=$nextlist\">Next</a>";
+				if ($prelist != 0) echo "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"lists.php?t=$type&c=$prelist\">Back</a>";
+				if ($nextlist != 0) echo "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"lists.php?t=$type&c=$nextlist\">Next</a>";
 	    	} else {
-				if ($prelist != 0) echo "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"lists.php?id=$id&t=$type&c=$prelist\">Back</a>";
-				if ($nextlist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"lists.php?id=$id&t=$type&c=$nextlist\">Next</a>";
+				if ($prelist != 0) echo "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"lists.php?id=$id&t=$type&c=$prelist\">Back</a>";
+				if ($nextlist != 0) echo "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"lists.php?id=$id&t=$type&c=$nextlist\">Next</a>";
 	    	}
 		}
 	?>
