@@ -22,50 +22,65 @@
 	$userid = $id;
 	{
 		switch ($type) {
+			case 'mutes':
+				echo $userid ? "You can't view others' muting!" : "
+					<h2 style='margin: 10px 0pt 20px 15px'>
+					<span>I'm muting</span>
+					</h2>
+					<div id='subnav'>
+					<span class='subnavLink'><a href='friends.php'>I'm following</a></span>
+					<span class='subnavLink'><a href='followers.php'>Who follow me</a></span>		
+					<span class='subnavNormal'>I'm muting</span>
+					<span class='subnavLink'><a href='blocks.php'>I'm blocking</a></span>		
+					</div>";
+				break;
 			case 'blocks':
 				echo $userid ? "You can't view others' blocking!" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People I'm blocking</span>
+					<span>I'm blocking</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavLink'><a href='friends.php'>People I'm following</a></span>
-					<span class='subnavLink'><a href='followers.php'>People who follow me</a></span>		
-					<span class='subnavNormal'>People I'm blocking</span>
+					<span class='subnavLink'><a href='friends.php'>I'm following</a></span>
+					<span class='subnavLink'><a href='followers.php'>Who follow me</a></span>		
+					<span class='subnavLink'><a href='mutes.php'>I'm muting</a></span>		
+					<span class='subnavNormal'>I'm blocking</span>
 					</div>";
 				break;
 			case 'friends':
 				echo $userid ? "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People <a href='user.php?id=$userid'>" . $userid . "</a> is following</span>
+					<span><a href='user.php?id=$userid'>" . $userid . "</a> is following</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavNormal'>People <b>" . $userid . "</b> is following</span>
-					<span class='subnavLink'><a href='followers.php?id=$userid'>People who follow <b>" . $userid . "</b></a></span>
+					<span class='subnavNormal'><b>" . $userid . "</b> is following</span>
+					<span class='subnavLink'><a href='followers.php?id=$userid'>Who follow <b>" . $userid . "</b></a></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People I'm following</span>
+					<span>I'm following</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavNormal'>People I'm following</span>
-					<span class='subnavLink'><a href='followers.php'>People who follow me</a></span>
-					<span class='subnavLink'><a href='block.php'>People I'm blocking</a></span>
+					<span class='subnavNormal'>I'm following</span>
+					<span class='subnavLink'><a href='followers.php'>Who follow me</a></span>
+					<span class='subnavLink'><a href='mutes.php'>I'm muting</a></span>		
+					<span class='subnavLink'><a href='block.php'>I'm blocking</a></span>
 					</div>";
 				break;
 			case 'followers':
 				echo $userid ? "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People who follow <a href='user.php?id=$userid'>" . $userid . "</a></span>
+					<span>Who follow <a href='user.php?id=$userid'>" . $userid . "</a></span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavLink'><a href='friends.php?id=$userid'>People <b>" . $userid . "</b> is following</a></span>
-					<span class='subnavNormal'>People who follow <b>" . $userid . "</b></span>
+					<span class='subnavLink'><a href='friends.php?id=$userid'><b>" . $userid . "</b> is following</a></span>
+					<span class='subnavNormal'>Who follow <b>" . $userid . "</b></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People who follow me</span>
+					<span>Who follow me</span>
 					</h2>
-					<div id='subnav'><span class='subnavLink'><a href='friends.php'>People I'm following</a></span>
-					<span class='subnavNormal'>People who follow me</span>
-					<span class='subnavLink'><a href='block.php'>People I'm blocking</a></span>
+					<div id='subnav'><span class='subnavLink'><a href='friends.php'>I'm following</a></span>
+					<span class='subnavNormal'>Who follow me</span>
+					<span class='subnavLink'><a href='mutes.php'>I'm muting</a></span>		
+					<span class='subnavLink'><a href='block.php'>I'm blocking</a></span>
 					</div>";
 				break;
 			case 'list_members':
@@ -91,6 +106,12 @@
 
 	echo '<div class="clear"></div>';
 	switch ($type) {
+		case 'mutes':
+			$userlist = $t->mutesList($id, $p);
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
+			break;
 		case 'blocks':
 			$userlist = $t->blockingList($id, $p);
 			$next_page = $userlist->next_cursor_str;

@@ -38,9 +38,10 @@
 
 	$isProtected = $statuses->error == 'Not authorized.';
 	$r = getRelationship($user->screen_name);
-	$isFriend = $r == 2 || $r == 1;
-	$isFollower = $r == 3 || $r == 1;
-	$isBlocked = $r == 4;
+	$isFriend = ($r & 1) != 0;
+	$isFollower = ($r & 2) != 0;
+	$isBlocked = ($r & 4) != 0;
+	$isMuted = ($r & 8) != 0;
 
 	if (!$isProtected) {
 
@@ -83,6 +84,11 @@
 		<a class='btn' id='unblock_btn' href='#'>Unblock</a>
 <?php }else{ ?>
 		<a class='btn' id='block_btn' href='#'>Block</a>
+<?php } ?>
+<?php if($isMuted){ ?>
+		<a class='btn' id='unmute_btn' href='#'>Unmute</a>
+<?php }else{ ?>
+		<a class='btn' id='mute_btn' href='#'>Mute</a>
 <?php } ?>
 			<a class="btn" id="info_reply_btn" href="#">Reply</a>
 			<a class="btn" id="info_hide_btn" href="#">Hide @</a>
@@ -141,6 +147,11 @@
 		<a class='btn' id='unblock_btn' href='#'>Unblock</a>
 <?php }else{ ?>
 		<a class='btn' id='block_btn' href='#'>Block</a>
+<?php } ?>
+<?php if($isMuted){ ?>
+		<a class='btn' id='unmute_btn' href='#'>Unmute</a>
+<?php }else{ ?>
+		<a class='btn' id='mute_btn' href='#'>Mute</a>
 <?php } ?>
 				<a class="btn" id="info_reply_btn" href="#">Reply</a>
 				<a class="btn" id="info_hide_btn" href="#">Hide @</a>

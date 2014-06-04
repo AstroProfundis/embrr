@@ -285,24 +285,27 @@ function rminit($this){
 		$.ajax({
 			url: 'ajax/relation.php',
 			type: "POST",
-			data: "action=show&id="+id,
+			data: "action=show&id=" + id,
 			success: function(msg){
 				var html = '<ul class="right_menu round"><li><a class="rm_mention" href="#"><i></i>Mention</a></li>';
 				var r = parseInt(msg);
-				switch(r){
-					case 1:
+				if (r & 1) {
+					html += '<li><a class="rm_unfollow" href="#"><i></i>Unfollow</a></li>';
+				} else {
+					html += '<li><a class="rm_follow" href="#"><i></i>Follow</a></li>';
+				}
+				if (r & 2) {
 					html += '<li><a class="rm_dm" href="#"><i></i>Message</a></li>';
-					case 2:
-					html += '<li><a class="rm_unfollow" href="#"><i></i>Unfollow</a></li><li><a class="ul_block" href="#"><i></i>Block</a></li>';
-					break;
-					case 3:
-					html += '<li><a class="rm_dm" href="#"><i></i>Message</a></li>';
-					case 9:
-					html += '<li><a class="rm_follow" href="#"><i></i>Follow</a></li><li><a class="rm_block" href="#"><i></i>Block</a></li>';
-					break;
-					case 4:
-					html += '<li><a class="rm_follow" href="#"><i></i>Follow</a></li><li><a class="rm_unblock" href="#"><i></i>UnBlock</a></li>';
-					break;
+				}
+				if (r & 4) {
+					html += '<li><a class="rm_unblock" href="#"><i></i>Unblock</a></li>';
+				} else {
+					html += '<li><a class="rm_block" href="#"><i></i>Block</a></li>';
+				}
+				if (r & 8) {
+					html += '<li><a class="rm_unmute" href="#"><i></i>Unmute</a></li>';
+				} else {
+					html += '<li><a class="rm_mute" href="#"><i></i>Mute</a></li>';
 				}
 				html += '<li><a class="rm_spam" href="#"><i></i>Report Spam</a></li><li><a href="user.php?id='+id+'">View Full Profile</a></ul>';
 				$this.parent().parent().after(html);
@@ -356,6 +359,7 @@ function rmfollow($this){
 		data: "action=create&id="+id,
 		success: function (msg){
 			if (msg.indexOf("success") >= 0){
+				$this.removeClass().addClass("rm_unfollow").html("<i></i>Unfollow");
 				updateSentTip("You have followed "+id+"!",3e3,"success");
 			}else{
 				updateSentTip("Failed to follow "+id+",please try again.",3e3,"failure");
@@ -376,6 +380,7 @@ function rmunfollow($this){
 			data: "action=destory&id="+id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_follow").html("<i></i>Follow");
 					updateSentTip("You have unfollowed "+id+"!",3e3,"success");
 				}else{
 					updateSentTip("Failed to unfollow "+id+",please try again.",3e3,"failure");
@@ -383,6 +388,50 @@ function rmunfollow($this){
 			},
 			error: function (msg){
 				updateSentTip("Failed to unfollow "+id+",please try again.",3e3,"failure");
+			}
+		});
+	}
+}
+function rmmute($this){
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
+	if (confirm("Are you sure to mute "+id+" ?")){
+		updateSentTip("Muting "+id+"...",5e3,"ing");
+		$.ajax({
+			url: "ajax/relation.php",
+			type: "POST",
+			data: "action=mute&id="+id,
+			success: function (msg){
+				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_unmute").html("<i></i>Unmute");
+					updateSentTip("You have muted "+id+"!",3e3,"success");
+				}else{
+					updateSentTip("Failed to mute "+id+", please try again.",3e3,"failure");
+				}
+			},
+			error: function (msg){
+				updateSentTip("Failed to mute "+id+", please try again.",3e3,"failure");
+			}
+		});
+	}
+}
+function rmunmute($this){
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
+	if (confirm("Are you sure to unmute "+id+" ?")){
+		updateSentTip("Unmuting "+id+"...",5e3,"ing");
+		$.ajax({
+			url: "ajax/relation.php",
+			type: "POST",
+			data: "action=unmute&id="+id,
+			success: function (msg){
+				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_mute").html("<i></i>Mute");
+					updateSentTip("You have unmuted "+id+"!",3e3,"success");
+				}else{
+					updateSentTip("Failed to unmute "+id+", please try again.",3e3,"failure");
+				}
+			},
+			error: function (msg){
+				updateSentTip("Failed to unmute "+id+", please try again.",3e3,"failure");
 			}
 		});
 	}
@@ -397,6 +446,7 @@ function rmblock($this){
 			data: "action=block&id="+id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_unblock").html("<i></i>Unblock");
 					updateSentTip("You have blocked "+id+"!",3e3,"success");
 				}else{
 					updateSentTip("Failed to block "+id+",please try again.",3e3,"failure");
@@ -418,6 +468,7 @@ function rmunblock($this){
 			data: "action=unblock&id="+id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_block").html("<i></i>Block");
 					updateSentTip("You have unblocked "+id+"!",3e3,"success");
 				}else{
 					updateSentTip("Failed to unblock "+id+",please try again.",3e3,"failure");
@@ -731,6 +782,14 @@ $(function (){
 			case 'rm_unfollow':
 				e.preventDefault();
 				rmunfollow($this);
+			break;
+			case 'rm_mute':
+				e.preventDefault();
+				rmmute($this);
+			break;
+			case 'rm_unmute':
+				e.preventDefault();
+				rmunmute($this);
 			break;
 			case 'rm_block':
 				e.preventDefault();

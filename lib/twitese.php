@@ -246,19 +246,20 @@
 		$relationship = getTwitter()->relationship($target, $source)->relationship;
 		$target = $relationship->target;
 		$source = $relationship->source;
-		if($source->blocking != null){
-			return 4;
+		$result = 0;
+		if($source->muting == true){
+			$result |= 8;
 		}
-		if($source->following == true && $target->following == true){
-			return 1;
+		if($source->blocking == true){
+			$result |= 4;
 		}
-		if($source->following == true && $target->following == false){
-			return 2;
+		if($target->following == true){
+			$result |= 2;
 		}
-		if($source->following == false && $target->following == true){
-			return 3;
+		if($source->following == true){
+			$result |= 1;
 		}
-		return 9;
+		return $result;
 	}
 	
 	function urlshorten($url, $type='goo.gl'){

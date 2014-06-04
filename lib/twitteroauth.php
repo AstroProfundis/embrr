@@ -188,6 +188,15 @@ class TwitterOAuth {
 	/* ---------- API METHODS ---------- */
 	/*                                   */
 	/* ---------- Block ---------- */
+	function mutesList($cursor=-1, $skip_status = true){
+		$url = '/mutes/users/list';
+		$args = array();
+		if($cursor)
+			$args['cursor'] = $cursor;
+		$args['skip_status'] = $skip_status;
+		return $this->get($url, $args);
+	}
+
 	function blockingList($id, $cursor=-1, $skip_status = true){
 		$url = '/blocks/list';
 		$args = array();
@@ -487,6 +496,20 @@ class TwitterOAuth {
 		else
 			$args['user_id'] = $user_id ? $user_id : $this->user_id;
 		return $this->get($url, $args);
+	}
+
+	function muteUser($screen_name){
+		$url = "/mutes/users/create";
+		$args = array();
+		$args['screen_name'] = $screen_name;
+		return $this->post($url, $args);
+	}
+
+	function unmuteUser($screen_name){
+		$url = "/mutes/users/destroy";
+		$args = array();
+		$args['screen_name'] = $screen_name;
+		return $this->post($url, $args);
 	}
 
 	/* ---------- Ratelimit ---------- */

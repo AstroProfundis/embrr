@@ -279,7 +279,7 @@ footer li img{border:0 none;margin:-3px;padding:0}
 #user_info_profile li{line-height:19px;margin:5px 15px 5px 5px}
 #info_head{background-color:#F6F6F6;border:1px solid #EEE;height:70px;margin:9px;padding:0}
 #info_name{float:left;font-size:20px;margin:6px 0 2px 10px;text-transform:uppercase}
-#info_relation a{float:left;margin:2px 10px 5px 0;text-decoration:none}
+#info_relation a{float:left;margin:2px 8px 5px 0;text-decoration:none}
 #info_headimg{background-color:#EFEFEF;border:1px solid #ADADAD;float:left;height:48px;margin:8px 8px 8px 15px;padding:2px;width:48px}
 #info_relation{display:inline-block;font-size:12px;margin:2px 0 0 6px;width:435px}
 #following_me{display:inline-block;top:8px;position:relative;margin:10px 0 0 8px;font-size:11px}
@@ -429,6 +429,8 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .right_menu .rm_unfollow:hover i,.right_menu .ul_unfollow:hover i{background-position:-96px -32px}
 .right_menu .rm_block i,.right_menu .ul_block i,.right_menu .rm_unblock:hover i, .right_menu .ul_unblock:hover i{background-position:-144px -32px}
 .right_menu .rm_block:hover i,.right_menu .ul_block:hover i,.right_menu .rm_unblock i, .right_menu .ul_unblock i{background-position:-128px -32px}
+.right_menu .rm_mute i,.right_menu .ul_mute i,.right_menu .rm_unmute:hover i, .right_menu .ul_unmute:hover i{background-position:-128px 0px}
+.right_menu .rm_mute:hover i,.right_menu .ul_mute:hover i,.right_menu .rm_unmute i, .right_menu .ul_unmute i{background-position:-112px 0px}
 .right_menu .rm_spam i,.right_menu .ul_spam i{background-position:-272px -32px}
 .right_menu .rm_spam:hover i, .right_menu .ul_spam:hover i{background-position:-256px -32px}
 
