@@ -5,7 +5,7 @@
 <div id="side" class="round-right">
 	<div id="sideinfo">
 		<a href="profile.php"><img id="sideimg" src="<?php echo getCookie("imgurl")?>" /></a>
-		<span id="sideid"><span id="side_name"><?php echo getEncryptCookie('twitese_name')?></span><a href="#" id="profileRefresh" title="refresh your profile" class="fa fa-repeat"></a></span>
+		<span id="sideid"><span id="side_name"><?php echo getCookie('name')?></span><a href="#" id="profileRefresh" title="refresh your profile" class="fa fa-repeat"></a></span>
 		<a href="profile.php"><span id="me_tweets"><span id="update_count"><?php echo getCookie('statuses_count')?></span> tweets</span></a>
 	</div>
 	<?php if (strrpos($_SERVER['PHP_SELF'], 'profile')) {
@@ -86,7 +86,7 @@
 	<div class="clear"></div>
 	<ul id="primary_nav" class="sidebar-menu">
 	<li id="updates_tab"><a class="in-page-link" href="all.php"><span>Updates</span></a></li>
-	<li id="replies_tab"><a class="in-page-link" href="replies.php"><span>@<?php echo is_null(getEncryptCookie('twitese_name')) ? $t->screen_name : getEncryptCookie('twitese_name'); ?></span></a></li>
+	<li id="replies_tab"><a class="in-page-link" href="replies.php"><span>@<?php echo is_null(getCookie('name')) ? $t->screen_name : getCookie('name'); ?></span></a></li>
 	<li id="msgs_tab"><a class="in-page-link" href="message.php"><span>Direct Messages</span></a></li>
 	<li id="lists_tab"><a class="in-page-link" href="lists.php"><span>Lists</span></a></li>
 	<li id="favs_tab"><a class="in-page-link" href="favor.php"><span>Favorites</span></a></li>

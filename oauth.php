@@ -41,8 +41,8 @@
 				$time = $_SERVER['REQUEST_TIME']+3600*24*365;
 				setEncryptCookie('oauth_token', $access_token['oauth_token'], $time, '/');
 				setEncryptCookie('oauth_token_secret', $access_token['oauth_token_secret'], $time, '/');
-				setEncryptCookie('user_id', $access_token['user_id'], $time, '/');
-				setEncryptCookie('twitese_name', $t->screen_name, $time, '/');
+				setcookie('user_id', $access_token['user_id'], $time, '/');
+				setcookie('name', $t->screen_name, $time, '/');
 				refreshProfile();
 				
 				if(!isset($_COOKIE['showpic'])){

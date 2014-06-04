@@ -6,7 +6,6 @@
 	setcookie('oauth_token',"",$time);
 	setcookie('oauth_token_secret',"",$time);
 	setcookie('user_id',"",$time);
-	setcookie('twitese_name',"",$time);
 	setcookie('friends_count',"",$time);
 	setcookie('statuses_count',"",$time);
 	setcookie('followers_count',"",$time);

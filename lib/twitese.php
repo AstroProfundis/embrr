@@ -218,8 +218,8 @@
    function loginStatus() {
 	   if(isset($_SESSION['login_status'])){
 	      return $_SESSION['login_status'] == 'verified' ? true : false;
-	   }elseif(getEncryptCookie("oauth_token") != "" && getEncryptCookie("oauth_token_secret") != "" && getEncryptCookie("user_id") != "" && getEncryptCookie("twitese_name") != ""){
-	      $access_token = array("oauth_token" => getEncryptCookie("oauth_token"), "oauth_token_secret" => getEncryptCookie("oauth_token_secret"), "user_id" => getEncryptCookie("user_id"), "screen_name" => getEncryptCookie("twitese_name"));
+	   }elseif(getEncryptCookie("oauth_token") != "" && getEncryptCookie("oauth_token_secret") != "" && getCookie("user_id") != "" && getCookie("name") != ""){
+	      $access_token = array("oauth_token" => getEncryptCookie("oauth_token"), "oauth_token_secret" => getEncryptCookie("oauth_token_secret"), "user_id" => getCookie("user_id"), "screen_name" => getCookie("name"));
 	      $_SESSION['access_token'] = $access_token;
 	      $_SESSION['login_status'] = 'verified';
 	      refreshProfile();
