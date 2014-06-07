@@ -25,25 +25,25 @@
 			case 'mutes':
 				echo $userid ? "You can't view others' muting!" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>I'm muting</span>
+					<span>Muting</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavLink'><a href='friends.php'>I'm following</a></span>
-					<span class='subnavLink'><a href='followers.php'>Who follow me</a></span>		
-					<span class='subnavNormal'>I'm muting</span>
-					<span class='subnavLink'><a href='blocks.php'>I'm blocking</a></span>		
+					<span class='subnavLink'><a href='friends.php'>Following</a></span>
+					<span class='subnavLink'><a href='followers.php'>Followers</a></span>		
+					<span class='subnavNormal'>Muting</span>
+					<span class='subnavLink'><a href='blocks.php'>Blocking</a></span>		
 					</div>";
 				break;
 			case 'blocks':
 				echo $userid ? "You can't view others' blocking!" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>I'm blocking</span>
+					<span>Blocking</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavLink'><a href='friends.php'>I'm following</a></span>
-					<span class='subnavLink'><a href='followers.php'>Who follow me</a></span>		
-					<span class='subnavLink'><a href='mutes.php'>I'm muting</a></span>		
-					<span class='subnavNormal'>I'm blocking</span>
+					<span class='subnavLink'><a href='friends.php'>Following</a></span>
+					<span class='subnavLink'><a href='followers.php'>Followers</a></span>		
+					<span class='subnavLink'><a href='mutes.php'>Muting</a></span>		
+					<span class='subnavNormal'>Blocking</span>
 					</div>";
 				break;
 			case 'friends':
@@ -56,13 +56,13 @@
 					<span class='subnavLink'><a href='followers.php?id=$userid'>Who follow <b>" . $userid . "</b></a></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>I'm following</span>
+					<span>Following</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavNormal'>I'm following</span>
-					<span class='subnavLink'><a href='followers.php'>Who follow me</a></span>
-					<span class='subnavLink'><a href='mutes.php'>I'm muting</a></span>		
-					<span class='subnavLink'><a href='block.php'>I'm blocking</a></span>
+					<span class='subnavNormal'>Following</span>
+					<span class='subnavLink'><a href='followers.php'>Followers</a></span>
+					<span class='subnavLink'><a href='mutes.php'>Muting</a></span>		
+					<span class='subnavLink'><a href='blocks.php'>Blocking</a></span>
 					</div>";
 				break;
 			case 'followers':
@@ -75,12 +75,12 @@
 					<span class='subnavNormal'>Who follow <b>" . $userid . "</b></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>Who follow me</span>
+					<span>Followers</span>
 					</h2>
-					<div id='subnav'><span class='subnavLink'><a href='friends.php'>I'm following</a></span>
-					<span class='subnavNormal'>Who follow me</span>
-					<span class='subnavLink'><a href='mutes.php'>I'm muting</a></span>		
-					<span class='subnavLink'><a href='block.php'>I'm blocking</a></span>
+					<div id='subnav'><span class='subnavLink'><a href='friends.php'>Following</a></span>
+					<span class='subnavNormal'>Followers</span>
+					<span class='subnavLink'><a href='mutes.php'>Muting</a></span>		
+					<span class='subnavLink'><a href='blocks.php'>Blocking</a></span>
 					</div>";
 				break;
 			case 'list_members':
