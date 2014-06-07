@@ -53,7 +53,7 @@
 					</h2>
 					<div id='subnav'>
 					<span class='subnavNormal'><b>" . $userid . "</b> is following</span>
-					<span class='subnavLink'><a href='followers.php?id=$userid'>Who follow <b>" . $userid . "</b></a></span>
+					<span class='subnavLink'><a href='followers.php?id=$userid'>Who follows <b>" . $userid . "</b></a></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
 					<span>Following</span>
