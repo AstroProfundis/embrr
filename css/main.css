@@ -36,6 +36,7 @@ nav li{float:left;padding:4px 8px;line-height:18px}
 nav:hover{box-shadow:0 0 10px #2276BB;-webkit-box-shadow:0 0 10px #2276BB}
 nav a{border-radius:3px;padding:0 2px}
 nav a:hover{background-color:#DDEEF6;text-decoration:none}
+nav li .share{text-decoration:none;padding:0 3px;overflow:hidden;cursor:move}
 
 /*status form*/
 #tweeting_controls{float:right;padding:5px 12px 0 5px}
