@@ -198,8 +198,7 @@
 <?php
 	}
 ?>
-	<a class="share" title="Drag me to share!" href="javascript:var%20d=document,w=window,f='<?php echo $base_url."/share.php" ?>',l=d.location,e=encodeURIComponent,p='?u='+e(l.href)+'&t='+e(d.title)+'&d='+e(w.getSelection?w.getSelection().toString():d.getSelection?d.getSelection():d.selection.createRange().text)+'&s=bm';a=function(){if(!w.open(f+p,'sharer','toolbar=0,status=0,resizable=0,width=600,height=300,left=175,top=150'))l.href=f+'.new'+p};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else{a()}void(0);">Share</a>
-    <a id="reset_link" href="#" title="You will lose all customized settings!">Reset to default</a>
+	<a id="reset_link" href="#" title="You will lose all customized settings!">Reset to default</a>
 
 </form>
 	</div>
