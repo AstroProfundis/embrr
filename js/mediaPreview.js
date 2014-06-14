@@ -57,7 +57,7 @@ function get_img_processor(type) {
 	switch (type) {
 	case "instagram.com":
 		proc = {
-			reg: /^http:\/\/(?:www\.)?instagram\.com\/([\w\/]+)/,
+			reg: /^http:\/\/(?:www\.)?instagram\.com\/([\w-\/]+)/,
 			func: function (url_key, url_elem) {
 				var src = "http://instagram.com/" + url_key[1] + "media/?size=m";
 				append_image(src, url_elem);
@@ -66,7 +66,7 @@ function get_img_processor(type) {
 		return proc;
 	case "instagr.am":
 		proc = {
-			reg: /^http:\/\/(?:www\.)?instagr\.am\/([\w\/]+)/,
+			reg: /^http:\/\/(?:www\.)?instagr\.am\/([\w-\/]+)/,
 			func: function (url_key, url_elem) {
 				var src = "http://instagr.am/" + url_key[1] + "media/?size=m";
 				append_image(src, url_elem);
