@@ -13,7 +13,10 @@
 		}
 		$user = $status->user;
 		$date = format_time($status->created_at);
-		$text = formatEntities($status->entities,$status->text);
+		$text = formatEntities(
+			$status->entities,
+			isset($status->extended_entities) ? $status->extended_entities : null,
+			$status->text);
 	} else {
 		header('location: error.php?code='.$t->http_code);exit();
 	}
@@ -91,7 +94,8 @@ header {margin:1em auto;text-align:right;width:600px}
 						</span>
 						<span class="status_body">
 							<span class="status_id"><?php echo $statusid ?></span>
-							<span class="status_word"><a class="user_name" href="user.php?id=<?php echo $user->screen_name ?>" id="<?php echo $user->screen_name ?>"><?php if ($_COOKIE['shownick']=='true') echo $user->name; else echo $user->screen_name; ?></a> <span class="tweet"><?php echo $text ?></span></span>
+							<span class="status_word"><a class="user_name" href="user.php?id=<?php echo $user->screen_name ?>" id="<?php echo $user->screen_name ?>"><?php if ($_COOKIE['shownick']=='true') echo $user->name; else echo $user->screen_name; ?></a> <span class="tweet"><?php echo $text['text'] ?></span></span>
+							<span class="extended_entities"><?php echo $text['extended'] ?></span>
 							<span class="status_info">
 										<?php if ($status->in_reply_to_status_id_str) {?><span class="in_reply_to"> <a href="status.php?id=<?php echo $status->in_reply_to_status_id_str ?>">in reply to <?php echo $status->in_reply_to_screen_name?></a></span> <?php }?>
 										<span class="source">from <?php echo $status->source ?></span>

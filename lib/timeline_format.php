@@ -4,7 +4,10 @@
 		$rt_status = $status->retweeted_status;
 		$status_owner = $rt_status->user;
 		$date = format_time($status->created_at);
-		$text = formatEntities($rt_status->entities,$rt_status->text);
+		$text = formatEntities(
+			$rt_status->entities,
+			isset($rt_status->extended_entities) ? $rt_status->extended_entities : null,
+			$rt_status->text);
 		$html = '<li>
 			<span class="status_author">
 			<a href="user.php?id='.$status_owner->screen_name.'" target="_blank"><img id="avatar" src="'.getAvatar($status_owner->profile_image_url).'" title="Hello, I am  '.$status_owner->screen_name.'. Click for more..." /></a>
@@ -12,8 +15,11 @@
 			<span class="status_body">
 			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon"></span>
 			<span class="status_id">'.$status->id_str.'</span>
-			<span class="status_word"><a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a> <span class="tweet">&nbsp;'.$text.'</span></span>
-			<span class="actions">
+			<span class="status_word"><a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a> 
+			<span class="tweet">&nbsp;'.$text['text'].'</span>
+			</span>'.
+			'<span class="extended_entities">'.$text['extended'].'</span>'
+			.'<span class="actions">
 			<a class="replie_btn fa fa-reply" title="Reply" href="#"></a>
 			<a class="rt_btn fa fa-share" title="Quote" href="#"></a>';
 		if($retweetByMe != true){
@@ -37,7 +43,10 @@
 	function format_retweet_of_me($status){
 		$status_owner = $status->user;
 		$date = format_time($status->created_at);
-		$text = formatEntities($status->entities,$status->text);
+		$text = formatEntities(
+			$status->entities,
+			isset($status->extended_entities) ? $status->extended_entities : null,
+			$status->text);
 		$html = '<li>
 			<span class="status_author">
 			<a href="user.php?id='.$status_owner->screen_name.'" target="_blank"><img id="avatar" src="'.getAvatar($status_owner->profile_image_url).'" title="click for more..." /></a>
@@ -45,8 +54,9 @@
 			<span class="status_body">
 			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon"></span><span class="status_id">'.$status->id_str.'</span>
 			<span class="status_word">
-			<a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a><span class="tweet">&nbsp;'.$text.'</span></span>
-			<span class="actions">
+			<a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a><span class="tweet">&nbsp;'.$text['text'].'</span></span>'.
+			'<span class="extended_entities">'.$text['extended'].'</span>'
+			.'<span class="actions">
 			<a class="replie_btn fa fa-reply" title="Reply" href="#"></a>
 			<a class="rt_btn" title="Retweet" href="#">Retweet</a>';
 		$html .= $status->favorited ? '<a class="unfav_btn fa fa-star-o" title="UnFav" href="#"></a>' : '<a class="favor_btn fa fa-star-o" title="Fav" href="#"></a>';
@@ -79,9 +89,12 @@
 	function format_timeline($status, $screen_name, $updateStatus = false){
 		$user = $status->user;
 		$date = format_time($status->created_at);
-		$text = formatEntities($status->entities,$status->text);
+		$text = formatEntities(
+			$status->entities,
+			isset($status->extended_entities) ? $status->extended_entities : null,
+			$status->text);
 		
-		if(preg_match('/^\@'.getTwitter()->username.'/i', $text) == 1){
+		if(preg_match('/^\@'.getTwitter()->username.'/i', $text['text']) == 1){
 			$output = "<li class=\"reply\">";
 		}elseif($updateStatus == true){
 			$output = "<li class=\"mine\">";
@@ -93,7 +106,8 @@
 		</span>
 		<span class="status_body">
 		<span class="status_id">'.$status->id_str.'</span>
-		<span class="status_word"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">&nbsp;'.$text.'</span></span>';
+		<span class="status_word"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">&nbsp;'.$text['text'].'</span></span>';
+		$output .= '<span class="extended_entities">'.$text['extended'].'</span>';
 		$output .= "<span class=\"actions\">
 			<a class=\"replie_btn fa fa-reply\" title=\"Reply\" href=\"#\"></a>
 			<a class=\"rt_btn fa fa-share\" title=\"Quote\" href=\"#\"></a>
@@ -127,7 +141,10 @@
 			$messenger = $message->sender;
 		}
 		$date = format_time($message->created_at);
-		$text = formatEntities($message->entities,$message->text);
+		$text = formatEntities(
+			$message->entities,
+			isset($message->extended_entities) ? $message->extended_entities : null,
+			$message->text);
 		
 		$output = "
 			<li>
@@ -136,8 +153,9 @@
 				</span>
 				<span class=\"status_body\">
 					<span class=\"status_id\">$message->id </span>
-					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$name\" id=\"$name\">".($_COOKIE["shownick"]=='true' ? $nick : $name)."</a> $text </span>
-					<span class=\"actions\">
+					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$name\" id=\"$name\">".($_COOKIE["shownick"]=='true' ? $nick : $name)."</a> ".$text['text']." </span>".
+			'<span class="extended_entities">'.$text['extended'].'</span>'
+					."<span class=\"actions\">
 		";
 		
 		if ($isSentPage) {

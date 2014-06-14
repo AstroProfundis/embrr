@@ -18,9 +18,12 @@
 				
 				$user = $status->user;
 				$date = $status->created_at;
-				$text = formatEntities($status->entities,$status->text);
+				$text = formatEntities(
+					$status->entities,
+					isset($status->extended_entities) ? $status->extended_entities : null,
+					$status->text);
 
-				if(strpos("@$t->username", $text) > -1) {
+				if(strpos("@$t->username", $text['text']) > -1) {
 					if (++$count == count($statuses)) 
 						$output = "<li style=\"background-color:#E8FECD;border-bottom:5px solid #CCC\">";
 					else 
@@ -33,8 +36,9 @@
 					</span>
 					<span class=\"status_body\">
 					<span class=\"status_id\">$status->id_str </span>
-					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$user->screen_name\" id=\"$user->screen_name\">".($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name)."</a><span class=\"tweet\"> $text </span></span>
-					<span class=\"actions\">
+					<span class=\"status_word\"><a class=\"user_name\" href=\"user.php?id=$user->screen_name\" id=\"$user->screen_name\">".($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name)."</a><span class=\"tweet\"> ".$text['text']." </span></span>".
+					'<span class="extended_entities">'.$text['extended'].'</span>'
+					."<span class=\"actions\">
 					<a class=\"replie_btn fa fa-reply\" title=\"Reply\" href=\"a_reply.php?id=$status->id_str\"></a>
 					<a class=\"rt_btn fa fa-share\" title=\"Quote\" href=\"a_rt.php?id=$status->id_str\"></a>
 					<a class=\"favor_btn fa fa-star-o\" title=\"Favorite\" href=\"a_favor.php?id=$status->id_str\"></a>";

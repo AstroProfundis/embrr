@@ -89,6 +89,7 @@ padding:4px 0 6px;height:1em;border-width:1px;
 /*timeline*/
 #allTimeline,#allReplies,#allMessage{margin:10px;padding:0;clear:both}
 .timeline embed{margin:10px 0 0 10px}
+.extended_entities{display:none}
 .tweetcount{display:inline}
 .new{background-color:#E3F1FA;color:#858585;display:none;float:left;font-size:11px;text-align:center;width:522px}
 .mine{display:none;background-color:#E8FFED}

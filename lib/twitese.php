@@ -59,7 +59,7 @@
 		return $text;
 	}
 
-	function formatEntities(&$entities,$html){
+	function formatEntities($entities,$extended_entities,$html){
 		$user_mentions = $entities->user_mentions;
 		$hashtags = $entities->hashtags;
 		$urls = $entities->urls;
@@ -99,7 +99,24 @@
 				$html = str_replace($media->url,"<a href=\"$url\" target=\"_blank\" rel=\"noreferrer\">$media->display_url</a>",$html);
 			}
 		}
-		return $html;
+		$ret = array('text' => $html);
+
+		$extended_str = '';
+		if($extended_entities != null) {
+			if (isset($extended_entities->media)) {
+				$medias = $extended_entities->media;
+				foreach($medias as $media) {
+					$url = $media->media_url_https;
+					if (getcookie('p_avatar') == 'true') {
+							$url = 'img.php?imgurl='.$url;
+					}
+					$extended_str .= "<a href=\"$url\" target=\"_blank\" rel=\"noreferrer\">$media->display_url</a>";
+				}
+			}
+		}
+		$ret['extended'] = $extended_str;
+
+		return $ret;
 	}
 
 	function formatTweetID($text){
