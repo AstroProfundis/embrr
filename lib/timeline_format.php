@@ -13,7 +13,7 @@
 			<a href="user.php?id='.$status_owner->screen_name.'" target="_blank"><img id="avatar" src="'.getAvatar($status_owner->profile_image_url).'" title="Hello, I am  '.$status_owner->screen_name.'. Click for more..." /></a>
 			</span>
 			<span class="status_body">
-			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon"></span>
+			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon fa fa-retweet"></span>
 			<span class="status_id">'.$status->id_str.'</span>
 			<span class="status_word"><a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a> 
 			<span class="tweet">&nbsp;'.$text['text'].'</span>
@@ -35,7 +35,7 @@
 			<span class="date"><a href="status.php?id='.$rt_status->id_str.'" id="'.$date.'" target="_blank">'.date('Y-m-d H:i:s', $date).'</a></span>
 			</span>
 			</span>';
-		$html .= $status->favorited ? '<i class="faved"></i>' : '';
+		$html .= $status->favorited ? '<i class="faved fa fa-star"></i>' : '';
 		$html .= '</li>';
 		return $html;
 	}
@@ -52,7 +52,7 @@
 			<a href="user.php?id='.$status_owner->screen_name.'" target="_blank"><img id="avatar" src="'.getAvatar($status_owner->profile_image_url).'" title="click for more..." /></a>
 			</span>
 			<span class="status_body">
-			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon"></span><span class="status_id">'.$status->id_str.'</span>
+			<span title="Retweets from people you follow appear in your timeline." class="big-retweet-icon fa fa-retweet"></span><span class="status_id">'.$status->id_str.'</span>
 			<span class="status_word">
 			<a class="user_name" href="user.php?id='.$status_owner->screen_name.'" id="'.$status_owner->screen_name.'">'.($_COOKIE['shownick']=='true' ? $status_owner->name : $status_owner->screen_name).'</a><span class="tweet">&nbsp;'.$text['text'].'</span></span>'.
 			'<span class="extended_entities">'.$text['extended'].'</span>'
@@ -67,7 +67,7 @@
 			(($status->retweet_count>1)?' persons':' person').'
 			</span>
 			</span>';
-		$html .= $status->favorited ? '<i class="faved"></i>' : '';
+		$html .= $status->favorited ? '<i class="faved fa fa-star"></i>' : '';
 		$html .= '</li>';
 		return $html;
 	}
@@ -123,7 +123,7 @@
 			<span class=\"date\"><a href=\"status.php?id=$status->id_str\" id=\"$date\" target=\"_blank\">".date('Y-m-d H:i:s', $date)."</a></span>
 			</span>
 			</span>";
-		$output .= $status->favorited == true ? '<i class="faved"></i>' : '';
+		$output .= $status->favorited == true ? '<i class="faved fa fa-star"></i>' : '';
 		$output .= "</li>";
 		return $output;
 	}

@@ -10,7 +10,7 @@
 <input type="file" name="image" id="imageFile"/> 
 <input type="button" id="imageUploadSubmit" class="btn" value="Upload"/>
 <ul id="media_preview"></ul>
-<a href="#" onclick="$('#photoArea').slideToggle(300);return false;" title="Close" class="close"></a>
+<a href="#" onclick="$('#photoArea').slideToggle(300);return false;" title="Close" class="close fa fa-times"></a>
 </form>
 
 <form id="filterArea">
@@ -20,14 +20,14 @@
 <input type="submit" style="vertical-align: top; padding: 5px; margin: 9px 3px 0pt 6px;" id="filterSubmit" class="btn" value="Update">
 <input type="submit" style="padding: 5px; vertical-align: top; margin-top: 9px;" id="filterReset" class="btn" value="Reset">
 <input type="submit" style="padding: 5px; vertical-align: top; margin: 9px 0pt 0pt 3px;" id="filterHide" class="btn" value="Hide @">
-<a class="close" title="Close" onclick="$('#filterArea').slideToggle(300);return false;" href="#"></a>
+<a class="close fa fa-times" title="Close" onclick="$('#filterArea').slideToggle(300);return false;" href="#"></a>
 </form>
 
 <form id="symArea">
 <div id="symbols">
 <?php include ('inc/symbols.inc');?>
 </div>
-<a class="close" title="Close" onclick="$('#symArea').slideToggle(300);return false;" href="#"></a>
+<a class="close fa fa-times" title="Close" onclick="$('#symArea').slideToggle(300);return false;" href="#"></a>
 </form>
 
 <form>

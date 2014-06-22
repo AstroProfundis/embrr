@@ -68,7 +68,8 @@ textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-s
 #symArea span{border-radius:3px;background-color:#EEE;border:1px solid transparent;color:#000;display:block;float:left;font-size:12px;line-height:18px;margin:0 10px 5px 0;min-width:60px;padding:1px 2px;text-align:center;white-space:nowrap}
 #symArea span:hover{border:1px solid #666;cursor:pointer}
 #filterArea .filter_input{border:1px solid #A7A6AA;font-size:13px;height:17px;margin:10px 0 5px;padding:3px 2px;width:300px}
-.close{background:transparent url(../img/sprite-icons.png) no-repeat scroll -272px -16px;text-decoration:none;position:absolute;top:10px;right:10px;height:10px;width:9px}
+.close{color:#adadad;position:absolute;top:10px;right:10px;height:10px;width:9px}
+a.close:hover{text-decoration:none}
 #sent_function{float:left;margin:4px 0 0 10px}
 #imageFile{padding:2px}
 #currently{color:#666;float:left;font-size:11px!important;margin:3px 8px 0 10px;overflow:hidden;padding:2px 4px 2px 0;text-align:left;width:385px;word-wrap:break-word;cursor:pointer}
@@ -97,7 +98,7 @@ padding:4px 0 6px;height:1em;border-width:1px;
 .reply{background-color:#E8FECD}
 .filter{background-color:#FFC}
 .retweet{background-color:#FFFFE5}
-.faved{background:transparent url(../img/sprite-icons.png) no-repeat scroll -64px 0;height:15px;width:15px!important;display:inline-block;outline:medium none;overflow:hidden;position:absolute;top:10px;margin-left:500px}
+.faved{height:15px;width:15px!important;outline:medium none;overflow:hidden;position:absolute;top:10px;margin-left:500px;color:#ffac33}
 .user_name{font-weight:700}
 .timeline{margin:0 10px}
 .timeline li{border-top:1px solid #EFEFEF;cursor:default;display:block;float:left;margin:0;overflow:visible;padding:10px 25px 5px 2px;position:relative;width:497px;-moz-transition:all .5s ease-out;-webkit-transition:all .5s ease-out}
@@ -121,7 +122,7 @@ li.loading #avatar{opacity:0.2}
 #empty{font-size:16px;font-weight:700;margin:50px;text-align:center}
 #description{font-size:14px;padding:10px}
 #description p{line-height:22px;margin:15px}
-.big-retweet-icon{background-image:url(../img/sprite-icons.png);background-position:-128px -64px;background-repeat:no-repeat;display:inline-block;height:14px;position:relative;top:2px;width:18px}
+.big-retweet-icon{background-color:#adadad;color:#ffffff;text-align:center;display:inline-block;height:14px;position:relative;top:2px;width:18px}
 /*new below*/
 .ajax_form{background-color:#FFF;border:1px solid #A7A6AA;float:left;margin:5px 0 5px -1px;padding:0;width:520px}
 .ajax_form li{border-top:1px solid #EFEFEF;cursor:default;display:block;float:left;margin:0;overflow:visible;padding:5px 25px 5px 0;position:relative;width:495px}

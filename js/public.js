@@ -532,7 +532,7 @@ function onFavor($this){
 		success: function (msg){
 			if (msg.indexOf("success") >= 0){
 				updateSentTip("Favorite added successfully.",3e3,"success");
-				$this.parent().parent().parent().append('<i class="faved"></i>');
+				$this.parent().parent().parent().append('<i class="faved fa fa-star"></i>');
 				$this.removeClass("favor_btn").addClass("unfav_btn").attr("title","UnFav");
 			}else{
 				updateSentTip("Add failed. Please try again.",3e3,"failure");
