@@ -69,7 +69,7 @@ textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-s
 #symArea span:hover{border:1px solid #666;cursor:pointer}
 #filterArea .filter_input{border:1px solid #A7A6AA;font-size:13px;height:17px;margin:10px 0 5px;padding:3px 2px;width:300px}
 .close{color:#adadad;position:absolute;top:10px;right:10px;height:10px;width:9px}
-a.close:hover{text-decoration:none}
+a.close:hover{text-decoration:none!important}
 #sent_function{float:left;margin:4px 0 0 10px}
 #imageFile{padding:2px}
 #currently{color:#666;float:left;font-size:11px!important;margin:3px 8px 0 10px;overflow:hidden;padding:2px 4px 2px 0;text-align:left;width:385px;word-wrap:break-word;cursor:pointer}
