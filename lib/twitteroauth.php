@@ -10,12 +10,12 @@
  * twitterlibphp - http://github.com/jdp/twitterlibphp
  */
 
-//require_once('config.php');
-//require_once('oauth_lib.php');
-
-/**
- * URL for picture uploading
+/* API Settings
+ *
+ * These are the URLs embrr use for all API calls,
+ * DO NOT change unless you know what you're doing!
  */
+define('API_URL', 'https://api.twitter.com/1.1');
 define('UPLOAD_URL', 'https://upload.twitter.com/1.1');
 
 /**

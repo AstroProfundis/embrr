@@ -1,10 +1,4 @@
 <?php
-	/* API Settings
-	 *
-	 * This is the URL embrr used for all API calls, DO NOT change unless you know what you're doing!    *
-	 */
-	define('API_URL', 'https://api.twitter.com/1.1');
-	
 	/* Basic Configuration
 	 * 
 	 * - A SECURE_KEY is a string that being used to encrypt and decrypt cookies, you should NOT leave   *
