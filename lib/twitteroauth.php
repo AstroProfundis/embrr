@@ -14,6 +14,11 @@
 //require_once('oauth_lib.php');
 
 /**
+ * URL for picture uploading
+ */
+define('UPLOAD_URL', 'https://upload.twitter.com/1.1');
+
+/**
  * Twitter OAuth class
  */
 class TwitterOAuth {
