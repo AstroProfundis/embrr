@@ -21,6 +21,13 @@ function leaveWord(num){
 	if (sent_id){
 		leave -= sent_id.length+3;
 	}
+	if ($("#media_preview img[media_id]").length > 0) {
+		leave -= 23;
+		$("#photoBtn").addClass("func_enabled");
+	}
+	else {
+		$("#photoBtn").removeClass("func_enabled");
+	}
 	$tb.text(leave);
 	if (leave < 0){
 		$("#tweeting_button").addClass('btn-disabled');
@@ -87,7 +94,9 @@ var formFunc = function(){
 var updateStatus = function(){
 	if (PAUSE_UPDATE) return false;
 	var text = $("#textbox").val();
-	if ($.trim(text).length == 0) return false;
+	if ($.trim(text).length == 0 && 
+	    $("#media_preview img[media_id]").length == 0)
+		return false;
 	var sent_id = $("#sent_id").val();
 	if(sent_id){
 		text = "D "+sent_id+' '+text; 
@@ -103,6 +112,15 @@ var updateStatus = function(){
 		return false;
 	}
 	PAUSE_UPDATE = true;
+	var $mediaImgs = $("#media_preview img[media_id]");
+	var idArr = [];
+	var uploadMediaIds = null;
+	if ($mediaImgs.length > 0) {
+		$mediaImgs.each(function(i,n){
+			idArr.push(n.getAttribute("media_id"));
+		});
+		uploadMediaIds = idArr.join(',');
+	}
 	$('#tip span').show();
 	$('#tip b').hide();
 	$.cookie('recover',text,{'expire': 30});
@@ -111,7 +129,8 @@ var updateStatus = function(){
 		type: "POST",
 		data:{
 			"status": text,
-			"in_reply_to": $("#in_reply_to").val()
+			"in_reply_to": $("#in_reply_to").val(),
+			"media_ids": uploadMediaIds
 		},
 		success: function (msg){
 			if ($.trim(msg).indexOf("</li>") > 0){
@@ -124,6 +143,7 @@ var updateStatus = function(){
 				}else{
 					updateSentTip("Your status has been updated!",3e3,"success");
 					$("#textbox").val("");
+					$("#media_preview").html("");
 					leaveWord();
 					if(typeof INTERVAL_COOKIE !== 'undefined'){
 						var source = $(msg).prependTo($("#allTimeline"));
@@ -512,7 +532,7 @@ function onFavor($this){
 		success: function (msg){
 			if (msg.indexOf("success") >= 0){
 				updateSentTip("Favorite added successfully.",3e3,"success");
-				$this.parent().parent().parent().append('<i class="faved"></i>');
+				$this.parent().parent().parent().append('<i class="faved fa fa-star"></i>');
 				$this.removeClass("favor_btn").addClass("unfav_btn").attr("title","UnFav");
 			}else{
 				updateSentTip("Add failed. Please try again.",3e3,"failure");

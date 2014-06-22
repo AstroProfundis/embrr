@@ -10,7 +10,7 @@
 		$user_id = $_GET['uid'];
 		$reply_to_id = "";
 		$html = '<div class="ajax_form round">';
-		$html .= "<a class=\"close\" title=\"Close\" onclick=\"$(this).parent().slideToggle(300);\" href=\"#\"></a>";
+		$html .= "<a class=\"close fa fa-times\" title=\"Close\" onclick=\"$(this).parent().slideToggle(300);\" href=\"#\"></a>";
 		$html .= '<ol>';
 		$html .= formatConversation($_GET['id']);
 		$html .= '</ol></div>';

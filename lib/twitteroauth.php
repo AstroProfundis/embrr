@@ -13,6 +13,9 @@
 //require_once('config.php');
 //require_once('oauth_lib.php');
 
+define('API_URL', 'https://api.twitter.com/1.1');
+define('UPLOAD_URL', 'https://upload.twitter.com/1.1');
+
 /**
  * Twitter OAuth class
  */
@@ -121,8 +124,8 @@ class TwitterOAuth {
 	/**
 	 * GET wrappwer for oAuthRequest.
 	 */
-	function get($url, $parameters = array()) {
-		$response = $this->oAuthRequest($url, 'GET', $parameters);
+	function get($url, $parameters = array(), $host=NULL) {
+		$response = $this->oAuthRequest($url, 'GET', $parameters, NULL, $host);
 		if($response == false){
 			return false;
 		}
@@ -132,8 +135,8 @@ class TwitterOAuth {
 	/**
 	 * POST wreapper for oAuthRequest.
 	 */
-	function post($url, $parameters = array(), $multipart = NULL) {
-		$response = $this->oAuthRequest($url, 'POST', $parameters, $multipart);
+	function post($url, $parameters = array(), $multipart = NULL, $host = NULL) {
+		$response = $this->oAuthRequest($url, 'POST', $parameters, $multipart, $host);
 		if($response === false){
 			return false;
 		}
@@ -143,9 +146,12 @@ class TwitterOAuth {
 	/**
 	 * Format and sign an OAuth / API request, then make an HTTP request
 	 */
-	function oAuthRequest($url, $method, $parameters, $multipart=NULL) {
+	function oAuthRequest($url, $method, $parameters, $multipart=NULL, $host=NULL) {
 		if ($url[0] == '/') { //non-twitter.com api shall offer the entire url.
-			$url = "{$this->host}{$url}.json";
+			if ($host == NULL) {
+				$host = $this->host;
+			}
+			$url = "{$host}{$url}.json";
 		}
 		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
 		$request->sign_request($this->sha1_method, $this->consumer, $this->token);
@@ -678,7 +684,7 @@ class TwitterOAuth {
 		return $this->get($url,$args);
 	}
 
-	function update($status, $replying_to = false,$include_entities = true){
+	function update($status, $replying_to = false,$include_entities = true, $media_ids = false){
 		try{
 			$url = '/statuses/update';
 			$args = array();
@@ -687,6 +693,8 @@ class TwitterOAuth {
 				$args['in_reply_to_status_id'] = $replying_to;
 			if($include_entities)
 				$args['include_entities'] = $include_entities;
+			if($media_ids)
+				$args['media_ids'] = $media_ids;
 			return $this->post($url, $args);
 		}catch(Exception $ex){
 			echo $ex->getLine." : ".$ex->getMessage();
@@ -785,14 +793,12 @@ class TwitterOAuth {
 		return $this->post($url, $args);
 	}
 	
-	function updateMedia($status,$image,$replying_to = false) {
-		$url = 'statuses/update_with_media';
+	function uploadMedia($image) {
+		$url = '/media/upload';
 		$args = array();
-		if($status) $args['status'] = $status;
-		if($replying_to) $args['in_reply_to_status_id'] = $replying_to;
 		$mul = array();
-		if($image) $mul['media'][] = $image;
-		return $this->post($url,$args,$mul);
+		$mul['media'] = $image;
+		return $this->post($url,$args,$mul,UPLOAD_URL);
 	}
 }
 

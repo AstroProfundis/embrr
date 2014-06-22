@@ -4,6 +4,11 @@ FILTER_KEY_OPT ={
 	expires: 30
 }
 $(function (){
+		$(document).on("click", "#media_preview > li > a", function(){
+				var li = this.parentNode;
+				li.parentNode.removeChild(li);
+				leaveWord();
+			});
 		$("#photoBtn").click(function (){
 				$("#photoArea").slideToggle(100);
 			});
@@ -96,9 +101,32 @@ $(function (){
 				}
 			});
 	});
+
+	function createObjectURL(file) {
+		if (window.webkitURL) {
+			return window.webkitURL.createObjectURL(file);
+		}
+		return window.URL.createObjectURL(file);
+	}
+	
+	function revokeObjectURL(url) {
+		if (window.webkitURL) {
+			return window.webkitURL.revokeObjectURL(url);
+		}
+		return window.URL.revokeObjectURL(url);
+	}
 	
 	function ImageUpload(){
+		var fileEle = $("#imageFile")[0];
+		if (fileEle.files.length == 0) {
+			return;
+		}
 		updateSentTip("Uploading your image...", 10000, "ing");
+		var img = document.createElement('img');
+		img.src = createObjectURL(fileEle.files[0]);
+		img.onload = function() {
+			revokeObjectURL(img.src);
+		};
 		$.ajaxFileUpload({
 				url: 'ajax/uploadImage.php?do=image',
 				timeout: 60000,
@@ -106,18 +134,28 @@ $(function (){
 				fileElementId: 'imageFile',
 				dataType: 'json',
 				success: function (data, status){
-					if (data.result != undefined && data.result == "success"){
-						$("#textbox").val($("#textbox").val() + data.url);
+					$mediaPreview = $("#media_preview");
+					if (data.media_id != undefined && data.media_id != "error"){
+						if ($mediaPreview.length > 0) {
+							img.setAttribute("media_id", data.media_id);
+							var li = document.createElement('li');
+							var hyperlink = document.createElement('a');
+							li.appendChild(hyperlink);
+							hyperlink.title = "Remove";
+							var span = document.createElement('span');
+							span.className = "fa fa-times";
+							hyperlink.appendChild(img);
+							hyperlink.appendChild(span);
+							$mediaPreview[0].appendChild(li);
+						}
+						leaveWord();
 						updateSentTip("Your image has been uploaded!", 3e3, "success");
-						$("#photoArea").slideToggle(100);
 					}else{
 						updateSentTip("Failed to upload, please try again.", 3e3, "failure");
-						$("#photoArea").slideToggle(100);
 					}
 				},
 				error: function (data, status, e){
 					updateSentTip("Failed to upload, please try again.", 3e3, "failure");
-					$("#photoArea").slideToggle(100);
 				}
 			})
 		return false;
