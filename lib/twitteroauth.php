@@ -13,9 +13,6 @@
 //require_once('config.php');
 //require_once('oauth_lib.php');
 
-define('API_URL', 'https://api.twitter.com/1.1');
-define('UPLOAD_URL', 'https://upload.twitter.com/1.1');
-
 /**
  * Twitter OAuth class
  */
