@@ -4,6 +4,7 @@
 	 * This is the URL embrr used for all API calls, DO NOT change unless you know what you're doing!    *
 	 */
 	define('API_URL', 'https://api.twitter.com/1.1');
+	define('UPLOAD_URL', 'https://upload.twitter.com/1.1');
 	
 	/* Basic Configuration
 	 * 

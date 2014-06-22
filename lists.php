@@ -111,7 +111,7 @@
 	    	<span><label for="list_name">List name</label><input type="text" name="list_name" id="list_name" /></span>
 	    	<span><label for="list_description">Description</label><textarea type="text" name="list_description" id="list_description"></textarea></span>
 	    	<span><label for="list_protect">Private</label><input type="checkbox" name="list_protect" id="list_protect"  />
-			<a style="background: transparent url(img/sprite-icons.png) no-repeat scroll -272px -16px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; text-decoration: none; height: 10px; float: right; position: relative; width: 9px; left: 3px; top: -160px;" title="Close" onclick="$('#list_form').slideToggle(300)" href="#"></a>
+			<a style="background: transparent url(img/sprite-icons.png) no-repeat scroll -272px -16px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; text-decoration: none; height: 10px; float: right; position: relative; width: 9px; left: 3px; top: -160px;" title="Close" onclick="$('#list_form').slideToggle(300);return false;" href="#"></a>
 			<input type="submit" class="btn" id="list_submit" value="" />
 			
 			</span>

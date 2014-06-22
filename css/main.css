@@ -62,6 +62,7 @@ textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-s
 #func_set{clear:left;display:block;float:left;position:absolute;top:33px}
 .func_btn{background-color:#FFF;border-radius:3px;border:1px solid #ADADAD;color:#ADADAD;padding-top:2px;float:left;margin:0 -5px 0 10px;text-align:center;text-decoration:none;height:13px;width:20px;cursor:pointer;font-size:12px}
 .func_btn:hover{background-color:#F2F2F2;text-decoration:none}
+.func_btn.func_enabled{color:#7A7A7A}
 #photoArea,#filterArea,#symArea{border-radius:3px;background:#F5F5F5 none repeat scroll 0 0;border:1px solid #A7A6AA;clear:both;display:none;height:20px;left:20px;padding:10px 10px 60px;position:absolute;top:58px;width:500px}
 #symArea{overflow-x:hidden;overflow-y:auto}
 #symArea span{border-radius:3px;background-color:#EEE;border:1px solid transparent;color:#000;display:block;float:left;font-size:12px;line-height:18px;margin:0 10px 5px 0;min-width:60px;padding:1px 2px;text-align:center;white-space:nowrap}
@@ -69,7 +70,7 @@ textarea#textbox:hover{outline:none;border:1px solid rgba(167,166,170,.75);box-s
 #filterArea .filter_input{border:1px solid #A7A6AA;font-size:13px;height:17px;margin:10px 0 5px;padding:3px 2px;width:300px}
 .close{background:transparent url(../img/sprite-icons.png) no-repeat scroll -272px -16px;text-decoration:none;position:absolute;top:10px;right:10px;height:10px;width:9px}
 #sent_function{float:left;margin:4px 0 0 10px}
-#imageFile{margin:10px 0;padding:2px}
+#imageFile{padding:2px}
 #currently{color:#666;float:left;font-size:11px!important;margin:3px 8px 0 10px;overflow:hidden;padding:2px 4px 2px 0;text-align:left;width:385px;word-wrap:break-word;cursor:pointer}
 .status-text a{color:#666}
 #latest_meta a{color:#999}
@@ -453,3 +454,8 @@ span.is-following{color:green;background-color:#DDD;border-style:solid;border-ra
 .btn.btn-green:active,input[type=submit].btn-green:active,button.btn-green:active{background:#272}
 .btn.btn-red:active,input[type=submit].btn-red:active,button.btn-red:active{background:#a22}
 a.btn.btn-white,input.btn.btn-white{font-size:14px;font-family:tahoma;font-weight:700;padding:9px 11px}
+#media_preview img{width:50px;height:50px;margin:0 2px;border:1px solid #adadad}
+#media_preview span{font-size:45px;left:10px;top:-35px;position:absolute;opacity:0.8;color:#adadad;display:none}
+#media_preview > li{display:inline}
+#media_preview > li > a{cursor:pointer;position:relative}
+#media_preview > li > a:hover > span{display:block}

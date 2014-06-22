@@ -186,40 +186,6 @@
 		}
 		return false;
 	}
-
-
-	function imageUpload($image){
-		$t = getTwitter();
-		$signingurl = API_URL.'/account/verify_credentials.json';
-		$request = OAuthRequest::from_consumer_and_token($t->consumer, $t->token, 'GET', $signingurl, array());
-		$request->sign_request($t->sha1_method, $t->consumer, $t->token);
-		$r_header = $request->to_header("https://api.twitter.com/");
-		
-		$url = 'http://img.ly/api/2/upload.json';
-		$postdata = array('media' => $image);		
-		$ch = curl_init($url);		
-		if($postdata !== false)
-		{
-			curl_setopt ($ch, CURLOPT_POST, true);
-			curl_setopt ($ch, CURLOPT_POSTFIELDS, $postdata);
-		}
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Auth-Service-Provider: '.$signingurl,'X-Verify-Credentials-'.$r_header)); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_USERAGENT, 'embr');
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT,120);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,5);
-
-		$response = curl_exec($ch);
-		$response_info=curl_getinfo($ch);
-		curl_close($ch);
-		
-		if ($response_info['http_code'] == 200) {
-			return objectifyJson($response);
-		} else {
-			return $response_info['http_code'];
-		}
-	}
 	
 	function getTwitter() {
 		if(loginStatus()){
