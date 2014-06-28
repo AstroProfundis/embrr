@@ -418,25 +418,9 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .right_menu li a:hover{text-decoration:none!important}
 .right_menu li:hover{background-color:#666;color:#FFF}
 .right_menu li:hover *{color:#FFF}
-.right_menu li.divider{border:none/*border-top:1px solid #DDD*/}
-.right_menu i{background:url("../img/sprite-icons.png") no-repeat;display:inline-block;height:13px;outline:medium none;overflow:hidden;width:13px}
-.right_menu a i{left:7px;position:absolute;top:4px;width:15px}
-.right_menu .rm_mention i, .right_menu .ul_mention i{background-position:-16px -32px}
-.right_menu .rm_mention:hover i, .right_menu .ul_mention:hover i{background-position:0 -32px}
-.right_menu .rm_dm i,.right_menu .ul_dm i{background-position:-48px -32px}
-.right_menu .rm_dm:hover i,.right_menu .ul_dm:hover i{background-position:-32px -32px}
-.right_menu .rm_follow i,.right_menu .ul_follow i{background-position:-176px -32px}
-.right_menu .rm_follow:hover i,.right_menu .ul_follow:hover i{background-position:-160px -32px}
-.right_menu .rm_remove i,.right_menu .ul_remove i{background-position:-208px -32px}
-.right_menu .rm_remove:hover i,.right_menu .ul_remove:hover i{background-position:-192px -32px}
-.right_menu .rm_unfollow i,.right_menu .ul_unfollow i{background-position:-112px -32px}
-.right_menu .rm_unfollow:hover i,.right_menu .ul_unfollow:hover i{background-position:-96px -32px}
-.right_menu .rm_block i,.right_menu .ul_block i,.right_menu .rm_unblock:hover i, .right_menu .ul_unblock:hover i{background-position:-144px -32px}
-.right_menu .rm_block:hover i,.right_menu .ul_block:hover i,.right_menu .rm_unblock i, .right_menu .ul_unblock i{background-position:-128px -32px}
-.right_menu .rm_mute i,.right_menu .ul_mute i,.right_menu .rm_unmute:hover i, .right_menu .ul_unmute:hover i{background-position:-128px 0px}
-.right_menu .rm_mute:hover i,.right_menu .ul_mute:hover i,.right_menu .rm_unmute i, .right_menu .ul_unmute i{background-position:-112px 0px}
-.right_menu .rm_spam i,.right_menu .ul_spam i{background-position:-272px -32px}
-.right_menu .rm_spam:hover i, .right_menu .ul_spam:hover i{background-position:-256px -32px}
+.right_menu i{left:7px;position:absolute;top:4px;width:15px;height:13px;text-align:center;font-size:13px}
+.right_menu a:hover > i{opacity:0.8}
+.fa-customize-mention::before{content:"@"}
 
 /*Twitter Buttons*/
 .btn.btn-green{border-color:#272 #272 #161;color:#fff;text-shadow:-1px -1px 0 #272;
