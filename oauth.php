@@ -92,7 +92,7 @@
 				$url = $connection->getAuthorizeURL($token);
 				if ( isset($_POST['proxify']) ) { 
 					$raw= processCurl($url);
-					$new = str_replace('https://api.twitter.com/oauth/authorize', 'authorize.php',$raw); 
+					$new = str_replace('https://twitter.com/sessions', 'authorize.php',$raw); 
 					$new = str_replace('html { display:none; }','.error,a.sign-up,input[name="deny"]{display:none !important;}',$new);
 					$new = preg_replace('/https?:\/\/\w+([0-9])\.twimg\.com/i','https://s3.amazonaws.com/twitter_production',$new);
   				echo $new;
