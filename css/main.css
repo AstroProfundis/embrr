@@ -407,7 +407,8 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .ac_results{border:1px solid #666;}
 .ac_results ul{width:100%;list-style-position:outside;list-style:none;margin:0;padding:0} 
 .ac_results li{cursor:default;display:block;font:menu;font-size:12px;line-height:16px;overflow:hidden;margin:0;padding:2px 5px} 
-.ac_loading{background:#FFF url(img/ajax.gif) right center no-repeat}
+.suggestion_loading{position:absolute;left:345px;top:46px;font-size:15px;color:#adadad}
+.ac_input:not(.ac_loading)+.suggestion_loading{display:none}
 .ac_odd{background-color:#eee}
 .ac_even{background-color:#fff}
 
