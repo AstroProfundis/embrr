@@ -40,6 +40,7 @@
 
 	<form action="search.php" method="get" id="search_form">
 		<input type="text" name="q" id="query" value="<?php echo $_GET['q'] ?>" autocomplete="off" />
+		<span class="suggestion_loading fa fa-spinner fa-spin"></span>
 		<input type="submit" class="btn btn-white" value="Search">
 		<input type="button" class="btn btn-white" value="Save" id="btn_savesearch">
 	</form>

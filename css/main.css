@@ -315,12 +315,14 @@ footer li img{border:0 none;margin:-3px;padding:0}
 #query{border:1px solid #999;display:block;float:left;font-family:Helvetica,Arial,Sans-serif;font-size:18px;height:24px;margin:0 0 25px 45px;padding:4px 0;text-indent:10px;width:300px;border-radius:5px}
 #header_search form {height:26px;width:175px}
 #header_search_query{border-color:#999;border-style:solid none solid solid;border-width:1px medium 1px 1px;float:left;font-size:12px;height:14px;line-height:18px;padding:5px 0;text-indent:5px;width:144px}
-#header_search_submit{
-background:url("../img/nav_search_submit.png") repeat scroll -2px 0 transparent!important;border:1px solid #999;color:#555;cursor:pointer;float:left;font-size:14px;height:26px;line-height:26px;text-align:center;width:28px}
+#header_search_submit{border:1px solid #999;color:#555;cursor:pointer;float:left;font-size:14px;height:26px;line-height:26px;text-align:center;width:28px}
 #header_search_submit:hover{
-background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -25px!important;outline:none}
-#header_search_submit:focus, #header_search_submit:active{
-background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -50px!important;outline:none}
+background:-webkit-linear-gradient(white,#aaa);
+background:-o-linear-gradient(white,#aaa);
+background:-moz-linear-gradient(white,#aaa);
+background:linear-gradient(white,#aaa);
+}
+#header_search_submit:active{background:#ddd}
 .ac_results .ss_delete_btn{float:right;display:none}
 .ac_odd:hover .ss_delete_btn,.ac_even:hover .ss_delete_btn{display:inline-block}
 
@@ -405,7 +407,8 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .ac_results{border:1px solid #666;}
 .ac_results ul{width:100%;list-style-position:outside;list-style:none;margin:0;padding:0} 
 .ac_results li{cursor:default;display:block;font:menu;font-size:12px;line-height:16px;overflow:hidden;margin:0;padding:2px 5px} 
-.ac_loading{background:#FFF url(img/ajax.gif) right center no-repeat}
+.suggestion_loading{position:absolute;left:345px;top:46px;font-size:15px;color:#adadad}
+.ac_input:not(.ac_loading)+.suggestion_loading{display:none}
 .ac_odd{background-color:#eee}
 .ac_even{background-color:#fff}
 
@@ -418,25 +421,9 @@ fieldset.common-form td[colspan=2]{text-align:right}
 .right_menu li a:hover{text-decoration:none!important}
 .right_menu li:hover{background-color:#666;color:#FFF}
 .right_menu li:hover *{color:#FFF}
-.right_menu li.divider{border:none/*border-top:1px solid #DDD*/}
-.right_menu i{background:url("../img/sprite-icons.png") no-repeat;display:inline-block;height:13px;outline:medium none;overflow:hidden;width:13px}
-.right_menu a i{left:7px;position:absolute;top:4px;width:15px}
-.right_menu .rm_mention i, .right_menu .ul_mention i{background-position:-16px -32px}
-.right_menu .rm_mention:hover i, .right_menu .ul_mention:hover i{background-position:0 -32px}
-.right_menu .rm_dm i,.right_menu .ul_dm i{background-position:-48px -32px}
-.right_menu .rm_dm:hover i,.right_menu .ul_dm:hover i{background-position:-32px -32px}
-.right_menu .rm_follow i,.right_menu .ul_follow i{background-position:-176px -32px}
-.right_menu .rm_follow:hover i,.right_menu .ul_follow:hover i{background-position:-160px -32px}
-.right_menu .rm_remove i,.right_menu .ul_remove i{background-position:-208px -32px}
-.right_menu .rm_remove:hover i,.right_menu .ul_remove:hover i{background-position:-192px -32px}
-.right_menu .rm_unfollow i,.right_menu .ul_unfollow i{background-position:-112px -32px}
-.right_menu .rm_unfollow:hover i,.right_menu .ul_unfollow:hover i{background-position:-96px -32px}
-.right_menu .rm_block i,.right_menu .ul_block i,.right_menu .rm_unblock:hover i, .right_menu .ul_unblock:hover i{background-position:-144px -32px}
-.right_menu .rm_block:hover i,.right_menu .ul_block:hover i,.right_menu .rm_unblock i, .right_menu .ul_unblock i{background-position:-128px -32px}
-.right_menu .rm_mute i,.right_menu .ul_mute i,.right_menu .rm_unmute:hover i, .right_menu .ul_unmute:hover i{background-position:-128px 0px}
-.right_menu .rm_mute:hover i,.right_menu .ul_mute:hover i,.right_menu .rm_unmute i, .right_menu .ul_unmute i{background-position:-112px 0px}
-.right_menu .rm_spam i,.right_menu .ul_spam i{background-position:-272px -32px}
-.right_menu .rm_spam:hover i, .right_menu .ul_spam:hover i{background-position:-256px -32px}
+.right_menu i{left:7px;position:absolute;top:4px;width:15px;height:13px;text-align:center;font-size:13px}
+.right_menu a:hover > i{opacity:0.8}
+.fa-customize-mention::before{content:"@"}
 
 /*Twitter Buttons*/
 .btn.btn-green{border-color:#272 #272 #161;color:#fff;text-shadow:-1px -1px 0 #272;

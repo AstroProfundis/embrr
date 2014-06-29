@@ -28,7 +28,6 @@ table tr td{padding:5px 0}
 .more{background-color:#FFF;background-image:url("../img/more.gif");background-position:left top;background-repeat:repeat-x;border-color:#DDD #AAA #AAA #DDD;border-style:solid;border-width:1px;display:block;font-family:Helvetica;font-size:18px;font-weight:700;height:22px;letter-spacing:1px;line-height:2em;margin-bottom:6px;outline-style:none;outline-width:medium;padding:6px 0;width:100%}
 .more:hover{background-position:left -78px;border:1px solid #bbb;text-decoration:none}
 .more:active{background-position:left -38px;color:#666}
-.more.loading{background-color:#fff;background-image:url(../img/ajax.gif);background-position:50% 50%;background-repeat:no-repeat;border:1px solid #eee;cursor:default!important}
 .more::-moz-focus-inner{border:0}
 .round{-moz-border-radius:8px;border-radius:8px}
 #shareBtn{color:#666;display:block;height:45px;margin:0 auto;text-shadow:0 1px 0 #FFF;vertical-align:top;width:300px;line-height:1em}
