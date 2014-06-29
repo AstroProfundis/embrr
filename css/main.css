@@ -315,12 +315,14 @@ footer li img{border:0 none;margin:-3px;padding:0}
 #query{border:1px solid #999;display:block;float:left;font-family:Helvetica,Arial,Sans-serif;font-size:18px;height:24px;margin:0 0 25px 45px;padding:4px 0;text-indent:10px;width:300px;border-radius:5px}
 #header_search form {height:26px;width:175px}
 #header_search_query{border-color:#999;border-style:solid none solid solid;border-width:1px medium 1px 1px;float:left;font-size:12px;height:14px;line-height:18px;padding:5px 0;text-indent:5px;width:144px}
-#header_search_submit{
-background:url("../img/nav_search_submit.png") repeat scroll -2px 0 transparent!important;border:1px solid #999;color:#555;cursor:pointer;float:left;font-size:14px;height:26px;line-height:26px;text-align:center;width:28px}
+#header_search_submit{border:1px solid #999;color:#555;cursor:pointer;float:left;font-size:14px;height:26px;line-height:26px;text-align:center;width:28px}
 #header_search_submit:hover{
-background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -25px!important;outline:none}
-#header_search_submit:focus, #header_search_submit:active{
-background:transparent url(../img/nav_search_submit.png) repeat scroll -2px -50px!important;outline:none}
+background:-webkit-linear-gradient(white,#aaa);
+background:-o-linear-gradient(white,#aaa);
+background:-moz-linear-gradient(white,#aaa);
+background:linear-gradient(white,#aaa);
+}
+#header_search_submit:active{background:#ddd}
 .ac_results .ss_delete_btn{float:right;display:none}
 .ac_odd:hover .ss_delete_btn,.ac_even:hover .ss_delete_btn{display:inline-block}
 

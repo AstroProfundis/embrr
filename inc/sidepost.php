@@ -5,7 +5,7 @@
 	<li id="header_search">
 	<form method="get" action="search.php">
 	<input type="text" name="q" autocomplete="off" id="header_search_query" class="round-left"/>
-	<input type="submit" value="" id="header_search_submit" class="round-right"/>
+	<button type="submit" id="header_search_submit" class="round-right fa fa-search"></button>
 	</form>
 	</li>
 </ul>
