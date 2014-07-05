@@ -13,7 +13,7 @@ li{list-style-image:none;list-style-position:outside;list-style-type:none;-moz-t
 img{border:medium none}
 h2{clear:both;display:block;float:left;font-family:'Helvetica Neue','Helvetica','Arial',sans-serif;font-size:20px;font-weight:400;line-height:1.1;margin:8px 0 0 10px;cursor:default}
 .wrapper{margin:1em auto;position:relative;width:763px}
-.content-bubble-arrow{background-image:url(../img/arr2.gif);background-position:25px 0;background-repeat:no-repeat;margin-top:1em;padding-top:11px}
+.content-bubble-arrow{height:18px;width:18px;background-color:#fff;transform:rotate(45deg);margin-bottom:-7px;position:relative;top:5px;left:25px}
 .columns{margin-bottom:15px;width:100%}
 .round{border-radius:5px}
 .round-right{border-radius:0 5px 5px 0}
