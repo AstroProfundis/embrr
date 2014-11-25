@@ -72,7 +72,8 @@
 			$output = '<ol class="rank_list">';			
 			foreach ($lists as $list) {
 		
-				$listurl = substr($list->uri,1);
+				$listuriparts = explode('/', $list->uri);
+				$listurl = $listuriparts[1].'/'.$listuriparts[3];
 				$user = $list->user;
 				$listname = explode('/',$list->full_name);
 				$mode = $list->mode == 'private' ? "Private" : "Public";
