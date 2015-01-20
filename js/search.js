@@ -81,7 +81,7 @@ $(function(){
 			theAC = $("#query").autocomplete(searches, {
 				minChars:0,
 				formatItem:function(data, i, total) {
-					return "<a class=\"ss_delete_btn\" href=\"#\" id=\"sgt" + data[0] + "\" >delete</a>" + data[1];
+					return "<a class=\"ss_delete_btn fa fa-trash-o\" href=\"#\" id=\"sgt" + data[0] + "\" title=\"Delete\"></a>" + data[1];
 				},
 				formatMatch:function(data, i, total) {
 					return data[1];
@@ -99,7 +99,8 @@ $(function(){
 	formHTML = "<h2>What are you doing?</h2>" + formHTML + "<div class=\"clear\"></div>";
 	$("#allTimeline").click(function(e) {
 		var $this = $(e.target);
-		var type = $this.attr('class');
+		var matches = ($this.attr('class') || '').match(/\w+_btn/);
+		var type = matches ? matches[0] : '';
 		switch(type) {
 			case 'rt_btn':
 				e.preventDefault();
@@ -137,15 +138,11 @@ $(function(){
 				e.preventDefault();
 				onDelete($this);
 				break;
-			case 'rt_undo':
+			case 'unrt_btn':
 				e.preventDefault();
 				onUndoRt($this);
 				break;
 		}
-	});
-	$("#submit_btn").click(function(e){
-		updateStatus();
-		e.preventDefault();
 	});
 	sidebarscroll('pause');
 	updateTrends();

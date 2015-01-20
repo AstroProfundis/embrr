@@ -41,8 +41,8 @@
 				$time = $_SERVER['REQUEST_TIME']+3600*24*365;
 				setEncryptCookie('oauth_token', $access_token['oauth_token'], $time, '/');
 				setEncryptCookie('oauth_token_secret', $access_token['oauth_token_secret'], $time, '/');
-				setEncryptCookie('user_id', $access_token['user_id'], $time, '/');
-				setEncryptCookie('twitese_name', $t->screen_name, $time, '/');
+				setcookie('user_id', $access_token['user_id'], $time, '/');
+				setcookie('name', $t->screen_name, $time, '/');
 				refreshProfile();
 				
 				if(!isset($_COOKIE['showpic'])){
@@ -93,7 +93,7 @@
 				if ( isset($_POST['proxify']) ) { 
 					$raw= processCurl($url);
 					$formpreg = '/(<form( \w+=\"[^"]*\")* action=\")[^"]*(\"( \w+=\"[^"]*\")*>)/';
-					$new = preg_replace($formpreg, '\1/authorize.php\3',$raw); 
+					$new = preg_replace($formpreg, '\1authorize.php\3',$raw);
 					$new = str_replace('html { display:none; }','.error,a.sign-up,input[name="deny"]{display:none !important;}',$new);
 					$new = preg_replace('/https?:\/\/\w+([0-9])\.twimg\.com/i','https://s3.amazonaws.com/twitter_production',$new);
   				echo $new;

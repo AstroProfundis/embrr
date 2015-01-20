@@ -13,10 +13,10 @@
 <meta name="author" content="Contributors" />
 <link rel="icon" href="img/favicon.ico" />
 <link id="css" href="css/main.css" rel="stylesheet" />
+<link href="//cdn.jsdelivr.net/fontawesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 <title>Embr / <?php echo $title ?></title>
 <?php 
 	$myCSS = getDefCookie("myCSS");
-	$theme = getDefCookie("theme");
 	$old_css = "ul.sidebar-menu li.active a";
 	$new_css = "ul.sidebar-menu a.active";
 	$myCSS = str_replace($old_css,$new_css,$myCSS);
@@ -30,7 +30,7 @@
 	}
 ?>
 <style type="text/css">
-<?php echo $theme;echo $myCSS ?>
+<?php echo $myCSS ?>
 a:active,a:focus {outline:none}
 body {font-size:<?php echo $fontsize ?> !important;<?php 
 	if ($Bgcolor != "") echo 'background-color:'.$Bgcolor.';';
@@ -52,8 +52,7 @@ body {font-size:<?php echo $fontsize ?> !important;<?php
 			<ul>
 				<?php $scheme=(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http://' : 'https://';
 				$base_url=str_replace('http://',$scheme,BASE_URL);
-				?> 
-				<li><a class="share" title="Drag me to share!" href="javascript:var%20d=document,w=window,f='<?php echo $base_url."/share.php" ?>',l=d.location,e=encodeURIComponent,p='?u='+e(l.href)+'&t='+e(d.title)+'&d='+e(w.getSelection?w.getSelection().toString():d.getSelection?d.getSelection():d.selection.createRange().text)+'&s=bm';a=function(){if(!w.open(f+p,'sharer','toolbar=0,status=0,resizable=0,width=600,height=300,left=175,top=150'))l.href=f+'.new'+p};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else{a()}void(0);">Share</a></li>
+				?>
 				<li><a href="index.php">Home</a></li>
 				<li><a href="profile.php">Profile</a></li>
 				<li><a href="setting.php">Settings</a></li>

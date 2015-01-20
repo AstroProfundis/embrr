@@ -59,7 +59,7 @@
 		return $text;
 	}
 
-	function formatEntities(&$entities,$html){
+	function formatEntities($entities,$extended_entities,$html){
 		$user_mentions = $entities->user_mentions;
 		$hashtags = $entities->hashtags;
 		$urls = $entities->urls;
@@ -99,7 +99,24 @@
 				$html = str_replace($media->url,"<a href=\"$url\" target=\"_blank\" rel=\"noreferrer\">$media->display_url</a>",$html);
 			}
 		}
-		return $html;
+		$ret = array('text' => $html);
+
+		$extended_str = '';
+		if($extended_entities != null) {
+			if (isset($extended_entities->media)) {
+				$medias = $extended_entities->media;
+				foreach($medias as $media) {
+					$url = $media->media_url_https;
+					if (getcookie('p_avatar') == 'true') {
+							$url = 'img.php?imgurl='.$url;
+					}
+					$extended_str .= "<a href=\"$url\" target=\"_blank\" rel=\"noreferrer\">$media->display_url</a>";
+				}
+			}
+		}
+		$ret['extended'] = $extended_str;
+
+		return $ret;
 	}
 
 	function formatTweetID($text){
@@ -169,40 +186,6 @@
 		}
 		return false;
 	}
-
-
-	function imageUpload($image){
-		$t = getTwitter();
-		$signingurl = API_URL.'/account/verify_credentials.json';
-		$request = OAuthRequest::from_consumer_and_token($t->consumer, $t->token, 'GET', $signingurl, array());
-		$request->sign_request($t->sha1_method, $t->consumer, $t->token);
-		$r_header = $request->to_header("https://api.twitter.com/");
-		
-		$url = 'http://img.ly/api/2/upload.json';
-		$postdata = array('media' => $image);		
-		$ch = curl_init($url);		
-		if($postdata !== false)
-		{
-			curl_setopt ($ch, CURLOPT_POST, true);
-			curl_setopt ($ch, CURLOPT_POSTFIELDS, $postdata);
-		}
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Auth-Service-Provider: '.$signingurl,'X-Verify-Credentials-'.$r_header)); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_USERAGENT, 'embr');
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT,120);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,5);
-
-		$response = curl_exec($ch);
-		$response_info=curl_getinfo($ch);
-		curl_close($ch);
-		
-		if ($response_info['http_code'] == 200) {
-			return objectifyJson($response);
-		} else {
-			return $response_info['http_code'];
-		}
-	}
 	
 	function getTwitter() {
 		if(loginStatus()){
@@ -218,8 +201,8 @@
    function loginStatus() {
 	   if(isset($_SESSION['login_status'])){
 	      return $_SESSION['login_status'] == 'verified' ? true : false;
-	   }elseif(getEncryptCookie("oauth_token") != "" && getEncryptCookie("oauth_token_secret") != "" && getEncryptCookie("user_id") != "" && getEncryptCookie("twitese_name") != ""){
-	      $access_token = array("oauth_token" => getEncryptCookie("oauth_token"), "oauth_token_secret" => getEncryptCookie("oauth_token_secret"), "user_id" => getEncryptCookie("user_id"), "screen_name" => getEncryptCookie("twitese_name"));
+	   }elseif(getEncryptCookie("oauth_token") != "" && getEncryptCookie("oauth_token_secret") != "" && getCookie("user_id") != "" && getCookie("name") != ""){
+	      $access_token = array("oauth_token" => getEncryptCookie("oauth_token"), "oauth_token_secret" => getEncryptCookie("oauth_token_secret"), "user_id" => getCookie("user_id"), "screen_name" => getCookie("name"));
 	      $_SESSION['access_token'] = $access_token;
 	      $_SESSION['login_status'] = 'verified';
 	      refreshProfile();
@@ -246,19 +229,20 @@
 		$relationship = getTwitter()->relationship($target, $source)->relationship;
 		$target = $relationship->target;
 		$source = $relationship->source;
-		if($source->blocking != null){
-			return 4;
+		$result = 0;
+		if($source->muting == true){
+			$result |= 8;
 		}
-		if($source->following == true && $target->following == true){
-			return 1;
+		if($source->blocking == true){
+			$result |= 4;
 		}
-		if($source->following == true && $target->following == false){
-			return 2;
+		if($target->following == true){
+			$result |= 2;
 		}
-		if($source->following == false && $target->following == true){
-			return 3;
+		if($source->following == true){
+			$result |= 1;
 		}
-		return 9;
+		return $result;
 	}
 	
 	function urlshorten($url, $type='goo.gl'){

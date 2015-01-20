@@ -36,11 +36,12 @@
 	$user = $t->showUser($userid);
 	if (strcasecmp($userid,$t->username) == 0) {header('location: profile.php');exit();}
 
-	$isProtected = ($statuses == 'protected') || ($statuses->error == 'Not authorized');
+	$isProtected = $statuses->error == 'Not authorized.';
 	$r = getRelationship($user->screen_name);
-	$isFriend = $r == 2 || $r == 1;
-	$isFollower = $r == 3 || $r == 1;
-	$isBlocked = $r == 4;
+	$isFriend = ($r & 1) != 0;
+	$isFollower = ($r & 2) != 0;
+	$isBlocked = ($r & 4) != 0;
+	$isMuted = ($r & 8) != 0;
 
 	if (!$isProtected) {
 
@@ -63,7 +64,10 @@
 		<a href="https://twitter.com/<?php echo $userid ?>"><img id="info_headimg" src="<?php echo $userinfo['image_url'] ?>" /></a>
 		<div id="info_name" style="display:inline-block"><?php echo $userid ?></div>
 		<?php if ($isFollower) {?>
-		<span id="following_me" style="display:inline!important"><img style="" src="img/yes.gif" alt="" class="icon"/><span>Following me</span></span>
+		<span id="following_me" style="display:inline!important">
+			<span class="fa fa-check is-following"></span>
+			<span>Following me</span>
+		</span>
 <?php 
 		}
 ?>
@@ -81,9 +85,14 @@
 <?php }else{ ?>
 		<a class='btn' id='block_btn' href='#'>Block</a>
 <?php } ?>
+<?php if($isMuted){ ?>
+		<a class='btn' id='unmute_btn' href='#'>Unmute</a>
+<?php }else{ ?>
+		<a class='btn' id='mute_btn' href='#'>Mute</a>
+<?php } ?>
 			<a class="btn" id="info_reply_btn" href="#">Reply</a>
 			<a class="btn" id="info_hide_btn" href="#">Hide @</a>
-			<a class="btn " id="report_btn" href="#" style="color:#a22">Report Spam</a>
+			<a class="btn" id="report_btn" href="#" style="color:#a22">Report Spam</a>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -111,11 +120,11 @@
 
 			$output .= "</ol><div id=\"pagination\">";
 			if ($_GET['fav'] == true) {
-				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&since_id={$firstid}\">Back</a>";
-				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&max_id={$lastid}\">Next</a>";
+				$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"user.php?id=$userid&fav=true&since_id={$firstid}\">Back</a>";
+				$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"user.php?id=$userid&fav=true&max_id={$lastid}\">Next</a>";
 			} else {
-				$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"user.php?id=$userid&since_id={$firstid}\">Back</a>";
-				$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"user.php?id=$userid&max_id={$lastid}\">Next</a>";
+				$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"user.php?id=$userid&since_id={$firstid}\">Back</a>";
+				$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"user.php?id=$userid&max_id={$lastid}\">Next</a>";
 			}
 			$output .= "</div>";
 			echo $output;
@@ -127,7 +136,7 @@
 			<div id="info_name"><?php echo $userid ?></div>
 			<div id="info_relation">
 			<?php if ($isFriend) {?>
-				<a id="info_block_btn" class="btn_hover" href="#">Unfollow</a>
+				<a id="info_block_btn" class="btn" href="#">Unfollow</a>
 			<?php } else { ?>
 				<a id="info_follow_btn" class="btn" href="#">Follow</a>
 			<?php } ?>
@@ -135,9 +144,14 @@
 				<a class="btn" id="info_send_btn" href="message.php?id=<?php echo $userid ?>">Send DM</a>
 			<?php } ?>
 <?php if($isBlocked){ ?>
-		<a class='btn_hover' id='unblock_btn' href='#'>Unblock</a>
+		<a class='btn' id='unblock_btn' href='#'>Unblock</a>
 <?php }else{ ?>
 		<a class='btn' id='block_btn' href='#'>Block</a>
+<?php } ?>
+<?php if($isMuted){ ?>
+		<a class='btn' id='unmute_btn' href='#'>Unmute</a>
+<?php }else{ ?>
+		<a class='btn' id='mute_btn' href='#'>Mute</a>
 <?php } ?>
 				<a class="btn" id="info_reply_btn" href="#">Reply</a>
 				<a class="btn" id="info_hide_btn" href="#">Hide @</a>

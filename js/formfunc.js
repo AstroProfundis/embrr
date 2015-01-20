@@ -4,6 +4,11 @@ FILTER_KEY_OPT ={
 	expires: 30
 }
 $(function (){
+		$(document).on("click", "#media_preview > li > a", function(){
+				var li = this.parentNode;
+				li.parentNode.removeChild(li);
+				leaveWord();
+			});
 		$("#photoBtn").click(function (){
 				$("#photoArea").slideToggle(100);
 			});
@@ -19,7 +24,7 @@ $(function (){
 			});
 		$("#symbols span").click(function (){
 	      var obj = document.getElementById('textbox'); 
-	      var str = $(this).html();
+	      var str = $(this).text();
 	      if(document.selection){  
 	         obj.focus();  
 	         var sel=document.selection.createRange();  
@@ -40,13 +45,13 @@ $(function (){
 				updateSentTip("Your previous tweet has been restored!", 3e3, "success");
 			});
 		$("#autoBtn").click(function(){
-				if ($("#autoBtn").hasClass("pause")){
+				if ($("#autoBtn").hasClass("fa-pause")){
 					clearInterval(UPDATE_INTERVAL);
-					$("#autoBtn").removeClass("pause").addClass("start");
+					$("#autoBtn").removeClass("fa-pause").addClass("fa-play");
 					updateSentTip("Auto refresh deactivated!", 3e3, "success");
 				}else{
 					setUpdateInterval();
-					$("#autoBtn").removeClass("start").addClass("pause");
+					$("#autoBtn").removeClass("fa-play").addClass("fa-pause");
 					updateSentTip("Auto refresh activated!", 3e3, "success");
 					update();
 				}
@@ -54,9 +59,6 @@ $(function (){
 		$("#refreshBtn").click(function (){
 				update();
 				updateSentTip("Retrieving new tweets...", 3e3, "ing");
-			});
-		$("#transBtn").click(function (){
-				$("#transArea").slideToggle(100);
 			});
 		$("#filterSubmit").click(function (e){
 				e.preventDefault();
@@ -99,9 +101,32 @@ $(function (){
 				}
 			});
 	});
+
+	function createObjectURL(file) {
+		if (window.webkitURL) {
+			return window.webkitURL.createObjectURL(file);
+		}
+		return window.URL.createObjectURL(file);
+	}
+	
+	function revokeObjectURL(url) {
+		if (window.webkitURL) {
+			return window.webkitURL.revokeObjectURL(url);
+		}
+		return window.URL.revokeObjectURL(url);
+	}
 	
 	function ImageUpload(){
+		var fileEle = $("#imageFile")[0];
+		if (fileEle.files.length == 0) {
+			return;
+		}
 		updateSentTip("Uploading your image...", 10000, "ing");
+		var img = document.createElement('img');
+		img.src = createObjectURL(fileEle.files[0]);
+		img.onload = function() {
+			revokeObjectURL(img.src);
+		};
 		$.ajaxFileUpload({
 				url: 'ajax/uploadImage.php?do=image',
 				timeout: 60000,
@@ -109,23 +134,28 @@ $(function (){
 				fileElementId: 'imageFile',
 				dataType: 'json',
 				success: function (data, status){
-					if (typeof(console) !== 'undefined' && console != null){
-						console.info(data);
-					}
-					if (data.result != undefined && data.result == "success"){
-						$("#textbox").val($("#textbox").val() + data.url);
+					$mediaPreview = $("#media_preview");
+					if (data.media_id != undefined && data.media_id != "error"){
+						if ($mediaPreview.length > 0) {
+							img.setAttribute("media_id", data.media_id);
+							var li = document.createElement('li');
+							var hyperlink = document.createElement('a');
+							li.appendChild(hyperlink);
+							hyperlink.title = "Remove";
+							var span = document.createElement('span');
+							span.className = "fa fa-times";
+							hyperlink.appendChild(img);
+							hyperlink.appendChild(span);
+							$mediaPreview[0].appendChild(li);
+						}
+						leaveWord();
 						updateSentTip("Your image has been uploaded!", 3e3, "success");
-						$("#photoArea").slideToggle(100);
 					}else{
-						console.log(data);
 						updateSentTip("Failed to upload, please try again.", 3e3, "failure");
-						$("#photoArea").slideToggle(100);
 					}
 				},
 				error: function (data, status, e){
 					updateSentTip("Failed to upload, please try again.", 3e3, "failure");
-					$("#photoArea").slideToggle(100);
-					console.log(data);
 				}
 			})
 		return false;
@@ -196,39 +226,4 @@ function setFilterCookie(){
 var option ={ expire: 30 };
 $(document).ready(function (){
 		enableFilter();
-		if($.cookie('transLang') === null){
-			$.cookie('transLang', 'en', option);
-		}
-		if($.cookie('myLangs') === null){
-			$.cookie('myLangs', 'en', option);
-		}
-		var select = $('#transArea select[name=langs]');
-		select.change(function(){
-				var val = $(this).val();
-				$.cookie('transLang', val, option);
-				$.cookie('fullLang', $(this).find('option[value=' + val + ']').text(), option);
-			})
-			.find('option').each(function(){
-				var lang = $.cookie('transLang')
-				if(lang === null){
-					lang = 'en';
-				}
-				if($(this).val() === lang){
-					$(this).attr('selected', 'selected');
-				}
-			});
-		var mylang = $('#transArea select[name=myLangs]');
-		mylang.change(function(){
-				var val = $(this).val();
-				$.cookie('myLangs', val, option);
-			})
-			.find('option').each(function(){
-				var lang = $.cookie('myLangs')
-				if(lang === null){
-					lang = 'en';
-				}
-				if($(this).val() === lang){
-					$(this).attr('selected', 'selected');
-				}
-			});
-	});
+});

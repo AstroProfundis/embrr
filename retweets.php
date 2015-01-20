@@ -36,8 +36,8 @@
 		}
 		$lastid = bcsub($lastid, "1");
 		$html .= '</ol><div id="pagination">';
-			$html .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"retweets.php?since_id={$firstid}\">Back</a>";
-			$html .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"retweets.php?max_id={$lastid}\">Next</a>";
+			$html .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"retweets.php?since_id={$firstid}\">Back</a>";
+			$html .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"retweets.php?max_id={$lastid}\">Next</a>";
 		$html .= "</div>";
 	}
 	echo $html;

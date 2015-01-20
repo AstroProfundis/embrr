@@ -1,7 +1,8 @@
 $(function(){
 	$("#allTimeline").click(function(e) {
 		var $this = $(e.target);
-		var type = $this.attr('class');
+		var matches = ($this.attr('class') || '').match(/\w+_btn/);
+		var type = matches ? matches[0] : '';
 		switch(type) {
 			case 'rt_btn':
 				e.preventDefault();
@@ -36,7 +37,7 @@ $(function(){
 				e.preventDefault();
 				UnFavor($this);
 				break;
-			case 'rt_undo':
+			case 'unrt_btn':
 				e.preventDefault();
 				onUndoRt($this);
 				break;
@@ -45,17 +46,13 @@ $(function(){
 
 	$("#info_reply_btn").click(function(){
 		var replie_id = $("#info_name").text();
-		if ($("#textbox").length > 0) {
-			$("#textbox").val($("#textbox").val() + "@" + replie_id + " ");
-			$("#textbox").focus();
-			leaveWord();
-		} else {
+		if ($("#textbox").length == 0) {
 			$("#info_head").after('<h2>In reply to ' + replie_id + '</h2>' + formHTML);
 			formFunc();
-			$("#textbox").val($("#textbox").val() + "@" + replie_id + " ");
-			$("#textbox").focus();
-			leaveWord();
 		}
+		$("#textbox").val($("#textbox").val() + "@" + replie_id + " ");
+		$("#textbox").focus();
+		leaveWord();
 	});
 	if ($.cookie("infoShow") == "hide") {
 		onHide();
@@ -64,7 +61,7 @@ $(function(){
 		onHide();
 	});
 
-	$("#info_follow_btn").click(function(e){
+	$(document).on("click", "#info_follow_btn", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();
@@ -92,7 +89,7 @@ $(function(){
 		});
 	});
 
-	$("#info_block_btn").click(function(e){
+	$(document).on("click", "#info_block_btn", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();
@@ -118,7 +115,59 @@ $(function(){
 		}
 	});
 
-	$("#block_btn").click(function(e){
+	$(document).on("click", "#mute_btn", function(e){
+		e.preventDefault();
+		var $this = $(this);
+		var id = $("#info_name").text();
+		if (confirm("Are you sure to mute " + id + " ?")) {
+			updateSentTip("Muting " + id + "...", 5000, "ing");
+			$.ajax({
+				url: "ajax/relation.php",
+				type: "POST",
+				data: "action=mute&id=" + id,
+				success: function(msg) {
+					if (msg.indexOf("success") >= 0) {
+						updateSentTip("You have muted " + id + "!", 3000, "success");
+						$this.after('<a class="btn" id="unmute_btn" href="javascript:void(0)">Unmute</a>');
+						$this.remove();
+					} else {
+						updateSentTip("Failed to mute " + id + ", please try again.", 3000, "failure");
+					}
+				},
+				error: function(msg) {
+					updateSentTip("Failed to mute " + id + ", please try again.", 3000, "failure");
+				}
+			});
+		}
+	});
+
+	$(document).on("click", "#unmute_btn", function(e){
+		e.preventDefault();
+		var $this = $(this);
+		var id = $("#info_name").text();
+		if (confirm("Are you sure to unmute " + id + " ?")) {
+			updateSentTip("Unmuting " + id + "...", 5000, "ing");
+			$.ajax({
+				url: "ajax/relation.php",
+				type: "POST",
+				data: "action=unmute&id=" + id,
+				success: function(msg) {
+					if (msg.indexOf("success") >= 0) {
+						updateSentTip("You have unmuted " + id + "!", 3000, "success");
+						$this.after('<a class="btn" id="mute_btn" href="javascript:void(0)">Mute</a>');
+						$this.remove();
+					} else {
+						updateSentTip("Failed to unmute " + id + ", please try again.", 3000, "failure");
+					}
+				},
+				error: function(msg) {
+					updateSentTip("Failed to unmute " + id + ", please try again.", 3000, "failure");
+				}
+			});
+		}
+	});
+
+	$(document).on("click", "#block_btn", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();
@@ -148,7 +197,7 @@ $(function(){
 		}
 	});
 
-	$("#unblock_btn").click(function(e){
+	$(document).on("click", "#unblock_btn", function(e){
 		e.preventDefault();
 		var $this = $(this);
 		var id = $("#info_name").text();

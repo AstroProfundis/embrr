@@ -55,9 +55,18 @@ var previewFlash = function (obj) {
 
 function get_img_processor(type) {
 	switch (type) {
+	case "instagram.com":
+		proc = {
+			reg: /^http:\/\/(?:www\.)?instagram\.com\/([\w-\/]+)/,
+			func: function (url_key, url_elem) {
+				var src = "http://instagram.com/" + url_key[1] + "media/?size=m";
+				append_image(src, url_elem);
+			}
+		};
+		return proc;
 	case "instagr.am":
 		proc = {
-			reg: /^http:\/\/(?:www\.)?instagr\.am\/([\w\/]+)/,
+			reg: /^http:\/\/(?:www\.)?instagr\.am\/([\w-\/]+)/,
 			func: function (url_key, url_elem) {
 				var src = "http://instagr.am/" + url_key[1] + "media/?size=m";
 				append_image(src, url_elem);
@@ -231,7 +240,7 @@ var previewImg = function (obj) {
 }
 var previewMedia = function (objs) {
 	var temp =[];
-	objs.find("span.tweet a[rel^=noref], span.tweet_url").each(function () {
+	objs.find("span.tweet a[rel^=noref], span.tweet_url, span.extended_entities a[rel^=noref]").each(function () {
 		var t = $(this);
 		var href = t.attr("href");
 		if(!(href in temp) && !t.data("previewed")) {

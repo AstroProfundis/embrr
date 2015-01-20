@@ -27,6 +27,14 @@ $(function () {
 				e.preventDefault();
 				ulunfollow($this);
 			break;
+			case 'ul_mute':
+				e.preventDefault();
+				ulmute($this);
+			break;
+			case 'ul_unmute':
+				e.preventDefault();
+				ulunmute($this);
+			break;
 			case 'ul_block':
 				e.preventDefault();
 				ulblock($this);
@@ -56,24 +64,27 @@ function ulinit($this) {
 			type: "POST",
 			data: "action=show&id=" + id,
 			success: function(msg){
-				var html = '<ul class="right_menu round"><li><a class="ul_mention" href="#"><i></i>Mention</a></li>';
+				var html = '<ul class="right_menu round"><li><a class="ul_mention" href="#"><i class="fa fa-customize-mention"></i>Mention</a></li>';
 				var r = parseInt(msg);
-				switch(r){
-					case 1:
-					html += '<li><a class="ul_dm" href="#"><i></i>Message</a></li>';
-					case 2:
-					html += '<li><a class="ul_unfollow" href="#"><i></i>Unfollow</a></li><li><a class="ul_block" href="#"><i></i>Block</a></li>';
-					break;
-					case 3:
-					html += '<li><a class="ul_dm" href="#"><i></i>Message</a></li>';
-					case 9:
-					html += '<li><a class="ul_follow" href="#"><i></i>Follow</a></li><li><a class="ul_block" href="#"><i></i>Block</a></li>';
-					break;
-					case 4:
-					html += '<li><a class="ul_follow" href="#"><i></i>Follow</a></li><li><a class="ul_unblock" href="#"><i></i>UnBlock</a></li>';
-					break;
+				if (r & 1) {
+					html += '<li><a class="ul_unfollow" href="#"><i class="fa fa-times"></i>Unfollow</a></li>';
+				} else {
+					html += '<li><a class="ul_follow" href="#"><i class="fa fa-check"></i>Follow</a></li>';
 				}
-				html += '<li><a class="ul_spam" href="#"><i></i>Report Spam</a></li><li><a href="user.php?id='+id+'">View Full Profile</a></ul>';
+				if (r & 2) {
+					html += '<li><a class="ul_dm" href="#"><i class="fa fa-envelope"></i>Message</a></li>';
+				}
+				if (r & 4) {
+					html += '<li><a class="ul_unblock" href="#"><i class="fa fa-circle-o"></i>Unblock</a></li>';
+				} else {
+					html += '<li><a class="ul_block" href="#"><i class="fa fa-ban"></i>Block</a></li>';
+				}
+				if (r & 8) {
+					html += '<li><a class="ul_unmute" href="#"><i class="fa fa-microphone"></i>Unmute</a></li>';
+				} else {
+					html += '<li><a class="ul_mute" href="#"><i class="fa fa-microphone-slash"></i>Mute</a></li>';
+				}
+				html += '<li><a class="ul_spam" href="#"><i class="fa fa-exclamation-triangle"></i>Report Spam</a></li><li><a href="user.php?id='+id+'">View Full Profile</a></ul>';
 				$this.parent().after(html);
 				$(html).fadeIn('fast');
 				$that.removeClass("loading");
@@ -117,6 +128,48 @@ function uldm($this, e) {
 	$("#textbox").focus().val('');
 	leaveWord();
 }
+function ulmute($this) {
+	var id = getid($this.parent());
+	updateSentTip("Muting " + id + "...", 5000, "ing");
+	$.ajax({
+		url: "ajax/relation.php",
+		type: "POST",
+		data: "action=mute&id=" + id,
+		success: function (msg) {
+			if (msg.indexOf("success") >= 0) {
+				$this.parent().parent().parent().addClass("reply");
+				$this.removeClass().addClass("ul_unmute").html("<i class=\"fa fa-microphone\"></i>Unmute");
+				updateSentTip("You have muted " + id + "!", 3000, "success");
+			} else {
+				updateSentTip("Failed to mute " + id + ", please try again.", 3000, "failure");
+			}
+		},
+		error: function (msg) {
+			updateSentTip("Failed to mute " + id + ", please try again.", 3000, "failure");
+		}
+	});
+}
+function ulunmute($this) {
+	var id = getid($this.parent());
+	updateSentTip("Unmuting " + id + "...", 5000, "ing");
+	$.ajax({
+		url: "ajax/relation.php",
+		type: "POST",
+		data: "action=unmute&id=" + id,
+		success: function (msg) {
+			if (msg.indexOf("success") >= 0) {
+				$this.parent().parent().parent().addClass("reply");
+				$this.removeClass().addClass("ul_mute").html("<i class=\"fa fa-microphone-slash\"></i>Mute");
+				updateSentTip("You have unmuted " + id + "!", 3000, "success");
+			} else {
+				updateSentTip("Failed to unmute " + id + ", please try again.", 3000, "failure");
+			}
+		},
+		error: function (msg) {
+			updateSentTip("Failed to unmute " + id + ", please try again.", 3000, "failure");
+		}
+	});
+}
 function ulfollow($this) {
 	var id = getid($this.parent());
 	updateSentTip("Following " + id + "...", 5000, "ing");
@@ -127,6 +180,7 @@ function ulfollow($this) {
 		success: function (msg) {
 			if (msg.indexOf("success") >= 0) {
 				$this.parent().parent().parent().addClass("reply");
+				$this.removeClass().addClass("ul_unfollow").html("<i class=\"fa fa-times\"></i>Unfollow");
 				updateSentTip("You have followed " + id + "!", 3000, "success");
 			} else {
 				updateSentTip("Failed to follow " + id + ", please try again.", 3000, "failure");
@@ -148,6 +202,7 @@ function ulunfollow($this) {
 			success: function (msg) {
 				if (msg.indexOf("success") >= 0) {
 					$this.parent().parent().parent().addClass("filter");
+					$this.removeClass().addClass("ul_follow").html("<i class=\"fa fa-check\"></i>Follow");
 					updateSentTip("You have unfollowed " + id + "!", 3000, "success");
 				} else {
 					updateSentTip("Failed to unfollow " + id + ", please try again.", 3000, "failure");

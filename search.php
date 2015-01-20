@@ -26,7 +26,7 @@
 			$output .= "</ol><div id=\"pagination\">";
 
 			$next_results = isset($answer->search_metadata->next_results) ? $answer->search_metadata->next_results : false;
-			if ($next_results) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"search.php". $next_results ."\">Next</a>";
+			if ($next_results) $output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"search.php". $next_results ."\">Next</a>";
 			$output .= "</div>";
 			echo $output;
 		}
@@ -40,8 +40,9 @@
 
 	<form action="search.php" method="get" id="search_form">
 		<input type="text" name="q" id="query" value="<?php echo $_GET['q'] ?>" autocomplete="off" />
-		<input type="submit" class="more round" style="width: 73px; margin-left: 10px; display: block; float: left; height: 34px; font-family: tahoma; color: rgb(51, 51, 51);" value="Search">
-		<input type="button" class="more round" style="width: 73px; margin-left: 10px; display: block; float: right; height: 34px; font-family: tahoma; color: rgb(51, 51, 51);" value="Save" id="btn_savesearch">
+		<span class="suggestion_loading fa fa-spinner fa-spin"></span>
+		<input type="submit" class="btn btn-white" value="Search">
+		<input type="button" class="btn btn-white" value="Save" id="btn_savesearch">
 	</form>
 <?php
 	$sinceid = false;

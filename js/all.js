@@ -3,7 +3,8 @@ $(function () {
 		formFunc();
 		$("ol.timeline").click(function(e) {
 			var $this = $(e.target);
-			var type = $this.attr('class');
+			var matches = ($this.attr('class') || '').match(/\w+_btn/);
+			var type = matches ? matches[0] : '';
 			switch(type) {
 				case 'rt_btn':
 					e.preventDefault();
@@ -29,7 +30,7 @@ $(function () {
 					e.preventDefault();
 					onDelete($this);
 					break;
-				case 'rt_undo':
+				case 'unrt_btn':
 					e.preventDefault();
 					onUndoRt($this);
 					break;
@@ -44,10 +45,6 @@ $(function () {
 			}
 		});
 		markReply($("#allTimeline > li"));
-		$("#submit_btn").click(function (e) {
-				updateStatus();
-				e.preventDefault();
-			});
 		document.onclick = function () {
 			document.title = document.title.replace(/(\([0-9]+\))/g, "");
 			$(".allHighLight").text($(".allHighLight").text().replace(/(\([0-9]+\))/g, ""));
@@ -181,9 +178,6 @@ function updateFunc(type, name, pw) {
 					$("div.new").filter(":first").remove();
 					$("span.tweetcount").filter(":last").text(navNum + len);
 				}
-				$("span.big-retweet-icon").tipsy({
-						gravity: 's'
-					});
 				previewMedia(source);
 			}
 			PAUSE_TIMELINE = false;

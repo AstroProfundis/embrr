@@ -108,7 +108,11 @@
 			<br /><br />			
 			<input id="sidebarscroll" type="checkbox" />
 			<label>Fixed Sidebar</label>
-			
+
+			<br /><br />
+			Share to Twitter: <a class="share" title="Drag me to share!" href="javascript:var%20d=document,w=window,f='<?php echo $base_url."/share.php" ?>',l=d.location,e=encodeURIComponent,p='?u='+e(l.href)+'&t='+e(d.title)+'&d='+e(w.getSelection?w.getSelection().toString():d.getSelection?d.getSelection():d.selection.createRange().text)+'&s=bm';a=function(){if(!w.open(f+p,'sharer','toolbar=0,status=0,resizable=0,width=600,height=300,left=175,top=150'))l.href=f+'.new'+p};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else{a()}void(0);">Share</a>
+			<small>(Bookmark this link for future use)</small>
+
 			</fieldset>
 			
 			<fieldset class="settings">
@@ -162,12 +166,6 @@
 
 			<input id="shownick" type="checkbox" />
 			<label>Use nickname instead of username</label>
-
-			<br /><br />
-			
-			<label>Custom Themes</label>
-			<select id="styleSelect"></select>
-			<small>(We have awesome themes for you!)</small>
 
 			<br /><br />
 

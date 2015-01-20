@@ -3,14 +3,14 @@
 	if ($title != 'Direct Messages') {
 	echo "<h2>What's happening?</h2>" ;
 	} ?> 
-<span id="tip"><b>140</b></span>
+<span id="tip"><span class="fa fa-spinner fa-spin" style="display:none"></span><b>140</b></span>
 <?php } ?>
-<form enctype="multipart/form-data" action="ajax/uploadImage.php?do=image" method="post" id="photoArea">
+<form id="photoArea">
 <span style="font-weight: bold;">Upload Image</span>
-<p>Powered by Img.ly</p>
 <input type="file" name="image" id="imageFile"/> 
-<input type="submit" id="imageUploadSubmit" class="btn" value="Upload"/>
-<a href="#" onclick="$('#photoArea').slideToggle(300)" title="Close" class="close"></a>
+<input type="button" id="imageUploadSubmit" class="btn" value="Upload"/>
+<ul id="media_preview"></ul>
+<a href="#" onclick="$('#photoArea').slideToggle(300);return false;" title="Close" class="close fa fa-times"></a>
 </form>
 
 <form id="filterArea">
@@ -20,77 +20,17 @@
 <input type="submit" style="vertical-align: top; padding: 5px; margin: 9px 3px 0pt 6px;" id="filterSubmit" class="btn" value="Update">
 <input type="submit" style="padding: 5px; vertical-align: top; margin-top: 9px;" id="filterReset" class="btn" value="Reset">
 <input type="submit" style="padding: 5px; vertical-align: top; margin: 9px 0pt 0pt 3px;" id="filterHide" class="btn" value="Hide @">
-<a class="close" title="Close" onclick="$('#filterArea').slideToggle(300)" href="#"></a>
+<a class="close fa fa-times" title="Close" onclick="$('#filterArea').slideToggle(300);return false;" href="#"></a>
 </form>
 
 <form id="symArea">
 <div id="symbols">
 <?php include ('inc/symbols.inc');?>
 </div>
-<a class="close" title="Close" onclick="$('#symArea').slideToggle(300)" href="#"></a>
-</form>
-
-<form id="transArea">
-<span style="font-weight: bold; display: block; margin-bottom: 5px;">Translation Settings</span>
-<p>Translate tweets into
-<select name="langs" style="border: 1px solid rgb(170, 170, 170); padding: 1px 2px;">
-<option value="ar">Arabic</option>
-<option value="zh-CN">简体中文</option>
-<option value="zh-TW">繁體中文</option>
-<option value="da">Danish</option>
-<option value="nl">Dutch</option>
-<option value="en">English</option>
-<option value="fi">Finnish</option>
-<option value="fr">French</option>
-<option value="de">German</option>
-<option value="el">Greek</option>
-<option value="hu">Hungarian</option>
-<option value="is">Icelandic</option>
-<option value="it">Italian</option>
-<option value="ja">Japanese</option>
-<option value="ko">Korean</option>
-<option value="lt">Lithuanian</option>
-<option value="no">Norwegian</option>
-<option value="pl">Polish</option>
-<option value="pt">Portuguese</option>
-<option value="ru">Russian</option>
-<option value="es">Spanish</option>
-<option value="sv">Swedish</option>
-<option value="th">Thai</option>
-</select>
-</p>
-<p>Translate my tweets into <select name="myLangs" style="border: 1px solid rgb(170, 170, 170); margin-top: 5px; padding: 1px 2px;">
-<option value="ar">Arabic</option>
-<option value="zh-CN">简体中文</option>
-<option value="zh-TW">繁體中文</option>
-<option value="da">Danish</option>
-<option value="nl">Dutch</option>
-<option value="en">English</option>
-<option value="fi">Finnish</option>
-<option value="fr">French</option>
-<option value="de">German</option>
-<option value="el">Greek</option>
-<option value="hu">Hungarian</option>
-<option value="is">Icelandic</option>
-<option value="it">Italian</option>
-<option value="ja">Japanese</option>
-<option value="ko">Korean</option>
-<option value="lt">Lithuanian</option>
-<option value="no">Norwegian</option>
-<option value="pl">Polish</option>
-<option value="pt">Portuguese</option>
-<option value="ru">Russian</option>
-<option value="es">Spanish</option>
-<option value="sv">Swedish</option>
-<option value="th">Thai</option>
-</select>
-<input type="button" value="Translate" class="btn" id="translateMy" style="vertical-align: middle; padding: 3px 8px; margin-top: -3px;">
-</p>
-<a class="close" title="Close" onclick="$('#transArea').slideToggle(300)" href="#"></a>
+<a class="close fa fa-times" title="Close" onclick="$('#symArea').slideToggle(300);return false;" href="#"></a>
 </form>
 
 <form>
-<a id="transRecover">Restore</a>
 <textarea name="status" id="textbox"><?php if (isset($_sentText)) echo $_sentText ?></textarea>
 <input type="hidden" id="in_reply_to" name="in_reply_to" value="<?php echo isset($_sentInReplyTo) ? $_sentInReplyTo : 0 ?>" />
 <?php
@@ -141,38 +81,28 @@
 	}
 ?>
 <div id="tweeting_controls">
-	<a class="a-btn a-btn-m btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span>
-		<?php if($title == 'Direct Messages') {
-			echo 'Send';
-			} else {
-				echo 'Tweet';
-			} ?>
-		</span></a>
-	</div>
+	<a class="a-btn btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span class="fa fa-send-o"></span></a>
+</div>
 	
-	<div id="func_set">
+	<div id="func_set" style="left:<?php echo ($title == 'Updates' || $title == 'Home') ? '271' : '298'; ?>px">
 	
-	<a class="func_btn" href="javascript:shortUrlDisplay();" title="Shorten URL" style="background-position:-238px -113px">Shorten URL</a>
+	<a class="func_btn fa fa-link" href="javascript:shortUrlDisplay();" title="Shorten URL"></a>
 	
-	<a class="func_btn" href="javascript:shortenTweet();" title="Shorten Tweet" style="background-position:-222px -48px;">Shorten Tweet</a>
+	<a class="func_btn fa fa-image" title="Upload Image" id="photoBtn"></a>
 	
-	<a id="transBtn" title="Translation Settings" class="func_btn" style="background-position:-110px -80px;">Translate</a>
+	<a class="func_btn fa fa-filter" id="filterBtn" title="Filter Timeline"></a>
 	
-	<a title="Upload Image" id="photoBtn" class="func_btn" style="background-position: -207px -128px;">Image</a>
-	
-	<a id="filterBtn" title="Filter Timeline" class="func_btn" style="background-position:-174px -112px;">Filter</a>
-	
-	<a title="Sogou Cloud IME" href="javascript:void((function(){var%20n=navigator.userAgent.toLowerCase();ie=n.indexOf('msie')!=-1?1:0;if(document.documentMode)ie=0;charset='';if(ie)charset=document.charset;src=ie&amp;&amp;charset=='utf-8'?'http://web.pinyin.sogou.com/web_ime/init2_utf8.php':'http://web.pinyin.sogou.com/web_ime/init2.php';element=document.createElement('script');element.setAttribute('src',src);document.body.appendChild(element);})())" onclick="updateSentTip('Loading...', 5000, 'ing')" class="func_btn" style="background-position: -62px -112px;">Sogou</a>
-	
-	<a id="symbolBtn" title="Symbols and smileys" class="func_btn" style="background-position: -206px -113px;">Symbols</a>
+	<a class="func_btn fa fa-heart" id="symbolBtn" title="Symbols and smileys"></a>
 
-	<a id="restoreBtn" style="background-position: 2px -64px;" class="func_btn" title="Restore previous tweet">Restore</a>
+	<a class="func_btn fa fa-reply" id="restoreBtn" title="Restore previous tweet"></a>
 	
-	<a id="autoBtn" title="Auto refresh control" class="func_btn pause">Pause</a>
+	<?php if($title == 'Updates' || $title == 'Home') { ?>
+	<a class="func_btn fa fa-pause" id="autoBtn" title="Auto refresh control"></a>
+	<?php } ?>
 	
-	<a id="clearBtn" style="background-position: 3px -176px;" class="func_btn" title="Sweep Timeline" class="func_btn">Sweep</a>
+	<a class="func_btn fa fa-power-off" id="clearBtn" title="Sweep Timeline"></a>
 
-	<a id="refreshBtn" title="Refresh the timeline" class="func_btn" style="background-position: -62px -80px;">Refresh</a>
+	<a class="func_btn fa fa-refresh" id="refreshBtn" title="Refresh the timeline"></a>
 	</div>
 	</form>
 	<div class="clear"></div>

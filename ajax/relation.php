@@ -13,6 +13,12 @@
 			case 'destory':
 				$result = $t->destroyUser($_POST['id']);
 				break;
+			case 'mute':
+				$result = $t->muteUser($_POST['id']);
+				break;
+			case 'unmute':
+				$result = $t->unmuteUser($_POST['id']);
+				break;
 			case 'block':
 				$result = $t->blockUser($_POST['id']);
 				break;

@@ -13,7 +13,10 @@
 		}
 		$user = $status->user;
 		$date = format_time($status->created_at);
-		$text = formatEntities($status->entities,$status->text);
+		$text = formatEntities(
+			$status->entities,
+			isset($status->extended_entities) ? $status->extended_entities : null,
+			$status->text);
 	} else {
 		header('location: error.php?code='.$t->http_code);exit();
 	}
@@ -48,8 +51,8 @@ header {margin:1em auto;text-align:right;width:600px}
 .wrapper {margin:1em auto;position:relative;width:600px}
 #statuses{background-color:#FFFFFF;float:left;padding:10px;width:580px}
 .timeline li:hover, .rank_list li:hover {background-color:transparent !important}
-.timeline, .ajax_timeline {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
-.timeline li, .ajax_timeline li {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
+.timeline {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
+.timeline li {border-bottom:1px solid #FFF !important;border-top:1px solid #FFF !important}
 .status_body {display:block;font-size:2em;line-height:30px;margin-left:58px;overflow:hidden;position:relative}
 .timeline li {cursor:default;margin:0px;overflow:hidden;padding:10px;position:relative}
 .status_author, .rank_img {left:10px;position:absolute;top:15px;width:50px}
@@ -91,7 +94,8 @@ header {margin:1em auto;text-align:right;width:600px}
 						</span>
 						<span class="status_body">
 							<span class="status_id"><?php echo $statusid ?></span>
-							<span class="status_word"><a class="user_name" href="user.php?id=<?php echo $user->screen_name ?>" id="<?php echo $user->screen_name ?>"><?php if ($_COOKIE['shownick']=='true') echo $user->name; else echo $user->screen_name; ?></a> <span class="tweet"><?php echo $text ?></span></span>
+							<span class="status_word"><a class="user_name" href="user.php?id=<?php echo $user->screen_name ?>" id="<?php echo $user->screen_name ?>"><?php if ($_COOKIE['shownick']=='true') echo $user->name; else echo $user->screen_name; ?></a> <span class="tweet"><?php echo $text['text'] ?></span></span>
+							<span class="extended_entities"><?php echo $text['extended'] ?></span>
 							<span class="status_info">
 										<?php if ($status->in_reply_to_status_id_str) {?><span class="in_reply_to"> <a href="status.php?id=<?php echo $status->in_reply_to_status_id_str ?>">in reply to <?php echo $status->in_reply_to_screen_name?></a></span> <?php }?>
 										<span class="source">from <?php echo $status->source ?></span>

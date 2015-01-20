@@ -7,11 +7,13 @@
 		case 'image':
 		if (!isset($_FILES['image'])) break;
 		$image = "@{$_FILES['image']['tmp_name']};type={$_FILES['image']['type']};filename={$_FILES['image']['name']}";
-		$result = imageUpload($image);
-		if (isset($result->url)) {
-			echo '{"result": "success" , "url" : "' . $result->url . '"}';
-		} else {
-			echo '{"result": "error"}';
+		$t = getTwitter();
+		$result = $t->uploadMedia($image);
+		if (isset($result->media_id_string)) {
+			echo '{"media_id": "'.$result->media_id_string.'"}';
+		}
+		else {
+			echo '{"media_id": "error"}';
 		}
 		break;
 		case 'profile':

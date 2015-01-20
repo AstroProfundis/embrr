@@ -140,8 +140,8 @@ $(function(){
 						html += '<div class="rank_content" id="'+msg.contentid+'"><span class="rank_num"><span class="rank_name">';
 						html +='<a href="list.php?id='+msg.listuri+'"><em>'+msg.username+'/</em>'+list_name+'</a>';
 						html += '</span></span><span class="rank_count">Followers: 0&nbsp;&nbsp;Members: 0&nbsp;&nbsp;'+(list_protect == "public" ? "Public" : "Private")+'</span>';
-						html += '<span class="rank_description">Bio: '+list_description+'</span>';
-						html += '<span id="list_action"><a id="btn" href="#" class="edit_list">Edit</a> <a id="btn" href="#" class="delete_list">Delete</a> <a id="btn" href="#" class="add_member">Add Members</a></span>';
+						if (list_description) html += '<span class="rank_description">Description: '+list_description+'</span>';
+						html += '<span id="list_action"><a href="#" class="edit_list btn">Edit</a> <a href="#" class="delete_list btn">Delete</a> <a href="#" class="add_member btn">Add Members</a></span>';
 						html += "</div></li>";
 						$(html).prependTo($(".rank_list")).fadeIn('fast');
 					}

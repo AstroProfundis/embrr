@@ -21,28 +21,36 @@ function leaveWord(num){
 	if (sent_id){
 		leave -= sent_id.length+3;
 	}
+	if ($("#media_preview img[media_id]").length > 0) {
+		leave -= 23;
+		$("#photoBtn").addClass("func_enabled");
+	}
+	else {
+		$("#photoBtn").removeClass("func_enabled");
+	}
+	$tb.text(leave);
 	if (leave < 0){
-		$tb.text(leave).css("color","#C00");
 		$("#tweeting_button").addClass('btn-disabled');
 	}else{
-		$tb.text(leave);
 		$("#tweeting_button").removeClass('btn-disabled');
-		if (leave > 40){
-			$tb.css("color","#CCC");
-		}else if(leave > 20){
-			$tb.css("color","#CAA");
-		}else if(leave > 10){
-			$tb.css("color","#C88");
-		}else{
-			$tb.css("color","#C44");
-		}
+	}
+	if (leave > 40){
+		$tb.css("color","#CCC");
+	}else if(leave > 20){
+		$tb.css("color","#CAA");
+	}else if(leave > 10){
+		$tb.css("color","#C88");
+	}else if(leave >= 0){
+		$tb.css("color","#C44");
+	}else{
+		$tb.css("color","#C00");
 	}
 	if(leave === 140){
 		$("#in_reply_to").val("");
 		$("#tweeting_button").addClass('btn-disabled');
 	}
 }
-var formHTML = '<span id="tip"><b>140</b></span><form><textarea name="status" id="textbox"></textarea><input type="hidden" id="in_reply_to" name="in_reply_to" value="0" /><div id="tweeting_controls"><a class="a-btn a-btn-m btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span>Send</span></a></div></form>';
+var formHTML = '<span id="tip"><b>140</b></span><form><textarea name="status" id="textbox"></textarea><input type="hidden" id="in_reply_to" name="in_reply_to" value="0" /><div id="tweeting_controls"><a class="a-btn btn-disabled" id="tweeting_button" tabindex="2" href="#" title="Ctrl/⌘+Enter also works!"><span class="fa fa-send-o"></span></a></div></form>';
 
 var embrTweet=function(objs){
 	if(typeof objs === 'undefined'){
@@ -66,20 +74,12 @@ var formFunc = function(){
 			leaveWord();
 			$(e.target).unbind('keydown');
 			if ((e.ctrlKey || e.metaKey) && e.which == 13){
-				if (PAUSE_UPDATE !== true){
-					updateStatus();
-				}else{
-					return 0;
-				}
+				updateStatus();
 			}else{
 				if($.inArray(e.which,[91,93,224,17]) > -1){
 					$(e.target).keydown(function(e){
 						if(e.which == 13){
-							if (PAUSE_UPDATE !== true){
-								updateStatus();
-							}else{
-								return 0;
-							}
+							updateStatus();
 							e.stopPropagation();
 						}
 					});
@@ -88,14 +88,15 @@ var formFunc = function(){
 		});
 	$("#tweeting_button").click(function (e){
 		e.preventDefault();
-		if ($("#textbox").val().length >0 ){
-			updateStatus();
-		}
+		updateStatus();
 	});		
 };
-	var updateStatus = function(){
-	PAUSE_UPDATE = true;
+var updateStatus = function(){
+	if (PAUSE_UPDATE) return false;
 	var text = $("#textbox").val();
+	if ($.trim(text).length == 0 && 
+	    $("#media_preview img[media_id]").length == 0)
+		return false;
 	var sent_id = $("#sent_id").val();
 	if(sent_id){
 		text = "D "+sent_id+' '+text; 
@@ -105,67 +106,79 @@ var formFunc = function(){
 		$.cookie('recover',text,{'expire': 30});
 		if(window.confirm("Your tweet is longer than 140 words! truncated? (you can restore later using restore button.)")){
 			text = text.substr(0,137)+'...' ;
+			$("#textbox").val(text);
+			leaveWord();
 		}
-	}
-	if (wordsCount == 0 || $.trim(text).length == 0){
-		updateSentTip("Your cannot send an empty tweet!",3e3,"failure");
 		return false;
-	}else{
-		$('#tip').addClass('loading').find('b').css('color','transparent');
-		$.cookie('recover',text,{'expire': 30});
-		$.ajax({
-			url: "ajax/update.php",
-			type: "POST",
-			data:{
-				"status": text,
-				"in_reply_to": $("#in_reply_to").val()
-			},
-			success: function (msg){
-				if ($.trim(msg).indexOf("</li>") > 0){
-					$('#tip').removeClass('loading').find("b").text("140").show();
-					if ( (text.substring(0,2)).toUpperCase() == "D "){ //exclude the DMs. the exam of user_name is omitted.
-						updateSentTip("Your DM has been sent!",3e3,"success");
-						$("#sent_id,#textbox").val("");
-						leaveWord();
-					}else{
-						updateSentTip("Your status has been updated!",3e3,"success");
-						$("#textbox").val("");
-						leaveWord();
-						if(typeof INTERVAL_COOKIE !== 'undefined'){
-							var source = $(msg).prependTo($("#allTimeline"));
-							source.hide().slideDown('fast');
-							var statusid = $.trim($(msg).find('.status_id').text());
-							var statusText = $.trim($(msg).find('.tweet').html());
-							var statusDate = $.trim($(msg).find('span.date a').attr('id'));
-							embrTweet(source);
-							$(".mine").slideDown("fast");
-							$("#full_status").fadeIn("fast");
-							$("#currently .status-text").hide().text(limitation(text)).fadeIn("fast");
-							$("#latest_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>").fadeIn("fast");
-							$("#currently .full-text").hide().html(statusText);
-							$("#full_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>");
-							$("#full_meta a,.full-text a").click(function (e){e.stopPropagation();});
-							previewMedia(source);
-							freshProfile();
-						}
-					}
-				}else{
-					$('#tip').removeClass('loading');
+	}
+	PAUSE_UPDATE = true;
+	var $mediaImgs = $("#media_preview img[media_id]");
+	var idArr = [];
+	var uploadMediaIds = null;
+	if ($mediaImgs.length > 0) {
+		$mediaImgs.each(function(i,n){
+			idArr.push(n.getAttribute("media_id"));
+		});
+		uploadMediaIds = idArr.join(',');
+	}
+	$('#tip span').show();
+	$('#tip b').hide();
+	$.cookie('recover',text,{'expire': 30});
+	$.ajax({
+		url: "ajax/update.php",
+		type: "POST",
+		data:{
+			"status": text,
+			"in_reply_to": $("#in_reply_to").val(),
+			"media_ids": uploadMediaIds
+		},
+		success: function (msg){
+			if ($.trim(msg).indexOf("</li>") > 0){
+				$('#tip span').hide();
+				$('#tip b').show();
+				if ( (text.substring(0,2)).toUpperCase() == "D "){ //exclude the DMs. the exam of user_name is omitted.
+					updateSentTip("Your DM has been sent!",3e3,"success");
+					$("#sent_id,#textbox").val("");
 					leaveWord();
-					updateSentTip("Update failed. Please try again.",3e3,"failure");
-					$('#tweeting_button').removeClass('btn-disabled');
+				}else{
+					updateSentTip("Your status has been updated!",3e3,"success");
+					$("#textbox").val("");
+					$("#media_preview").html("");
+					leaveWord();
+					if(typeof INTERVAL_COOKIE !== 'undefined'){
+						var source = $(msg).prependTo($("#allTimeline"));
+						source.hide().slideDown('fast');
+						var statusid = $.trim($(msg).find('.status_id').text());
+						var statusText = $.trim($(msg).find('.tweet').html());
+						var statusDate = $.trim($(msg).find('span.date a').attr('id'));
+						embrTweet(source);
+						$(".mine").slideDown("fast");
+						$("#full_status").fadeIn("fast");
+						$("#currently .status-text").hide().text(limitation(text)).fadeIn("fast");
+						$("#latest_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>").fadeIn("fast");
+						$("#currently .full-text").hide().html(statusText);
+						$("#full_meta").hide().html("<a target=\"_blank\" href=\"status.php?id="+statusid+"\" id=\""+statusDate+"\">less than 5 seconds ago</a>");
+						$("#full_meta a,.full-text a").click(function (e){e.stopPropagation();});
+						previewMedia(source);
+						freshProfile();
+					}
 				}
-				PAUSE_UPDATE = false;
-			},
-			error: function (msg){
-				$('#tip').removeClass('loading');
+			}else{
+				$('#tip span').hide();
+				$('#tip b').show();
 				leaveWord();
 				updateSentTip("Update failed. Please try again.",3e3,"failure");
-				$('#tweeting_button').removeClass('btn-disabled');
-				PAUSE_UPDATE = false;
 			}
-		});
-	}
+			PAUSE_UPDATE = false;
+		},
+		error: function (msg){
+			$('#tip span').hide();
+			$('#tip b').show();
+			leaveWord();
+			updateSentTip("Update failed. Please try again.",3e3,"failure");
+			PAUSE_UPDATE = false;
+		}
+	});
 };
 function shortUrlDisplay(){
 	var stringVar = $("#textbox").val();
@@ -190,7 +203,8 @@ function shortUrlDisplay(){
 				updateSentTip(unshorten+" URL(s) are maintained!",3e3,"failure");
 			}
 			if (l_urls != ""){
-				$('#tip').addClass('loading').find('b').css('color','transparent');
+				$('#tip span').show();
+				$('#tip b').hide();
 				$.post("ajax/shorturl.php",{
 					long_urls: l_urls
 					},function (data){
@@ -214,7 +228,8 @@ function getShortUrl(res){
 		if (s_url){
 			$textbox.val($textbox.val().replace(l_url,s_url)+"");
 			leaveWord();
-			$('#tip').removeClass('loading');
+			$('#tip span').hide();
+			$('#tip b').show();
 			updateSentTip("Successfully shortened your URLs!",3e3,"success");
 		}	else{
 			err_cnt++;
@@ -225,32 +240,6 @@ function getShortUrl(res){
 	}
 }
 
-function shortenTweet(){
-	var tweet = $.trim($("#textbox").val());
-	if (tweet.length === 0){
-		updateSentTip("There's nothing to shorten!",3e3,"failure");
-	}else{
-		$('#tip').addClass('loading');
-		$.ajax({
-			url: "ajax/shortenTweet.php",
-			type: "POST",
-			data: "text="+tweet,
-			success: function(msg){
-				if(msg !== 'error'){
-					$("#textbox").val(msg);
-					leaveWord();
-					$('#tip').removeClass('loading');
-					updateSentTip("Your tweet has been shortened!",5e3,"success");
-				}else{
-					updateSentTip("Failed to shorten your tweet.",5e3,"failure");
-				}
-			},
-			error: function(msg){
-				updateSentTip("Failed to shorten your tweet.",5e3,"failure");
-			}
-		});
-	}
-}
 $(function (){
 	$("#latest_status").on("click",function (){
 		if ($(this).data("show_full")=="yes"){
@@ -268,16 +257,6 @@ $(function (){
 	});
 	var $temp = $("#currently .status-text");
 	$temp.text(limitation($temp.text()));
-	$("#translateMy").on("click",function(){
-		var orig = $("#textbox").val();
-			ORIG_TEXT = orig;
-		var lang = $.cookie('myLangs')
-		if(lang === null){
-			lang = 'en';
-		}
-		$('#tip').addClass('loading');
-		translate(orig,'',lang,'transMyCallback');
-	});
 });
 var limitation = function (text){
 	if (text.length > 60){
@@ -326,26 +305,29 @@ function rminit($this){
 		$.ajax({
 			url: 'ajax/relation.php',
 			type: "POST",
-			data: "action=show&id="+id,
+			data: "action=show&id=" + id,
 			success: function(msg){
-				var html = '<ul class="right_menu round"><li><a class="rm_mention" href="#"><i></i>Mention</a></li>';
+				var html = '<ul class="right_menu round"><li><a class="rm_mention" href="#"><i class="fa fa-customize-mention"></i>Mention</a></li>';
 				var r = parseInt(msg);
-				switch(r){
-					case 1:
-					html += '<li><a class="rm_dm" href="#"><i></i>Message</a></li>';
-					case 2:
-					html += '<li><a class="rm_unfollow" href="#"><i></i>Unfollow</a></li><li><a class="ul_block" href="#"><i></i>Block</a></li>';
-					break;
-					case 3:
-					html += '<li><a class="rm_dm" href="#"><i></i>Message</a></li>';
-					case 9:
-					html += '<li><a class="rm_follow" href="#"><i></i>Follow</a></li><li><a class="rm_block" href="#"><i></i>Block</a></li>';
-					break;
-					case 4:
-					html += '<li><a class="rm_follow" href="#"><i></i>Follow</a></li><li><a class="rm_unblock" href="#"><i></i>UnBlock</a></li>';
-					break;
+				if (r & 1) {
+					html += '<li><a class="rm_unfollow" href="#"><i class="fa fa-times"></i>Unfollow</a></li>';
+				} else {
+					html += '<li><a class="rm_follow" href="#"><i class="fa fa-check"></i>Follow</a></li>';
 				}
-				html += '<li><a class="rm_spam" href="#"><i></i>Report Spam</a></li><li><a href="user.php?id='+id+'">View Full Profile</a></ul>';
+				if (r & 2) {
+					html += '<li><a class="rm_dm" href="#"><i class="fa fa-envelope"></i>Message</a></li>';
+				}
+				if (r & 4) {
+					html += '<li><a class="rm_unblock" href="#"><i class="fa fa-circle-o"></i>Unblock</a></li>';
+				} else {
+					html += '<li><a class="rm_block" href="#"><i class="fa fa-ban"></i>Block</a></li>';
+				}
+				if (r & 8) {
+					html += '<li><a class="rm_unmute" href="#"><i class="fa fa-microphone"></i>Unmute</a></li>';
+				} else {
+					html += '<li><a class="rm_mute" href="#"><i class="fa fa-microphone-slash"></i>Mute</a></li>';
+				}
+				html += '<li><a class="rm_spam" href="#"><i class="fa fa-exclamation-triangle"></i>Report Spam</a></li><li><a href="user.php?id='+id+'">View Full Profile</a></ul>';
 				$this.parent().parent().after(html);
 				$(html).fadeIn('fast');
 				$that.removeClass();
@@ -397,6 +379,7 @@ function rmfollow($this){
 		data: "action=create&id="+id,
 		success: function (msg){
 			if (msg.indexOf("success") >= 0){
+				$this.removeClass().addClass("rm_unfollow").html("<i class=\"fa fa-times\"></i>Unfollow");
 				updateSentTip("You have followed "+id+"!",3e3,"success");
 			}else{
 				updateSentTip("Failed to follow "+id+",please try again.",3e3,"failure");
@@ -417,6 +400,7 @@ function rmunfollow($this){
 			data: "action=destory&id="+id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_follow").html("<i class=\"fa fa-check\"></i>Follow");
 					updateSentTip("You have unfollowed "+id+"!",3e3,"success");
 				}else{
 					updateSentTip("Failed to unfollow "+id+",please try again.",3e3,"failure");
@@ -424,6 +408,50 @@ function rmunfollow($this){
 			},
 			error: function (msg){
 				updateSentTip("Failed to unfollow "+id+",please try again.",3e3,"failure");
+			}
+		});
+	}
+}
+function rmmute($this){
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
+	if (confirm("Are you sure to mute "+id+" ?")){
+		updateSentTip("Muting "+id+"...",5e3,"ing");
+		$.ajax({
+			url: "ajax/relation.php",
+			type: "POST",
+			data: "action=mute&id="+id,
+			success: function (msg){
+				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_unmute").html("<i class=\"fa fa-microphone\"></i>Unmute");
+					updateSentTip("You have muted "+id+"!",3e3,"success");
+				}else{
+					updateSentTip("Failed to mute "+id+", please try again.",3e3,"failure");
+				}
+			},
+			error: function (msg){
+				updateSentTip("Failed to mute "+id+", please try again.",3e3,"failure");
+			}
+		});
+	}
+}
+function rmunmute($this){
+	var id = $this.parent().parent().parent().find(".status_word").find(".user_name").attr("id");
+	if (confirm("Are you sure to unmute "+id+" ?")){
+		updateSentTip("Unmuting "+id+"...",5e3,"ing");
+		$.ajax({
+			url: "ajax/relation.php",
+			type: "POST",
+			data: "action=unmute&id="+id,
+			success: function (msg){
+				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_mute").html("<i class=\"fa fa-microphone-slash\"></i>Mute");
+					updateSentTip("You have unmuted "+id+"!",3e3,"success");
+				}else{
+					updateSentTip("Failed to unmute "+id+", please try again.",3e3,"failure");
+				}
+			},
+			error: function (msg){
+				updateSentTip("Failed to unmute "+id+", please try again.",3e3,"failure");
 			}
 		});
 	}
@@ -438,6 +466,7 @@ function rmblock($this){
 			data: "action=block&id="+id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_unblock").html("<i class=\"fa fa-circle-o\"></i>Unblock");
 					updateSentTip("You have blocked "+id+"!",3e3,"success");
 				}else{
 					updateSentTip("Failed to block "+id+",please try again.",3e3,"failure");
@@ -459,6 +488,7 @@ function rmunblock($this){
 			data: "action=unblock&id="+id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
+					$this.removeClass().addClass("rm_block").html("<i class=\"fa fa-ban\"></i>Block");
 					updateSentTip("You have unblocked "+id+"!",3e3,"success");
 				}else{
 					updateSentTip("Failed to unblock "+id+",please try again.",3e3,"failure");
@@ -502,8 +532,8 @@ function onFavor($this){
 		success: function (msg){
 			if (msg.indexOf("success") >= 0){
 				updateSentTip("Favorite added successfully.",3e3,"success");
-				$this.parent().parent().parent().append('<i class="faved"></i>');
-				$this.removeClass().addClass("unfav_btn").attr("title","UnFav").text("UnFav");
+				$this.parent().parent().parent().append('<i class="faved fa fa-star"></i>');
+				$this.removeClass("favor_btn").addClass("unfav_btn").attr("title","UnFav");
 			}else{
 				updateSentTip("Add failed. Please try again.",3e3,"failure");
 			}
@@ -595,22 +625,19 @@ function onNwRT($this){
 			type: "post",
 			data: "status_id="+status_id,
 			success: function (msg){
-				if (msg.length >= 0){
+				if (msg === "duplicated"){
+					updateSentTip("You have retweeted this tweet!",3e3,"failure");
+				} else if (msg === "empty" || msg === "error"){
+					updateSentTip("Failed to retweet!",3e3,"failure");
+				} else if (msg.length >= 0){
 					statusBody.parent().addClass("retweet");
 					statusBody.find(".source").hide();
 					statusBody.find(".status_info").append("<span class=\"rt_source\">Retweeted by you.").fadeIn("fast");
 					statusBody.find(".date").hide();
-					statusBody.find(".status_info").append("<span class=\"rt_undos\" title=\"Your followers will no longer see the tweet as retweeted by you.\">&nbsp;<a class=\"rt_undo\" href=\"#\">(Undo)</a><span class=\"rt_id\" style=\"display: none;\">"+msg+"</span></span>").fadeIn("fast");
+					statusBody.find(".status_info").append("<a class=\"rt_undos unrt_btn\" title=\"Your followers will no longer see the tweet as retweeted by you.\" href=\"#\">&nbsp;(Undo)</a>").fadeIn("fast");
+					statusBody.find(".retw_btn").removeClass("retw_btn").addClass("unrt_btn");
+					statusBody.find(".actions").append("<span class=\"rt_id\" style=\"display:none\">" + msg + "</span>");
 					updateSentTip("This tweet has been retweeted!",3e3,"success");
-					$(".rt_undos").tipsy({
-							gravity: 's'
-						});
-				}else{
-					if (msg === "duplicated"){
-						updateSentTip("You have retweeted this tweet!",3e3,"failure");
-					}else{
-						updateSentTip("Failed to retweet!",3e3,"failure");
-					}
 				}
 			},
 			error: function (msg){
@@ -635,7 +662,7 @@ function UnFavor($this){
 						$that.parent().fadeOut("fast");
 					}else{
 						$that.parent().find(".faved").fadeOut("fast");
-						$this.removeClass().addClass("favor_btn").attr("title","Fav").text("Fav");
+						$this.removeClass("unfav_btn").addClass("favor_btn").attr("title","Fav");
 					}
 					updateSentTip("This tweet has been unfavored!",3e3,"success");
 				}else{
@@ -678,8 +705,8 @@ function onDelete($this){
 }
 function onUndoRt($this){
 	if (window.confirm("Are you sure to undo this retweet?")){
-		var status_id = $.trim($this.parent().find(".rt_id").text());
-		var statusBody = $this.parent().parent().parent();
+		var statusBody = $this.parent().parent();
+		var status_id = $.trim(statusBody.find(".rt_id").text());
 		statusBody.css("background-color","#FF3300");
 		updateSentTip("Undoing retweet...",5e3,"ing");
 		$.ajax({
@@ -688,15 +715,16 @@ function onUndoRt($this){
 			data: "status_id="+status_id,
 			success: function (msg){
 				if (msg.indexOf("success") >= 0){
-					statusInfo = $this.parent().parent();
+					statusInfo = statusBody.find(".status_info");
 					if (statusInfo.find(".rt_source").size() === 1){
 						statusInfo.find(".source").show().find(".date").show();
 						statusInfo.find(".rt_source").remove()
 						statusInfo.find(".rt_undos").remove();
 						statusBody.removeClass("retweet");
 					}else{
-						statusBody.fadeOut("fast");
+						statusBody.parent().fadeOut("fast");
 					}
+					statusBody.find(".unrt_btn").removeClass("unrt_btn").addClass("retw_btn");
 					updateSentTip("Your retweet has been undo!",3e3,"success");
 				}else{
 					updateSentTip("Undo failed. Please try again.",3e3,"failure");
@@ -737,59 +765,6 @@ function onDeleteMsg($this){
 		});
 	}
 }
-$(function (){
-	$(document).on("click", "#statuses .trans_close", function(e){
-		e.preventDefault();
-		$(e.target).parent().parent().parent().parent().find(".translated").remove();
-	});
-	$("#transRecover").click(function(e){
-		$("#textbox").val(ORIG_TEXT);
-		$(e.target).fadeOut('fast');
-		});
-	});
-var translate = function(text,context,lang,callback){
-	
-	var a = "https://www.google.com/uds/Gtranslate";
-	a += "?callback="+callback;
-	a += "&context="+context;
-	a += "&q="+encodeURIComponent(text);
-	a += "&key=notsupplied&v=1.0&nocache=1240207680396&langpair=%7C";
-	a += lang;
-	$.getScript(a);
-};
-var transMyCallback = function(content,translation){
-	if(translation.translatedText !== null){
-		$('#tip').removeClass('loading');
-		$("#transArea").hide();
-		$("#textbox").val(translation.translatedText);
-		$("#transRecover").fadeIn('fast');
-	}
-};
-var transCallback = function(content,translation){
-	if(translation.translatedText !== null){
-		var lang = $.cookie('transLang')
-		if(lang === null){
-			lang = 'zh';
-		}
-		var langTxt = $.cookie('fullLang');
-		if(langTxt === null){
-			langTxt = $('#transArea select[name=langs] option[value='+lang+']').text();
-		}
-		var html = '<div class="translated"><a href="#" title="Hide Translation" class="trans_close">(Hide)</a><span class="trans_header"><strong>Translation <small>(from '+translation.detectedSourceLanguage;
-		html += ' to '+langTxt+')</small> : </strong></span>';
-		html += '<span class="trans_body">'+translation.translatedText+'</span></div>';
-		var li,target;
-		if(typeof INTERVAL_COOKIE !== 'undefined'){
-			li = $("#statuses ol:visible li:has(.status_id)").filter(":contains("+content+")");
-			target = li.find(".status_word").filter(":first");
-		}else{
-			li = $("#statuses li:has(.status_id)").filter(":contains("+content+")");
-			target = li.find(".status_word").filter(":first");
-		}
-		$(html).appendTo(target);
-		li.removeClass("loading");
-	}
-};
 
 $(function (){
 	$('body').click(function (){
@@ -828,6 +803,14 @@ $(function (){
 				e.preventDefault();
 				rmunfollow($this);
 			break;
+			case 'rm_mute':
+				e.preventDefault();
+				rmmute($this);
+			break;
+			case 'rm_unmute':
+				e.preventDefault();
+				rmunmute($this);
+			break;
 			case 'rm_block':
 				e.preventDefault();
 				rmblock($this);
@@ -839,22 +822,6 @@ $(function (){
 			case 'rm_spam':
 				e.preventDefault();
 				rmspam($this);
-			break;
-			//translate
-			case 'trans_btn':
-				e.preventDefault();
-				var tBody = $this.parent().parent();
-				if(tBody.find(".trans_body").length !== 0){
-					return;
-				}
-				var id = $.trim(tBody.find('.status_id').text());
-				var text = $.trim(tBody.find('.tweet').text());
-				var lang = $.cookie('transLang');
-				if(lang === null){
-					lang = 'zh';
-				}
-				tBody.parent().addClass('loading');
-				translate(text,id,lang,'transCallback');
 			break;
 			// unshorturl 
 			case 'tweet_url':
@@ -989,8 +956,8 @@ $(function (){
 	$("#profileRefresh").click(function(e){
 		e.preventDefault();
 		var that = $(this);
-		if (!that.hasClass('refreshing')){
-			that.addClass('refreshing');
+		if (!that.hasClass('fa-spinner')){
+			that.addClass('fa-spinner fa-spin');
 			$.ajax({
 				url: "ajax/updateProfile.php",
 				type: "GET",
@@ -1008,7 +975,7 @@ $(function (){
 					updateSentTip("Failed to update your profile!",3e3,"failure");
 				},
 				complete: function(){
-					that.removeClass('refreshing');
+					that.removeClass('fa-spinner fa-spin');
 				}
 			});
 		}
@@ -1019,7 +986,7 @@ $(function (){
 $(function (){
 	$("#trends_title").on("click",function (){
 		if ($(this).data("show_trends")=="yes"){
-			$("#trends_title").removeClass();
+			$("#trends_title").removeClass().addClass("closed");
 			$("#trend_entries").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_trends","no");
@@ -1032,7 +999,7 @@ $(function (){
 	});
 	$("#following_title").on("click",function (){
 		if ($(this).data("show_flw")=="yes"){
-			$("#following_title").removeClass();
+			$("#following_title").removeClass().addClass("closed");
 			$("#following_list").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_flw","no");
@@ -1045,7 +1012,7 @@ $(function (){
 	});
 	$("#apiquota_title").on("click",function (){
 		if ($(this).data("show_api")=="yes"){
-			$("#apiquota_title").removeClass();
+			$("#apiquota_title").removeClass().addClass("closed");
 			$("#apiquota_list").slideUp("fast");
 			sidebarscroll();
 			$(this).data("show_api","no");
@@ -1205,12 +1172,6 @@ $(window).load(function(){
 				hotkeyHandler(e.keyCode);
 			}
 		}
-	});
-	$("#statuses .big-retweet-icon,#func_set .func_btn,#profileRefresh").tipsy({
-		gravity: 's'
-	});
-	$('#symbols span').tipsy({
-		gravity: $.fn.tipsy.autoNS
 	});
 	$(document).on("mouseout", "#statuses .mine", function (e){
 		$(e.target).removeClass("mine").addClass("myTweet");

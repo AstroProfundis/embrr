@@ -72,7 +72,8 @@
 			$output = '<ol class="rank_list">';			
 			foreach ($lists as $list) {
 		
-				$listurl = substr($list->uri,1);
+				$listuriparts = explode('/', $list->uri);
+				$listurl = $listuriparts[1].'/'.$listuriparts[3];
 				$user = $list->user;
 				$listname = explode('/',$list->full_name);
 				$mode = $list->mode == 'private' ? "Private" : "Public";
@@ -85,8 +86,8 @@
 						<span class=\"rank_count\">Followers: {$list->subscriber_count}&nbsp;&nbsp;Members: {$list->member_count}&nbsp;&nbsp;$mode</span> 
 				";
 				if ($list->description != '') $output .= "<span class=\"rank_description\">Description: $list->description</span>";
-				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"unfollow_list\">Unfollow</a></span>";
-				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"javascript:void()\" class=\"edit_list\">Edit</a> <a id=\"btn\" href=\"javascript:void()\" class=\"delete_list\">Delete</a> <a id=\"btn\" href=\"javascript:void()\" class=\"add_member\">Add Members</a></span>";
+				if ($type == 0) $output .= "<span id=\"list_action\"><a id=\"btn\" href=\"#\" class=\"unfollow_list\">Unfollow</a></span>";
+				if ($type == 1 && $isSelf) $output .= "<span id=\"list_action\"><a href=\"#\" class=\"edit_list btn\">Edit</a> <a href=\"#\" class=\"delete_list btn\">Delete</a> <a href=\"#\" class=\"add_member btn\">Add Members</a></span>";
 				$output .= "
 					</div>
 				</li>
@@ -101,7 +102,9 @@
 	?>
 	
 	<?php if ($isSelf && $type == 1) {?>
-	    <a href="#" class="more round" id="list_create_btn" style="margin: 20px auto;">Create a new list</a>
+	    <div id="mylists_btns">
+	    	<a href="#" class="btn btn-white" id="list_create_btn">Create a new list</a>
+	    </div>
 	    <form method="POST" action="./lists.php?t=1" id="list_form">
 	    	<input type="hidden" name="list_spanid" value="" id="list_spanid" />
 	    	<input type="hidden" name="pre_list_name" value="" id="pre_list_name" />
@@ -109,7 +112,7 @@
 	    	<span><label for="list_name">List name</label><input type="text" name="list_name" id="list_name" /></span>
 	    	<span><label for="list_description">Description</label><textarea type="text" name="list_description" id="list_description"></textarea></span>
 	    	<span><label for="list_protect">Private</label><input type="checkbox" name="list_protect" id="list_protect"  />
-			<a style="background: transparent url(img/sprite-icons.png) no-repeat scroll -272px -16px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; text-decoration: none; height: 10px; float: right; position: relative; width: 9px; left: 3px; top: -160px;" title="Close" onclick="$('#list_form').slideToggle(300)" href="#"></a>
+			<a style="height: 10px; float: right; position: relative; width: 9px; left: 3px; top: -160px;" title="Close" class="close fa fa-times" onclick="$('#list_form').slideToggle(300);return false;" href="#"></a>
 			<input type="submit" class="btn" id="list_submit" value="" />
 			
 			</span>
@@ -123,11 +126,11 @@
 	<?php 
 	    if ($type == 0 || $type == 2) {
 	    	if ($isSelf) {
-				if ($prelist != 0) echo "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"lists.php?t=$type&c=$prelist\">Back</a>";
-				if ($nextlist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"lists.php?t=$type&c=$nextlist\">Next</a>";
+				if ($prelist != 0) echo "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"lists.php?t=$type&c=$prelist\">Back</a>";
+				if ($nextlist != 0) echo "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"lists.php?t=$type&c=$nextlist\">Next</a>";
 	    	} else {
-				if ($prelist != 0) echo "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"lists.php?id=$id&t=$type&c=$prelist\">Back</a>";
-				if ($nextlist != 0) echo "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"lists.php?id=$id&t=$type&c=$nextlist\">Next</a>";
+				if ($prelist != 0) echo "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"lists.php?id=$id&t=$type&c=$prelist\">Back</a>";
+				if ($nextlist != 0) echo "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"lists.php?id=$id&t=$type&c=$nextlist\">Next</a>";
 	    	}
 		}
 	?>

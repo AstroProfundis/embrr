@@ -4,7 +4,8 @@ $(function () {
 	formFunc();
 	$("#allTimeline").click(function(e) {
 		var $this = $(e.target);
-		var type = $this.attr('class');
+		var matches = ($this.attr('class') || '').match(/\w+_btn/);
+		var type = matches ? matches[0] : '';
 		switch(type) {
 			case 'rt_btn':
 				e.preventDefault();
@@ -30,17 +31,13 @@ $(function () {
 				e.preventDefault();
 				onDelete($this);
 				break;
-			case 'rt_undo':
+			case 'unrt_btn':
 				e.preventDefault();
 				onUndoRt($this);
 				break;
 		}
 	});
 	markReply($("#allTimeline > li"));
-	$("#submit_btn").click(function (e) {
-		e.preventDefault();
-		updateStatus();
-	});
 	$("body").on("click", function (e) {
 		document.title = document.title.replace(/(\([0-9]+\))/g, "");
 		$(".new").remove();
@@ -96,9 +93,6 @@ function update() {
 						$("div.new").filter(":first").remove();
 						$("span.tweetcount").filter(":last").text(num + $(msg).length - 1);
 					}
-					$("span.big-retweet-icon").tipsy({
-						gravity: 's'
-					});
 					previewMedia(source);
 				} else {
 					updateSentTip('No new tweets', 3000, 'failure');

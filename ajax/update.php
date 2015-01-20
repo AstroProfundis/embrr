@@ -6,14 +6,19 @@
 	}
 	$t = getTwitter();
 	if ( isset($_POST['status']) && isset($_POST['in_reply_to']) ) {
-		if (trim($_POST['status']) == '') {
+		if (trim($_POST['status']) == '' &&
+		    (!isset($_POST['media_ids']) || trim($_POST['media_ids']) == '')) {
 			echo 'empty';
 			exit();
 		}
 
 		$status = get_magic_quotes_gpc() ? stripslashes($_POST['status']) : $_POST['status'];
 		if(substr($status, 0, 2) !== 'D '){
-			$result = $t->update($status, $_POST['in_reply_to']);
+			$mediaIds = false;
+			if (isset($_POST['media_ids']) && trim($_POST['media_ids']) != '') {
+				$mediaIds = $_POST['media_ids'];
+			}
+			$result = $t->update($status, $_POST['in_reply_to'], true, $mediaIds);
 		}
 		else{
 			$pieces = explode(" ", $status);

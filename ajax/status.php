@@ -10,7 +10,7 @@
 		$user_id = $_GET['uid'];
 		$reply_to_id = "";
 		$html = '<div class="ajax_form round">';
-		$html .= "<a class=\"close\" title=\"Close\" onclick=\"$(this).parent().slideToggle(300);\" href=\"#\"></a>";
+		$html .= "<a class=\"close fa fa-times\" title=\"Close\" onclick=\"$(this).parent().slideToggle(300);return false;\" href=\"#\"></a>";
 		$html .= '<ol>';
 		$html .= formatConversation($_GET['id']);
 		$html .= '</ol></div>';
@@ -32,7 +32,10 @@
 			$reply_to_id = $user->id;
 		}
 		$date = format_time($status->created_at);
-		$text = formatEntities($status->entities,$status->text);
+		$text = formatEntities(
+			$status->entities,
+			isset($status->extended_entities) ? $status->extended_entities : null,
+			$status->text);
 		$end = (!isset($status->in_reply_to_user_id) || ($user_id != $status->in_reply_to_user_id && $reply_to_id != $status->in_reply_to_user_id));
 		$html = '<li class="round">
 			<span class="status_author">
@@ -40,8 +43,9 @@
 			</span>
 			<span class="status_body">
 			<span class="status_id">'.$status_id.'</span>
-			<span class="status_word" style="font-size: 12px;"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">'.$text.'</span></span>
-			<span class="status_info" style="font-size: 11px; margin: 0px;">';
+			<span class="status_word" style="font-size: 12px;"><a class="user_name" href="user.php?id='.$user->screen_name.'" id="'.$user->screen_name.'">'.($_COOKIE['shownick']=='true' ? $user->name : $user->screen_name).'</a> <span class="tweet">'.$text['text'].'</span></span>'.
+			'<span class="extended_entities">'.$text['extended'].'</span>'
+			.'<span class="status_info" style="font-size: 11px; margin: 0px;">';
 		if($end && isset($status->in_reply_to_user_id)){
 			$html .= '<span class="in_reply_to"> <a class="ajax_reply" href="ajax/status.php?id='.$status->in_reply_to_status_id_str.'&uid='.$user->id.'">in reply to '.$status->in_reply_to_screen_name.'</a></span>';
 		}

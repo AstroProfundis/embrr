@@ -22,50 +22,65 @@
 	$userid = $id;
 	{
 		switch ($type) {
+			case 'mutes':
+				echo $userid ? "You can't view others' muting!" : "
+					<h2 style='margin: 10px 0pt 20px 15px'>
+					<span>Muting</span>
+					</h2>
+					<div id='subnav'>
+					<span class='subnavLink'><a href='friends.php'>Following</a></span>
+					<span class='subnavLink'><a href='followers.php'>Followers</a></span>		
+					<span class='subnavNormal'>Muting</span>
+					<span class='subnavLink'><a href='blocks.php'>Blocking</a></span>		
+					</div>";
+				break;
 			case 'blocks':
 				echo $userid ? "You can't view others' blocking!" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People I'm blocking</span>
+					<span>Blocking</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavLink'><a href='friends.php'>People I'm following</a></span>
-					<span class='subnavLink'><a href='followers.php'>People who follow me</a></span>		
-					<span class='subnavNormal'>People I'm blocking</span>
+					<span class='subnavLink'><a href='friends.php'>Following</a></span>
+					<span class='subnavLink'><a href='followers.php'>Followers</a></span>		
+					<span class='subnavLink'><a href='mutes.php'>Muting</a></span>		
+					<span class='subnavNormal'>Blocking</span>
 					</div>";
 				break;
 			case 'friends':
 				echo $userid ? "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People <a href='user.php?id=$userid'>" . $userid . "</a> is following</span>
+					<span><a href='user.php?id=$userid'>" . $userid . "</a> is following</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavNormal'>People <b>" . $userid . "</b> is following</span>
-					<span class='subnavLink'><a href='followers.php?id=$userid'>People who follow <b>" . $userid . "</b></a></span>
+					<span class='subnavNormal'><b>" . $userid . "</b> is following</span>
+					<span class='subnavLink'><a href='followers.php?id=$userid'>Who follows <b>" . $userid . "</b></a></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People I'm following</span>
+					<span>Following</span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavNormal'>People I'm following</span>
-					<span class='subnavLink'><a href='followers.php'>People who follow me</a></span>
-					<span class='subnavLink'><a href='block.php'>People I'm blocking</a></span>
+					<span class='subnavNormal'>Following</span>
+					<span class='subnavLink'><a href='followers.php'>Followers</a></span>
+					<span class='subnavLink'><a href='mutes.php'>Muting</a></span>		
+					<span class='subnavLink'><a href='blocks.php'>Blocking</a></span>
 					</div>";
 				break;
 			case 'followers':
 				echo $userid ? "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People who follow <a href='user.php?id=$userid'>" . $userid . "</a></span>
+					<span>Who follow <a href='user.php?id=$userid'>" . $userid . "</a></span>
 					</h2>
 					<div id='subnav'>
-					<span class='subnavLink'><a href='friends.php?id=$userid'>People <b>" . $userid . "</b> is following</a></span>
-					<span class='subnavNormal'>People who follow <b>" . $userid . "</b></span>
+					<span class='subnavLink'><a href='friends.php?id=$userid'><b>" . $userid . "</b> is following</a></span>
+					<span class='subnavNormal'>Who follow <b>" . $userid . "</b></span>
 					</div>" : "
 					<h2 style='margin: 10px 0pt 20px 15px'>
-					<span>People who follow me</span>
+					<span>Followers</span>
 					</h2>
-					<div id='subnav'><span class='subnavLink'><a href='friends.php'>People I'm following</a></span>
-					<span class='subnavNormal'>People who follow me</span>
-					<span class='subnavLink'><a href='block.php'>People I'm blocking</a></span>
+					<div id='subnav'><span class='subnavLink'><a href='friends.php'>Following</a></span>
+					<span class='subnavNormal'>Followers</span>
+					<span class='subnavLink'><a href='mutes.php'>Muting</a></span>		
+					<span class='subnavLink'><a href='blocks.php'>Blocking</a></span>
 					</div>";
 				break;
 			case 'list_members':
@@ -86,14 +101,17 @@
 					<span class='subnavLink'><a href='list.php?id=$id'>Go back to the list</a></span>
 					</div>";
 				break;
-			case 'browse':
-				echo "<div id='subnav'><span class='subnavNormal'>See what people are saying about…</span></div>";
-				break;
 		}
 	}
 
 	echo '<div class="clear"></div>';
 	switch ($type) {
+		case 'mutes':
+			$userlist = $t->mutesList($id, $p);
+			$next_page = $userlist->next_cursor_str;
+			$previous_page = $userlist->previous_cursor_str;
+			$userlist = $userlist->users;
+			break;
 		case 'blocks':
 			$userlist = $t->blockingList($id, $p);
 			$next_page = $userlist->next_cursor_str;
@@ -124,9 +142,6 @@
 			$prelist = $userlist->previous_cursor_str;
 			$userlist = $userlist->users;
 			break;
-		case 'browse':
-			$userlist = $t->followers($id, $p);
-			break;
 	}
 	$empty = count($userlist) == 0 ? true : false;
 	if ($empty) {
@@ -145,7 +160,7 @@
 				";
 			if ($user->description) $output .= "<span class=\"rank_description\"><b>Bio:</b> $user->description</span>";
 			$list_id = explode("/",$id);
-			if ($type == 'list_members' &&  $list_id[0] == $t->username) $output .= "<span class=\"status_info\"><a class=\"delete_btn list_delete_btn\" href=\"#\">delete</a></span>";
+			if ($type == 'list_members' &&  $list_id[0] == $t->username) $output .= "<span class=\"status_info\"><a class=\"list_delete_btn fa fa-trash-o\" href=\"#\" title=\"Delete member\"></a></span>";
 			$output .= "
 				</div>
 				</li>
@@ -153,19 +168,19 @@
 		}
 		$output .= "</ol><div id=\"pagination\">";
 		if ($type == 'list_members' || $type == 'list_followers' || $type == 'blocks') {
-			if ($prelist != 0) $output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"list_members.php?id=$id&c=$prelist\">Back</a>";
-			if ($nextlist != 0) $output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"list_members.php?id=$id&c=$nextlist\">Next</a>";
+			if ($prelist != 0) $output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"list_members.php?id=$id&c=$prelist\">Back</a>";
+			if ($nextlist != 0) $output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"list_members.php?id=$id&c=$nextlist\">Next</a>";
 		} else {
 			if ($id) {
 				if ($previous_page !== "0")
-					$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"$type.php?id=$id&p=" . $previous_page . "\">Back</a>";
+					$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"$type.php?id=$id&p=" . $previous_page . "\">Back</a>";
 				if ($next_page !== "0")
-					$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"$type.php?id=$id&p=" . $next_page . "\">Next</a>";
+					$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"$type.php?id=$id&p=" . $next_page . "\">Next</a>";
 			} else {
 				if ($previous_page !== "0")
-					$output .= "<a id=\"less\" class=\"round more\" style=\"float: left;\" href=\"$type.php?p=" . $previous_page . "\">Back</a>";
+					$output .= "<a id=\"less\" class=\"btn btn-white\" style=\"float: left;\" href=\"$type.php?p=" . $previous_page . "\">Back</a>";
 				if ($next_page !== "0")
-					$output .= "<a id=\"more\" class=\"round more\" style=\"float: right;\" href=\"$type.php?p=" . $next_page . "\">Next</a>";
+					$output .= "<a id=\"more\" class=\"btn btn-white\" style=\"float: right;\" href=\"$type.php?p=" . $next_page . "\">Next</a>";
 			}
 		}
 		$output .= "</div>";

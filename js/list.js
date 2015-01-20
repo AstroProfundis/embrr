@@ -13,10 +13,6 @@ $(function(){
 			e.preventDefault();
 			onNwRT($(this));
 	});
-	$(document).on("click", ".rt_undo", function(e){
-		e.preventDefault();
-		onUndoRt($(this));
-	});
 	$(document).on("click", ".replie_btn", function(e){
 		e.preventDefault();
 		var replie_id = $(this).parent().parent().find(".status_word").find(".user_name").attr("id");
