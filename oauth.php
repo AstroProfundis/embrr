@@ -93,7 +93,7 @@
 				if ( isset($_POST['proxify']) ) { 
 					$raw= processCurl($url);
 					$formpreg = '/(<form( \w+=\"[^"]*\")* action=\")[^"]*(\"( \w+=\"[^"]*\")*>)/';
-					$new = preg_replace($formpreg, '\1/authorize.php\3',$raw); 
+					$new = preg_replace($formpreg, '\1authorize.php\3',$raw);
 					$new = str_replace('html { display:none; }','.error,a.sign-up,input[name="deny"]{display:none !important;}',$new);
 					$new = preg_replace('/https?:\/\/\w+([0-9])\.twimg\.com/i','https://s3.amazonaws.com/twitter_production',$new);
   				echo $new;
